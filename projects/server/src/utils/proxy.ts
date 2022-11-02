@@ -36,7 +36,7 @@ type ProxyableContext = {
 }
 
 declare const wasProxied: unique symbol;
-type WasProxied<T extends any> = T & {
+type WasProxied<T> = T & {
     [wasProxied]: true
 }
 
@@ -44,13 +44,13 @@ type WasProxied<T extends any> = T & {
 /** Checks if a request was sent through the proxy
  * - Common usage is to ensure operations are not performed on a proxied request, as the proxy is already handling it.
  */
-export function isProxied<T extends any>(req: T): req is WasProxied<T> {
+export function isProxied<T>(req: T): req is WasProxied<T> {
     return '_proxied' in (req as any);
 }
 
 
 /** Mark a request as being proxied for future `isProxied` checks */
-function markProxied<T extends any>(req: T) {
+function markProxied<T>(req: T) {
     req['_proxied'] = true;
     return req as WasProxied<T>;
 }
@@ -109,7 +109,7 @@ export function ReverseProxy<C extends Record<string, ProxyConfig>>(props: Proxy
                     return;
                 }
                 return;
-            };
+            }
             throw err;
         })
     }
