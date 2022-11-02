@@ -5,14 +5,16 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
+    "templates/*",
     "projects/*",
     "library/*"
   ],
   "scripts": {
-    "dev": "cross-env FORCE_COLOR=1 turbo run dev --parallel",
-    "start": "cross-env FORCE_COLOR=1 turbo run start --parallel",
-    "build": "cross-env FORCE_COLOR=1 turbo run build",
-    "lint": "cross-env FORCE_COLOR=1 turbo run lint",
+    "dev": "cross-env FORCE_COLOR=1 turbo run dev --parallel --filter=!./templates/*",
+    "start": "cross-env FORCE_COLOR=1 turbo run start --parallel --filter=!./templates/*",
+    "build": "cross-env FORCE_COLOR=1 turbo run build --filter=!./templates/*",
+    "lint": "cross-env FORCE_COLOR=1 turbo run lint --filter=!./templates/*",
+    "template": "cd templates && yarn",
     "deploy": "turbo run deploy",
     "exports": "exports"
   },

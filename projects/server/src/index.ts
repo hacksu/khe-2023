@@ -67,6 +67,22 @@ const proxyRequest = ReverseProxy({ server }, {
             }
         },
     },
+    template: {
+        // This rule proxies requests to the staff portal, which runs 3 ports higher than the API
+        enabled: true,
+        server: {
+            ws: true,
+            target: {
+                host: 'localhost',
+                port: port + 3,
+            },
+        },
+        match(req) {
+            if (req.headers.host?.includes('template')) {
+                return true;
+            }
+        },
+    },
     web: {
         // This rule proxies requests to the website, which runs two ports higher than the API
         enabled: true,

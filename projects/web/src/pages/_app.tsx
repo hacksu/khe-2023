@@ -1,37 +1,11 @@
-import { MantineThemeOverride } from '@mantine/core';
-import { NotificationsProvider } from '@mantine/notifications';
-import { NextPageContext } from 'next';
-import { AppContext, AppProps } from 'next/app';
-import { ThemeProvider } from '../utils/mantine';
-import { trpc } from '../utils/trpc';
+import { App } from '../widgets/app';
 
-function App(props: InitialProps) {
+
+export default App({
+    colorScheme: 'dark',
+    theme: {}
+}, (props) => {
     const { Component, pageProps } = props;
+    return <Component {...pageProps} />
+})
 
-    const { colorScheme, firstVisit } = props;
-    const theme: MantineThemeOverride = {
-
-    }
-
-    return <ThemeProvider {...{ theme, colorScheme, firstVisit }}>
-        <NotificationsProvider>
-            <Component {...pageProps} />
-        </NotificationsProvider>
-    </ThemeProvider>
-}
-
-type InitialProps = AppProps & Awaited<ReturnType<typeof App.getInitialProps>>;
-App.getInitialProps = async function(ctx: AppContext) {
-    return {
-        ...ThemeProvider.getInitialProps(ctx),
-    }
-}
-
-const _App = trpc.withTRPC(App);
-const _getInitialProps: any = _App.getInitialProps || (() => ({}));
-_App.getInitialProps = async (ctx: NextPageContext) => ({
-    ...await App.getInitialProps(ctx as any as AppContext),
-    ...await _getInitialProps(ctx),
-});
-
-export default _App;

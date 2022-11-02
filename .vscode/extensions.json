@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "aaron-bond.better-comments",
+        "dbaeumer.vscode-eslint",
+        "eamodio.gitlens",
+        "mikebovenlander.formate",
+        "ms-vscode.vscode-typescript-next",
+        "vscode-icons-team.vscode-icons"
+    ]
+}

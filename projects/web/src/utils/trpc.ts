@@ -6,6 +6,8 @@ import { NextPageContext } from 'next';
 import type { Router } from '@kenthackenough/server/trpc/router';
 import superjson from 'superjson';
 
+/** @export 'trpc' */
+
 
 const APP_URL = 'http://localhost:5000';
 const WS_URL = 'ws://localhost:5000';

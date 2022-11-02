@@ -12,6 +12,7 @@
         { "icon": "view", "extensions": ["contents"] },
         { "icon": "package", "extensions": ["projects"] },
         { "icon": "app", "extensions": ["web"] },
+        { "icon": "client", "extensions": ["website"] },
     ],
     "vsicons.associations.files": [
         { "icon": "nginx", "extensions": ["template"] },

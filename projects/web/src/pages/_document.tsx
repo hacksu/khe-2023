@@ -1,6 +1,7 @@
 import { createGetInitialProps, createStylesServer, ServerStyles } from '@mantine/next';
 import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/document';
 
+/** @export 'document' */
 
 const stylesServer = createStylesServer();
 const getInitialProps = createGetInitialProps();
@@ -29,3 +30,5 @@ export default class _Document extends Document {
         </Html>
     }
 }
+
+export const WebDocument = _Document;

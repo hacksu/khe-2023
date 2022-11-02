@@ -1,0 +1,7 @@
+{
+    "name": "template",
+    "scripts": {
+        "web": "cd website && yarn",
+        "website": "cd website && yarn"
+    }
+}
