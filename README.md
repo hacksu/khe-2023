@@ -4,7 +4,7 @@ This is a monorepo that contains all the necessary components to run our annual 
 
 It consists of 3 main facets:
 
-### API
+### Server
 
 The Server is where all backend and server logic is defined.
 
