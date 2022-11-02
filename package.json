@@ -11,8 +11,7 @@
   "scripts": {
     "dev": "cross-env FORCE_COLOR=1 turbo run dev --parallel",
     "start": "cross-env FORCE_COLOR=1 turbo run start --parallel",
-    "production": "cross-env FORCE_COLOR=1 turbo run production --parallel",
-    "build": "turbo run build",
+    "build": "cross-env FORCE_COLOR=1 turbo run build",
     "deploy": "turbo run deploy",
     "exports": "exports"
   },

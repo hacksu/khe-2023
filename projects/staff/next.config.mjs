@@ -21,9 +21,11 @@ const publicRuntimeConfig = {
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    
     serverRuntimeConfig,
     publicRuntimeConfig,
 
+    output: 'standalone',
     reactStrictMode: true,
     swcMinify: true,
 
