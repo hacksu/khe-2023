@@ -103,18 +103,18 @@ You can use turborepo's [filter](https://turborepo.org/docs/core-concepts/filter
 
 ```bash
 # Only run the API in dev mode
-yarn dev --filter=api
+yarn dev --filter=@kenthackenough/api
 ```
 
 ```bash
 # Build the API and the Frontend APP
-yarn build --filter=api --filter=app
+yarn build --filter=@kenthackenough/api --filter=@kenthackenough/app
 ```
 
 
 ```bash
 # Start the API
-yarn start --filter=api
+yarn start --filter=@kenthackenough/api
 ```
 
 ## Deployment
