@@ -1,0 +1,29 @@
+{
+  "name": "khe-2023",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "projects/*",
+    "library/*"
+  ],
+  "scripts": {
+    "dev": "cross-env FORCE_COLOR=1 turbo run dev --parallel",
+    "start": "cross-env FORCE_COLOR=1 turbo run start --parallel",
+    "production": "cross-env FORCE_COLOR=1 turbo run production --parallel",
+    "build": "turbo run build",
+    "deploy": "turbo run deploy",
+    "exports": "exports"
+  },
+  "devDependencies": {
+    "turbo": "latest",
+    "cross-env": "^7.0.3",
+    "@cseitz/exports": "^1.0.8"
+  },
+  "packageManager": "yarn@1.22.19",
+  "engines": {
+    "npm": ">=7.0.0",
+    "turbo": ">=14.0.0"
+  }
+}

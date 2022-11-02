@@ -1,0 +1,46 @@
+{
+    "vsicons.associations.folders": [
+        { "icon": "middleware", "extensions": ["staff"] },
+        { "icon": "typescript", "extensions": ["tsconfig", "trpc"] },
+        { "icon": "binary", "extensions": ["constants"] },
+        { "icon": "images", "extensions": ["media"] },
+        { "icon": "bloc", "extensions": ["storage"] },
+        { "icon": "certificate", "extensions": ["encryption"] },
+        { "icon": "sso", "extensions": ["authentication"] },
+        { "icon": "server", "extensions": ["backend"] },
+        { "icon": "e2e", "extensions": ["socket"] },
+        { "icon": "view", "extensions": ["contents"] },
+        { "icon": "package", "extensions": ["projects"] },
+        { "icon": "app", "extensions": ["web"] },
+    ],
+    "vsicons.associations.files": [
+        { "icon": "nginx", "extensions": ["template"] },
+        { "icon": "tsconfig", "extensions": [
+            "tsconfig/base.json",
+            "tsconfig/next.json",
+            "tsconfig/node.json",
+            "tsconfig/react.json"
+        ], "filename": true }
+    ],
+    "files.associations": {
+        "**/nginx/**/*.template": "nginx",
+        "**/.env.local": "env"
+    },
+    "typescript.preferences.importModuleSpecifierEnding": "minimal",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/node_modules": true,
+        "**/yarn.lock": true,
+        "**/.next": true,
+        "**/.swc": true,
+        "**/next-env.d.ts": true,
+        "**/.turbo": true,
+        "**/build": true,
+        "**/dist": true,
+    },
+}
