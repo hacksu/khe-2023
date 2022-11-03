@@ -1,7 +1,6 @@
 import ExpressSession from 'express-session';
 import type { CreateExpressContextOptions } from '@trpc/server/adapters/express';
 import type { Request } from 'express';
-import { config } from '@kenthackenough/config';
 
 
 declare module 'express-session' {
@@ -21,5 +20,3 @@ export function getSession<R extends Request>(req: R) {
     return req.session;
 }
 
-
-console.log({ config })

@@ -10,7 +10,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@kenthackenough/config": "*",
     "@kenthackenough/web": "*",
     "@mantine/core": "^5.5.4",
     "@mantine/dates": "^5.5.4",

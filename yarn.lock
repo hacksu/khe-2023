@@ -729,7 +729,7 @@
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==
 
-"@types/lodash@^4.14.182", "@types/lodash@^4.14.186", "@types/lodash@^4.14.187":
+"@types/lodash@^4.14.182", "@types/lodash@^4.14.186":
   version "4.14.187"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.187.tgz#122ff0a7192115b4c1a19444ab4482caa77e2c9d"
   integrity sha512-MrO/xLXCaUgZy3y96C/iOsaIqZSeupyTImKClHunL5GrmaiII2VwvWmLBu2hwa0Kp0sV19CsyjtrTc/Fx8rg/A==
@@ -1865,11 +1865,6 @@ eslint@^8.26.0:
     strip-ansi "^6.0.1"
     strip-json-comments "^3.1.0"
     text-table "^0.2.0"
-
-esm@^3.2.25:
-  version "3.2.25"
-  resolved "https://registry.yarnpkg.com/esm/-/esm-3.2.25.tgz#342c18c29d56157688ba5ce31f8431fbb795cc10"
-  integrity sha512-U1suiZ2oDVWv4zPO56S0NcR5QriEahGtdN2OR6FiOG4WJvcjBVFB0qI4+eKoWFH483PKGuLuu6V8Z4T5g63UVA==
 
 espree@^9.4.0:
   version "9.4.0"
@@ -3040,7 +3035,7 @@ react-dom@^18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
-react-hook-form@^7.37.0, react-hook-form@^7.39.0:
+react-hook-form@^7.37.0:
   version "7.39.0"
   resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.39.0.tgz#5dfdfef0d3ba367bb9842728e8e8332af9457adf"
   integrity sha512-rekW5NMBVG0nslE2choOKThy0zxLWQeoew87yTLwb3C9F91LaXwu/dhfFL/D3hdnSMnrTG60gVN/v6rvCrSOTw==
@@ -3546,7 +3541,7 @@ tsutils@^3.21.0:
   dependencies:
     tslib "^1.8.1"
 
-tsx@^3.11.0, tsx@^3.9.0:
+tsx@^3.9.0:
   version "3.11.0"
   resolved "https://registry.yarnpkg.com/tsx/-/tsx-3.11.0.tgz#866dd2de4b4b26d92d3e132b9795db2f65db44d3"
   integrity sha512-q+q4xxu41+AafVwvAGqtNJ1ekPFd33ZhTMXvgIpHMqv/W89efwDRE9IyjhEAZm5iTHsshKaf1BYWSk789BrNCA==

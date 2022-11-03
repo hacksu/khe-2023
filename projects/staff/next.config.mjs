@@ -9,11 +9,8 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 // @link https://github.com/belgattitude/nextjs-monorepo-example/blob/main/apps/nextjs-app/next.config.js
 
-console.log('yopoo', require(process.cwd() + '/config.ts'));
-
 const serverRuntimeConfig = {
     env: process.env.NODE_ENV,
-    staff: require(process.cwd() + '/config.ts'),
 }
 
 const publicRuntimeConfig = {

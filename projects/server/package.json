@@ -10,7 +10,6 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@kenthackenough/config": "*",
     "@trpc/client": "^10.0.0-rc.2",
     "@trpc/next": "^10.0.0-rc.2",
     "@trpc/server": "^10.0.0-rc.2",
