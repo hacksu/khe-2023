@@ -10,11 +10,9 @@ declare namespace config {
         mode: 'development' | 'production' | 'test';
     }
 
-    type AllowedFileImports = 'ts' | 'yml' | 'json' | 'js'
-
     interface ProjectConfig {}
     type MasterConfig = ProjectConfig & BaseConfig;
-    export type Configuration = ProjectConfig & Partial<BaseConfig>;
+    type Configuration = ProjectConfig & Partial<BaseConfig>;
 
     export type ProjectName = keyof ProjectConfig;
     export type ProjectConfigFieldPaths = FieldPath<ProjectConfig[ProjectName]>;
@@ -35,11 +33,6 @@ declare namespace config {
     // export const CONFIG: RecursiveUppercase<MasterConfig> & RecursiveUppercase<ProjectConfig[ProjectName]>
         // & (<K extends FieldPath<RecursiveUppercase<MasterConfig>>>(key: K) => FieldPathValue<RecursiveUppercase<MasterConfig>, K>) 
         // & (<N extends ProjectName, K extends FieldPath<RecursiveUppercase<ProjectConfig[N]>>>(key: K) => FieldPathValue<RecursiveUppercase<ProjectConfig[N]>, K>)
-
-    /** Imports configurations from the specified file */
-    export function applyConfig<P extends `${string}.${AllowedFileImports}`>(file: P)
-    /** another thing */
-    export function applyConfig<T extends object>(config: T)
 
     
 

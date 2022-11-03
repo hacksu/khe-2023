@@ -21,7 +21,17 @@
             "tsconfig/next.json",
             "tsconfig/node.json",
             "tsconfig/react.json"
-        ], "filename": true }
+        ], "filename": true },
+        {
+            "icon": "config",
+            "extensions": ["config.ts"],
+            "filename": true
+        },
+        {
+            "icon": "tsconfig",
+            "extensions": ["src/config.ts"],
+            "filename": true
+        }
     ],
     "files.associations": {
         "**/nginx/**/*.template": "nginx",
@@ -35,13 +45,13 @@
         "**/CVS": true,
         "**/.DS_Store": true,
         "**/Thumbs.db": true,
-        "**/node_modules": true,
+        // "**/node_modules": true,
         "**/yarn.lock": true,
         "**/.next": true,
         "**/.swc": true,
         "**/next-env.d.ts": true,
         "**/.turbo": true,
         "**/build": true,
-        "**/dist": true,
+        // "**/dist": true,
     },
 }

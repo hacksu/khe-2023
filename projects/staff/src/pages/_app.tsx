@@ -5,9 +5,15 @@ import { AppContext, AppProps } from 'next/app';
 import { ThemeProvider } from '../utils/mantine';
 import { trpc } from '../utils/trpc';
 
+
+
+import { config } from '@kenthackenough/config';
+
+
 function App(props: InitialProps) {
     const { Component, pageProps } = props;
-
+    console.log('staff config', { config })
+    
     const { colorScheme, firstVisit } = props;
     const theme: MantineThemeOverride = {
 

@@ -1,8 +1,9 @@
 import type { Configuration } from '@kenthackenough/config';
 
-const config: Configuration = {
+export const config: Configuration = {
     staff: {
-        woah: 'hmmm'
+        woah: 'hmmm',
+        uuh: 'hi'
     }
 }
 

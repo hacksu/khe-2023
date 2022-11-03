@@ -1,4 +1,4 @@
-import { Config } from '@kenthackenough/config'
+import { applyConfig, config } from '@kenthackenough/config'
 
 declare module '@kenthackenough/config' {
     export interface ProjectConfig { server: ServerConfig }
@@ -9,3 +9,12 @@ declare module '@kenthackenough/config' {
 
 }
 
+// applyConfig({
+
+// })
+
+// applyConfig('wat.json')
+
+// applyConfig({
+
+// })

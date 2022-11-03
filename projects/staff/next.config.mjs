@@ -9,12 +9,13 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 // @link https://github.com/belgattitude/nextjs-monorepo-example/blob/main/apps/nextjs-app/next.config.js
 
-/** @type {import('./config').ServerRuntimeConfig} */
-const serverRuntimeConfig = {
+console.log('yopoo', require(process.cwd() + '/config.ts'));
 
+const serverRuntimeConfig = {
+    env: process.env.NODE_ENV,
+    staff: require(process.cwd() + '/config.ts'),
 }
 
-/** @type {import('./config').PublicRuntimeConfig} */
 const publicRuntimeConfig = {
     
 }

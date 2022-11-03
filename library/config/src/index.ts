@@ -1,21 +1,15 @@
-import get from 'lodash/get';
+// <reference path="./types.d.ts" />
 
-const projectConfig = {
-    mode: process.env.NODE_ENV,
-    ...require(process.cwd() + '/config.ts'),
+import { merge } from 'lodash';
+import types from './types';
+export default types;
+
+// export type Configuration = types.Configuration;
+
+const projectConfig = {}
+
+export const config = projectConfig;
+
+export function applyConfig<T>(data: T) {
+    merge(projectConfig, data)
 }
-
-export function Config(key: string) {
-    return get(projectConfig, key);
-}
-
-// export const config = Config;
-
-const config = new Proxy(projectConfig, {
-    apply(target, thisArg, argArray) {
-        
-    },
-    get(target, p, receiver) {
-        
-    },
-})

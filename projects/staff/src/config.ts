@@ -1,4 +1,4 @@
-import { config, Config, ProjectName, ProjectConfigFieldPaths, CONFIG } from '@kenthackenough/config'
+import { config } from '@kenthackenough/config'
 
 declare module '@kenthackenough/config' {
     export interface ProjectConfig { staff: StaffConfig }
@@ -6,6 +6,7 @@ declare module '@kenthackenough/config' {
     export interface StaffConfig {
         /** yeeee */
         woah: 'hmmm'
+        uuh: 'hi'
     }
 
 }
