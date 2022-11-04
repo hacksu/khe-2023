@@ -23,11 +23,6 @@
             "tsconfig/react.json"
         ], "filename": true },
         {
-            "icon": "config",
-            "extensions": ["config.ts"],
-            "filename": true
-        },
-        {
             "icon": "tsconfig",
             "extensions": ["src/config.ts"],
             "filename": true

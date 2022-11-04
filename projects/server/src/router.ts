@@ -1,6 +1,6 @@
 import { createExpressMiddleware } from '@trpc/server/adapters/express';
-import { createContext } from './trpc/context';
-import { router } from './trpc/router';
+import { createContext } from './utils/trpc/context';
+import { router } from './utils/trpc/router';
 import express from 'express';
 import cors from 'cors';
 

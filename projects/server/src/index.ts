@@ -4,16 +4,16 @@
  * - Incorporates reverse proxies for development mode
  */
 
+import './config';
 import { applyWSSHandler } from '@trpc/server/adapters/ws';
 import { isProxied, ReverseProxy } from './utils/proxy';
-import { createContext } from './api/trpc/context';
-import { router } from './api/trpc/router';
+import { createContext } from './utils/trpc/context';
+import { router } from './utils/trpc/router';
 import { WebSocketServer } from 'ws';
 import { createServer } from 'http';
 import { session } from './session';
-import { api } from './api';
+import { api } from './router';
 import express from 'express';
-
 
 const port = 5000;
 
