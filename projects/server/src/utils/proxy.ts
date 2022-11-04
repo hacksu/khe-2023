@@ -110,7 +110,8 @@ export function ReverseProxy<C extends Record<string, ProxyConfig>>(props: Proxy
                 }
                 return;
             }
-            throw err;
+            console.error(err);
+            // throw err;
         })
     }
 
