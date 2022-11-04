@@ -12,7 +12,7 @@
   "scripts": {
     "dev": "cross-env FORCE_COLOR=1 turbo run dev --parallel --filter=!./templates/*",
     "start": "cross-env FORCE_COLOR=1 turbo run start --parallel --filter=!./templates/*",
-    "build": "cross-env FORCE_COLOR=1 turbo run build --filter=!./templates/*",
+    "build": "cross-env FORCE_COLOR=1 turbo run build --parallel --filter=!./templates/*",
     "lint": "cross-env FORCE_COLOR=1 turbo run lint --filter=!./templates/*",
     "template": "cd templates && yarn",
     "deploy": "turbo run deploy",
