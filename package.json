@@ -1,6 +1,6 @@
 {
   "name": "khe-2023",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "main": "index.js",
   "license": "MIT",
   "private": true,
@@ -19,9 +19,9 @@
     "exports": "exports"
   },
   "devDependencies": {
-    "turbo": "latest",
+    "@cseitz/exports": "^1.0.8",
     "cross-env": "^7.0.3",
-    "@cseitz/exports": "^1.0.8"
+    "turbo": "latest"
   },
   "packageManager": "yarn@1.22.19",
   "engines": {
