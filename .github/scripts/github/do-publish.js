@@ -26,3 +26,7 @@ if (version !== oldVersion) {
 } else {
     console.log('no');
 }
+
+if (process.argv.includes('--verbose')) {
+    console.log(oldVersion, '=>', version);
+}
