@@ -16,8 +16,8 @@
     "build": "cross-env FORCE_COLOR=1 turbo run build --parallel --filter=!./templates/*",
     "lint": "cross-env FORCE_COLOR=1 turbo run lint --filter=!./templates/*",
     "postversion": "node .github/scripts/yarn/postversion",
-    "template": "cd templates && yarn",
-    "deploy": "yarn version",
+    "template": "cd templates && npm run",
+    "deploy": "npm version",
     "postdeploy": "git commit --allow-empty -m '@deploy' && git push",
     "exports": "exports"
   },
@@ -27,7 +27,7 @@
     "cross-env": "^7.0.3",
     "turbo": "latest"
   },
-  "packageManager": "yarn@1.22.19",
+  "packageManager": "npm@8.19.3",
   "engines": {
     "npm": ">=7.0.0",
     "turbo": ">=14.0.0"

@@ -12,7 +12,7 @@
         { "icon": "app", "extensions": ["web"] },
         { "icon": "client", "extensions": ["website"] },
         { "icon": "github", "extensions": ["github"] },
-        { "icon": "yarn", "extensions": ["yarn"] },
+        { "icon": "node", "extensions": ["npm"] },
     ],
     "vsicons.associations.files": [
         { "icon": "nginx", "extensions": ["template"] },
@@ -40,7 +40,7 @@
         "**/CVS": true,
         "**/.DS_Store": true,
         "**/Thumbs.db": true,
-        "**/node_modules": true,
+        // "**/node_modules": true,
         "**/yarn.lock": true,
         "**/.next": true,
         "**/.swc": true,
