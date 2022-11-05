@@ -17,11 +17,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - name: Get Version
+        id: get-version
+        run: echo "PACKAGE_VERSION=$(node .github/scripts/github/get-version)" >> $GITHUB_OUTPUT
       - uses: actions/cache@v3
+        id: cache
         with:
-          key: ${{ runner.os }}-workflow-cache
+          key: workflow-cache-${{ runner.os }}-${{ steps.get-version.output.PACKAGE_VERSION }}
           path: |
             .workflow-cache
+      - name: Print cache hit (workflow-cache-${{ runner.os }}-${{ steps.get-version.output.PACKAGE_VERSION }}) ${{ steps.cache.outputs.cache-hit != 'true' }}
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
