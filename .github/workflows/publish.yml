@@ -23,9 +23,9 @@ jobs:
           cache: 'yarn'
       - name: Installing Dependencies
         run: yarn install --frozen-lockfile --prefer-offline
-      - name: Linting - Server
-        run: yarn lint --filter=@kenthackenough/server
-      - name: Linting - Staff
-        run: yarn lint --filter=@kenthackenough/staff
+      - name: Building
+        run: yarn build
+      - name: Publish - Staff
+        run: yarn publish
       - name: Linting - Web
         run: yarn lint --filter=@kenthackenough/web

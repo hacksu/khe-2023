@@ -10,7 +10,7 @@ console.log('got version', { version })
 function updatePackage(path) {
     const data = JSON5.parse(readFileSync(path, 'utf8'));
     data.version = version;
-    writeFileSync(path, JSON5.stringify(data, null, 2));
+    writeFileSync(path, JSON.stringify(data, null, 2));
 }
 
 updatePackage(process.cwd() + '/projects/server/package.json');
