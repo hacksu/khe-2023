@@ -23,10 +23,10 @@ jobs:
       - uses: actions/cache@v3
         id: cache
         with:
-          key: workflow-cache-${{ runner.os }}-${{ steps.get-version.output.PACKAGE_VERSION }}
+          key: workflow-cache-${{ runner.os }}-${{ steps.get-version.outputs.PACKAGE_VERSION }}
           path: |
             .workflow-cache
-      - name: Print cache hit (workflow-cache-${{ runner.os }}-${{ steps.get-version.output.PACKAGE_VERSION }}) ${{ steps.cache.outputs.cache-hit != 'true' }}
+      - name: Print cache hit (workflow-cache-${{ runner.os }}-${{ steps.get-version.outputs.PACKAGE_VERSION }}) ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: echo 'hi'
       - name: Use Node.js
         uses: actions/setup-node@v3
