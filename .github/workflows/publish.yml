@@ -26,12 +26,12 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           scope: '@kenthackenough'
           cache: 'yarn'
+      - name: Installing Dependencies
+        run: yarn install --frozen-lockfile --prefer-offline
       - name: Checking if we need to publish
         run: node .github/scripts/github/do-publish
       - name: Copy package.json to the cache
         run: copyfiles --help
-      # - name: Installing Dependencies
-      #   run: yarn install --frozen-lockfile --prefer-offline
       # - name: Building
       #   run: yarn build
       # - name: Publish - Server
