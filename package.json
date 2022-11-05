@@ -21,9 +21,9 @@
     "exports": "exports"
   },
   "devDependencies": {
+    "@kenthackenough/yarn-scripts": "*",
     "@cseitz/exports": "^1.0.8",
     "cross-env": "^7.0.3",
-    "scripts": "*",
     "turbo": "latest"
   },
   "packageManager": "yarn@1.22.19",

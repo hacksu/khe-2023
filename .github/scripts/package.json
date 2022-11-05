@@ -1,0 +1,10 @@
+{
+    "name": "@kenthackenough/yarn-scripts",
+    "version": "1.0.0",
+    "scripts": {
+        "postversion": "node ./postversion.js"
+    },
+    "dependencies": {
+        "json5": "^2.2.1"
+    }
+}
