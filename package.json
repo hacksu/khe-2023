@@ -1,26 +1,27 @@
 {
   "name": "khe-2023",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "index.js",
   "license": "MIT",
   "private": true,
   "workspaces": [
     "templates/*",
     "projects/*",
-    "library/*"
+    "library/*",
+    ".github/scripts"
   ],
   "scripts": {
     "dev": "cross-env FORCE_COLOR=1 turbo run dev --parallel --filter=!./templates/*",
     "start": "cross-env FORCE_COLOR=1 turbo run start --parallel --filter=!./templates/*",
     "build": "cross-env FORCE_COLOR=1 turbo run build --parallel --filter=!./templates/*",
     "lint": "cross-env FORCE_COLOR=1 turbo run lint --filter=!./templates/*",
-    "postversion": "node .github/scripts/postversion",
     "template": "cd templates && yarn",
     "deploy": "turbo run deploy",
     "exports": "exports"
   },
   "devDependencies": {
     "@cseitz/exports": "^1.0.8",
+    "@kenthackenough/scripts": "*",
     "cross-env": "^7.0.3",
     "turbo": "latest"
   },
