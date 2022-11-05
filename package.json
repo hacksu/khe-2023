@@ -1,6 +1,6 @@
 {
   "name": "khe-2023",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "main": "index.js",
   "license": "MIT",
   "private": true,
@@ -17,8 +17,9 @@
     "lint": "cross-env FORCE_COLOR=1 turbo run lint --filter=!./templates/*",
     "postversion": "node .github/scripts/yarn/postversion",
     "template": "cd templates && yarn",
-    "deploy": "yarn version && git commit --allow-empty -m '@deploy' && git push",
-    "exports": "exports"
+    "deploy": "echo $(yarn version $1) && git commit --allow-empty -m '@deploy' && git push",
+    "exports": "exports",
+    "heya": "cross-env ARGS=$@ yarn version $ARGS"
   },
   "devDependencies": {
     "@cseitz/exports": "^1.0.8",
