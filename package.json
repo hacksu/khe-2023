@@ -18,8 +18,7 @@
     "postversion": "node .github/scripts/yarn/postversion",
     "template": "cd templates && yarn",
     "deploy": "echo $(yarn version $1) && git commit --allow-empty -m '@deploy' && git push",
-    "exports": "exports",
-    "heya": "cross-env ARGS=$@ yarn version $ARGS"
+    "exports": "exports"
   },
   "devDependencies": {
     "@cseitz/exports": "^1.0.8",
