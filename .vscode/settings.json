@@ -4,8 +4,6 @@
         { "icon": "typescript", "extensions": ["tsconfig", "trpc"] },
         { "icon": "binary", "extensions": ["constants"] },
         { "icon": "images", "extensions": ["media"] },
-        { "icon": "bloc", "extensions": ["storage"] },
-        { "icon": "certificate", "extensions": ["encryption"] },
         { "icon": "sso", "extensions": ["authentication"] },
         { "icon": "server", "extensions": ["backend"] },
         { "icon": "e2e", "extensions": ["socket"] },
