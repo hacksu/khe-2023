@@ -4,12 +4,13 @@ name: Publish
 on:
   workflow_dispatch:
   push:
-    branches:
-      - "main"
+    paths:
+      - package.json
 
 jobs:
   publish:
     name: Publish
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     concurrency:
       group: publish
