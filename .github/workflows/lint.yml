@@ -1,5 +1,4 @@
-name: CI/CD
-run-name: Lint
+name: Lint
 
 on:
   workflow_dispatch:

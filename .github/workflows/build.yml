@@ -1,5 +1,4 @@
-name: CI/CD
-run-name: Build
+name: Build
 
 on:
   workflow_dispatch:

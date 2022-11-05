@@ -1,5 +1,4 @@
-name: CI/CD
-run-name: Publish
+name: Publish
 
 on:
   workflow_dispatch:
