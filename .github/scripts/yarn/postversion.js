@@ -28,8 +28,7 @@ updatePackage(process.cwd() + '/projects/server/package.json');
 updatePackage(process.cwd() + '/projects/staff/package.json');
 updatePackage(process.cwd() + '/projects/web/package.json');
 
-// console.log()
+
 if (files.size > 0) {
-    execSync(`git add ${[...files].join(' ')}`);
-    execSync(`git commit -m Updated Package Versions to v${version}`);
+    execSync(`git commit ${[...files].join(' ')} -m "Updated Package Versions to v${version}"`);
 }
