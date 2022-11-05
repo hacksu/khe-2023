@@ -29,6 +29,7 @@ const nextConfig = {
 
     typescript: {
         ignoreBuildErrors: true,
+        outputFileTracingRoot: path.join(__dirname, '../../'),
     },
     
 }

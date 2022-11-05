@@ -1,6 +1,6 @@
 {
   "name": "@kenthackenough/staff",
-  "version": "1.0.0",
+  "version": "1.0.8",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -12,7 +12,6 @@
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/server": "^11.10.0",
-    "@kenthackenough/server": "*",
     "@mantine/core": "^5.5.4",
     "@mantine/dates": "^5.5.4",
     "@mantine/form": "^5.5.4",
@@ -35,6 +34,7 @@
     "react-hook-form": "^7.37.0"
   },
   "devDependencies": {
+    "@kenthackenough/server": "*",
     "@next/bundle-analyzer": "^12.3.1",
     "@types/lodash": "^4.14.186",
     "@types/react": "^18.0.21",

@@ -1,0 +1,42 @@
+
+name: Publish
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+    concurrency:
+      group: publish
+      cancel-in-progress: true
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          registry-url: 'https://registry.npmjs.org'
+          scope: '@kenthackenough'
+          cache: 'yarn'
+      - name: Installing Dependencies
+        run: yarn install --frozen-lockfile --prefer-offline
+      - name: Building
+        run: yarn build
+      - name: Publish - Server
+        working-directory: projects/server
+        run: yarn publish --non-interactive
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish - Staff
+        working-directory: projects/staff
+        run: yarn publish --non-interactive
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish - Web
+        working-directory: projects/web
+        run: yarn publish --non-interactive
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
