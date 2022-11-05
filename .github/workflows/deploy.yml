@@ -19,3 +19,4 @@ jobs:
       - name: Get Version
         id: get-version
         run: echo "PACKAGE_VERSION=$(node .github/scripts/github/get-version)" >> $GITHUB_OUTPUT
+        
