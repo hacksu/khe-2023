@@ -1,6 +1,6 @@
 {
   "name": "khe-2023",
-  "version": "1.0.18",
+  "version": "1.0.21",
   "main": "index.js",
   "license": "MIT",
   "private": true,
@@ -15,9 +15,9 @@
     "start": "cross-env FORCE_COLOR=1 turbo run start --parallel --filter=!./templates/*",
     "build": "cross-env FORCE_COLOR=1 turbo run build --parallel --filter=!./templates/*",
     "lint": "cross-env FORCE_COLOR=1 turbo run lint --filter=!./templates/*",
-    "postversion": "node .github/scripts/yarn/postversion",
-    "template": "cd templates && yarn",
-    "deploy": "yarn version",
+    "postversion": "node .github/scripts/npm/postversion",
+    "template": "cd templates && npm run",
+    "deploy": "npm version patch",
     "postdeploy": "git commit --allow-empty -m '@deploy' && git push",
     "exports": "exports"
   },
@@ -27,7 +27,7 @@
     "cross-env": "^7.0.3",
     "turbo": "latest"
   },
-  "packageManager": "yarn@1.22.19",
+  "packageManager": "npm@8.19.3",
   "engines": {
     "npm": ">=7.0.0",
     "turbo": ">=14.0.0"
