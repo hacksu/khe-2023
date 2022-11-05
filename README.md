@@ -10,7 +10,7 @@ The Server is where all backend and server logic is defined.
 
 This consists of defining data structures, interfacing with the database, sending emails, etc.
 
-As part of this environment, the API has built-in reverse proxying to the other components. This is disabled when deployed to the server, as the high-performance [NGINX](https://www.nginx.com/) is used.
+As part of this environment, the API has built-in reverse proxying to the other components. This is disabled when deployed to the server, as the high-performance [NGINX reverse proxy](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/) is used.
 
 ### Staff Management Portal
 
@@ -22,7 +22,7 @@ This should implement all functionality needed by event organizers.
 - Responding to Tickets
 - ...etc
 
-Because of this being a monorepo, the API calls are tighly coupled to the API code; allowing full TypeScript intellisense and validation.
+Because of this being a monorepo, the API calls are tighly coupled to the Server API code; allowing full TypeScript intellisense and validation.
 
 ### The Website *(library)*
 
@@ -37,13 +37,15 @@ This design style ensures that any logical code is located within this repositor
 
 ## Installation
 
-### Install NodeJS
+### Install NodeJS LTS
 https://nodejs.org/en/download/
 
-### Install Yarn
+### Install Yarn v1
 ```bash
 npm install --global yarn
 ```
+
+Note: Do **not** install or upgrade to yarn v2.
 
 ### Clone the Repository
 
@@ -122,6 +124,8 @@ yarn start --filter=@kenthackenough/api
 *Note: If you are conducting a fresh deployment, see the [server setup instruction](./docs/SERVER.md).*
 
 [ IMPLEMENT AND DOCUMENT AUTOMATED DEPLOYMENT ]
+
+
 
 
 
