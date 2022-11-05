@@ -1,5 +1,4 @@
-
-name: Lint
+name: CI/CD
 
 on:
   workflow_dispatch:
