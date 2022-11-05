@@ -15,7 +15,7 @@
     "start": "cross-env FORCE_COLOR=1 turbo run start --parallel --filter=!./templates/*",
     "build": "cross-env FORCE_COLOR=1 turbo run build --parallel --filter=!./templates/*",
     "lint": "cross-env FORCE_COLOR=1 turbo run lint --filter=!./templates/*",
-    "postversion": "node .github/scripts/yarn/postversion",
+    "postversion": "node .github/scripts/npm/postversion",
     "template": "cd templates && npm run",
     "deploy": "npm version",
     "postdeploy": "git commit --allow-empty -m '@deploy' && git push",
