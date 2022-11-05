@@ -2,8 +2,7 @@
 name: Publish
 
 on:
-  release:
-    types: [created]
+  workflow_dispatch:
 
 jobs:
   publish:
@@ -20,12 +19,24 @@ jobs:
         with:
           node-version: 16.x
           registry-url: 'https://registry.npmjs.org'
+          scope: '@kenthackenough'
           cache: 'yarn'
       - name: Installing Dependencies
         run: yarn install --frozen-lockfile --prefer-offline
       - name: Building
         run: yarn build
+      - name: Publish - Server
+        working-directory: projects/server
+        run: yarn publish --non-interactive
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish - Staff
-        run: yarn publish
-      - name: Linting - Web
-        run: yarn lint --filter=@kenthackenough/web
+        working-directory: projects/staff
+        run: yarn publish --non-interactive
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish - Web
+        working-directory: projects/web
+        run: yarn publish --non-interactive
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
