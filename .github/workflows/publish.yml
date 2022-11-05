@@ -35,32 +35,32 @@ jobs:
           node-version: 16.x
           registry-url: 'https://registry.npmjs.org'
           scope: '@kenthackenough'
-          cache: 'yarn'
+          cache: 'npm'
       - name: Installing Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
-        run: yarn install --frozen-lockfile --prefer-offline
+        run: npm install
       - name: Publish?
         if: steps.cache.outputs.cache-hit != 'true'
         run: echo $(node .github/scripts/github/do-publish --verbose)
       - name: Building
         if: steps.cache.outputs.cache-hit != 'true'
-        run: yarn build
+        run: npm run build
       - name: Publish - Server
         if: steps.cache.outputs.cache-hit != 'true'
         working-directory: projects/server
-        run: yarn publish --non-interactive
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish - Staff
         if: steps.cache.outputs.cache-hit != 'true'
         working-directory: projects/staff
-        run: yarn publish --non-interactive
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish - Web
         if: steps.cache.outputs.cache-hit != 'true'
         working-directory: projects/web
-        run: yarn publish --non-interactive
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Copy Package.json to cache

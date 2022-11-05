@@ -20,12 +20,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: 'yarn'
+          cache: 'npm'
       - name: Installing Dependencies
-        run: yarn install --frozen-lockfile --prefer-offline
+        run: npm install
       - name: Linting - Server
-        run: yarn lint --filter=@kenthackenough/server
+        run: npm run lint --filter=@kenthackenough/server
       - name: Linting - Staff
-        run: yarn lint --filter=@kenthackenough/staff
+        run: npm run lint --filter=@kenthackenough/staff
       - name: Linting - Web
-        run: yarn lint --filter=@kenthackenough/web
+        run: npm run lint --filter=@kenthackenough/web

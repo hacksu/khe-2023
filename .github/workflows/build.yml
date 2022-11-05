@@ -23,12 +23,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: 'yarn'
+          cache: 'npm'
       - name: Installing Dependencies
-        run: yarn install --frozen-lockfile --prefer-offline
+        run: npm install
       - name: Building - Server
-        run: yarn build --filter=@kenthackenough/server
+        run: npm run build --filter=@kenthackenough/server
       - name: Building - Staff
-        run: yarn build --filter=@kenthackenough/staff
+        run: npm run build --filter=@kenthackenough/staff
       - name: Building - Web
-        run: yarn build --filter=@kenthackenough/web
+        run: npm run build --filter=@kenthackenough/web
