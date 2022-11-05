@@ -40,29 +40,22 @@ This design style ensures that any logical code is located within this repositor
 ### Install NodeJS LTS
 https://nodejs.org/en/download/
 
-### Install Yarn v1
-```bash
-npm install --global yarn
-```
-
-Note: Do **not** install or upgrade to yarn v2.
-
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/hacksu/khe.git
+git clone https://github.com/hacksu/khe-2023.git
 ```
 
 ### Install Dependencies
 ```bash
-yarn install
+npm install
 ```
 
 ## Usage
 
 ### Run in Development Mode
 ```bash
-yarn dev
+npm run dev
 ```
 
 This exposes the following endpoints:
@@ -86,7 +79,7 @@ If you want to test the project's real-world performance, you must build it and 
 
 ```bash
 # Build for production; minify and condense files.
-yarn build
+npm run build
 ```
 
 ### Starting a Production Build
@@ -95,7 +88,7 @@ When you have built the project, you may run it with the `start` command.
 
 ```bash
 # Run the latest build of all projects
-yarn start
+npm run start
 ```
 
 
@@ -105,18 +98,18 @@ You can use turborepo's [filter](https://turborepo.org/docs/core-concepts/filter
 
 ```bash
 # Only run the API in dev mode
-yarn dev --filter=@kenthackenough/api
+npm run dev --filter=@kenthackenough/api
 ```
 
 ```bash
 # Build the API and the Frontend APP
-yarn build --filter=@kenthackenough/api --filter=@kenthackenough/app
+npm run build --filter=@kenthackenough/api --filter=@kenthackenough/app
 ```
 
 
 ```bash
 # Start the API
-yarn start --filter=@kenthackenough/api
+npm run start --filter=@kenthackenough/api
 ```
 
 ## Deployment
