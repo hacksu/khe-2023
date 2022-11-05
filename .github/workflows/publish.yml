@@ -34,26 +34,28 @@ jobs:
       - name: Checking if we need to publish
         id: check-publish
         run: echo "DO_PUBLISH=$(node .github/scripts/github/do-publish)" >> $GITHUB_OUTPUT
-      - name: Building
-        if: ${{ steps.check-publish.outputs.DO_PUBLISH == 'yes' }}
-        run: yarn build
-      - name: Publish - Server
-        if: ${{ steps.check-publish.outputs.DO_PUBLISH == 'yes' }}
-        working-directory: projects/server
-        run: yarn publish --non-interactive
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Publish - Staff
-        if: ${{ steps.check-publish.outputs.DO_PUBLISH == 'yes' }}
-        working-directory: projects/staff
-        run: yarn publish --non-interactive
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Publish - Web
-        if: ${{ steps.check-publish.outputs.DO_PUBLISH == 'yes' }}
-        working-directory: projects/web
-        run: yarn publish --non-interactive
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # - name: Building
+      #   if: ${{ steps.check-publish.outputs.DO_PUBLISH == 'yes' }}
+      #   run: yarn build
+      # - name: Publish - Server
+      #   if: ${{ steps.check-publish.outputs.DO_PUBLISH == 'yes' }}
+      #   working-directory: projects/server
+      #   run: yarn publish --non-interactive
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # - name: Publish - Staff
+      #   if: ${{ steps.check-publish.outputs.DO_PUBLISH == 'yes' }}
+      #   working-directory: projects/staff
+      #   run: yarn publish --non-interactive
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # - name: Publish - Web
+      #   if: ${{ steps.check-publish.outputs.DO_PUBLISH == 'yes' }}
+      #   working-directory: projects/web
+      #   run: yarn publish --non-interactive
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - if: ${{ steps.check-publish.outputs.DO_PUBLISH == 'yes' }}
-        run: cp package.json .workflow-cache/package.json
+        run: |
+          cp package.json .workflow-cache/package.json
+          node .github/scripts/github/do-publish
