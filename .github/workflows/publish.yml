@@ -58,7 +58,8 @@ jobs:
         run: yarn publish --non-interactive
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - if: ${{ steps.check-publish.outputs.DO_PUBLISH == 'yes' }}
+      - name: Copy Package.json to cache
+        if: ${{ steps.check-publish.outputs.DO_PUBLISH == 'yes' }}
         run: |
           cp package.json .workflow-cache/package.json
           node .github/scripts/github/do-publish
