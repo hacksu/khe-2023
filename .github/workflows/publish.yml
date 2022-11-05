@@ -29,9 +29,11 @@ jobs:
       - name: Installing Dependencies
         run: yarn install --frozen-lockfile --prefer-offline
       - name: Checking if we need to publish
-        run: node .github/scripts/github/do-publish
-      - name: Copy package.json to the cache
-        run: copyfiles --help
+        id: check-publish
+        run: echo "DO_PUBLISH=$(node .github/scripts/github/do-publish)" >> $GITHUB_OUTPUT
+      - name: Get Status
+        run: echo "status = ${{ steps.check-publish.outputs.DO_PUBLISH }}"
+      # - run: cp package.json .workflow-cache/package.json
       # - name: Building
       #   run: yarn build
       # - name: Publish - Server

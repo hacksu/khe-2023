@@ -2,7 +2,6 @@
     "name": "@kenthackenough/yarn-scripts",
     "version": "1.0.0",
     "dependencies": {
-        "json5": "^2.2.1",
-        "copyfiles": "^2.4.1"
+        "json5": "^2.2.1"
     }
 }

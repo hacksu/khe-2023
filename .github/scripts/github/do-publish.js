@@ -19,8 +19,7 @@ try {
     oldVersion = require(__cachedPackage).version;
 } catch(err) {};
 
-// TODO: do not copy unless we actually upload
-writeFileSync(__cachedPackage, readFileSync(__package));
+// writeFileSync(__cachedPackage, readFileSync(__package));
 
 if (version !== oldVersion) {
     console.log('yes');
