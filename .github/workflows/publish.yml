@@ -14,6 +14,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/cache@v3
+        with:
+          key: ${{ runner.os }}-workflow-cache
+          path: |
+            .workflow-cache
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
@@ -21,22 +26,24 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           scope: '@kenthackenough'
           cache: 'yarn'
-      - name: Installing Dependencies
-        run: yarn install --frozen-lockfile --prefer-offline
-      - name: Building
-        run: yarn build
-      - name: Publish - Server
-        working-directory: projects/server
-        run: yarn publish --non-interactive
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Publish - Staff
-        working-directory: projects/staff
-        run: yarn publish --non-interactive
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Publish - Web
-        working-directory: projects/web
-        run: yarn publish --non-interactive
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Checking if we need to publish
+        run: node .github/scripts/github/do-publish
+      # - name: Installing Dependencies
+      #   run: yarn install --frozen-lockfile --prefer-offline
+      # - name: Building
+      #   run: yarn build
+      # - name: Publish - Server
+      #   working-directory: projects/server
+      #   run: yarn publish --non-interactive
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # - name: Publish - Staff
+      #   working-directory: projects/staff
+      #   run: yarn publish --non-interactive
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # - name: Publish - Web
+      #   working-directory: projects/web
+      #   run: yarn publish --non-interactive
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

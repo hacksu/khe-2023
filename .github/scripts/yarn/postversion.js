@@ -1,3 +1,8 @@
+/**
+ * Syncs the project's package.json version to the all the projects
+ * - Critical for the publish workflow, which publishes these projects to NPM
+ */
+
 const { writeFileSync, readFileSync } = require("fs");
 const { resolve } = require("path");
 const JSON5 = require('json5');

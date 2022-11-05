@@ -13,6 +13,8 @@
         { "icon": "package", "extensions": ["projects"] },
         { "icon": "app", "extensions": ["web"] },
         { "icon": "client", "extensions": ["website"] },
+        { "icon": "github", "extensions": ["github"] },
+        { "icon": "yarn", "extensions": ["yarn"] },
     ],
     "vsicons.associations.files": [
         { "icon": "nginx", "extensions": ["template"] },
