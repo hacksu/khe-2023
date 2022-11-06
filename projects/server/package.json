@@ -40,7 +40,7 @@
   },
   "exports": {
     "./trpc/router": {
-      "default": "./src/api/trpc/router.ts"
+      "default": "./src/utils/trpc/router.ts"
     }
   }
 }
