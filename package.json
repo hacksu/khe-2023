@@ -17,7 +17,7 @@
     "lint": "cross-env FORCE_COLOR=1 turbo run lint --filter=!./templates/*",
     "postversion": "node .github/scripts/npm/postversion",
     "template": "cd templates && npm run",
-    "deploy": "node github/scripts/npm/can-deploy.js && npm version patch && git commit --allow-empty -m '@deploy' && git push",
+    "deploy": "node .github/scripts/npm/can-deploy.js && npm version patch && git commit --allow-empty -m '@deploy' && git push",
     "exports": "exports"
   },
   "devDependencies": {
