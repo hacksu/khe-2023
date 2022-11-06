@@ -40,3 +40,6 @@ yarn-error.log*
 
 ./projects/*/config.ts
 .workflow-cache
+
+**/package-lock.json
+!/package-lock.json

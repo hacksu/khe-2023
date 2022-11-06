@@ -1,7 +1,8 @@
 {
-    "name": "@kenthackenough/yarn-scripts",
+    "name": "@kenthackenough/scripts",
     "version": "1.0.0",
     "dependencies": {
+        "chalk": "^4.1.2",
         "json5": "^2.2.1"
     }
 }
