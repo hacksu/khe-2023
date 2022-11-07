@@ -6,5 +6,8 @@
         "mikebovenlander.formate",
         "ms-vscode.vscode-typescript-next",
         "vscode-icons-team.vscode-icons"
+    ],
+    "unwantedRecommendations": [
+        "Vue.volar"
     ]
 }
