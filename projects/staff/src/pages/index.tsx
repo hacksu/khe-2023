@@ -5,6 +5,7 @@ import { api } from '../utils/trpc';
 export default function Homepage() {
     const ping = api.ping.useQuery();
     const [date, setDate] = useState<Date>(null!);
+    const users = api.users.list.useQuery();
     api.onDate.useSubscription(undefined, {
         onData(data) {
             setDate(data.date);
@@ -14,6 +15,7 @@ export default function Homepage() {
         Woah! Staff Portal!
         <p>ping: {ping?.data?.toLocaleString() || 'loading...'}</p>
         <p>subscription date: {date?.toLocaleString() || 'loading...'}</p>
+        <div>{JSON.stringify(users?.data || {})}</div>
     </div>
 }
 
