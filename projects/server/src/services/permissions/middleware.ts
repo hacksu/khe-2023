@@ -2,7 +2,7 @@
 import { hasPermission, Permissions } from './rbac';
 import { TRPCError } from '@trpc/server';
 import { merge } from 'lodash';
-import { DISABLE_PERMISSIONS } from './config';
+import { DISABLE_PERMISSIONS } from './rbac';
 import { t } from '../../utils/trpc';
 
 

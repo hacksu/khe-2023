@@ -2,10 +2,11 @@
 /** RBAC Permissions system */
 import { DeepPartial, LiteralUnion, DeepMap, Merge } from 'react-hook-form';
 import { merge, get } from 'lodash';
-import { DISABLE_PERMISSIONS } from './config';
 import { UserPermissions } from '../../models/users/model';
 import { UserData } from '../../models/users/data';
+import { config } from '../../config';
 
+export const DISABLE_PERMISSIONS = config.disablePermissions;
 
 /** Define permission imports */
 export namespace Permission {
@@ -14,9 +15,13 @@ export namespace Permission {
     // Export the imported permissions
     export const Users = all(UserPermissions);
 
-    
 }
 
+
+/** All permissions */
+export const ALL_PERMISSIONS = Object.fromEntries(
+    Object.entries(Permission).map(([key, value]) => ([key, value?.All])).filter(o => o)
+);
 
 /** An array of functions that, given a user, return their permissions
  * @see {@link registerPermisions}

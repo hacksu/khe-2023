@@ -1,15 +1,10 @@
-import { registerPermisions, Permission, derivePermissions } from './rbac';
+import { registerPermisions, Permission, derivePermissions, ALL_PERMISSIONS, DISABLE_PERMISSIONS } from './rbac';
 import { config } from '../../config';
 import { UserRole } from '../../models/users/data';
 const register = registerPermisions;
 
-/** All permissions */
-const ALL_PERMISSIONS = Object.fromEntries(
-    Object.entries(Permission).map(([key, value]) => ([key, value?.All])).filter(o => o)
-);
 
 /** Are permissions disabled? */
-export const DISABLE_PERMISSIONS = config.disablePermissions;
 if (DISABLE_PERMISSIONS) {
     /** Grant all users all permissions; as if they were a superadmin */
     register(user => user.email, () => ALL_PERMISSIONS);
@@ -44,4 +39,4 @@ register(user => user.email, {
 })
 
 // @ts-ignore
-// console.log(derivePermissions({ email: 'cseitz5@kent.edu', role: UserRole.User }))
+// console.log('perms', derivePermissions({ email: 'cseitz6@kent.edu', role: UserRole.User }))
