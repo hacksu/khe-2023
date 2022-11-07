@@ -27,9 +27,6 @@ const PermissionDerivations: ((input: PermissibleUser) => Permissions)[] = [];
  * - This is how permissions are derived from a user's attributes (role, status, etc)
 */
 export function derivePermissions(user: PermissibleUser): Permissions {
-    // const role = RolePermissions[user.role];
-    // const status = RegistrationStatusPermissions[user?.application?.status];
-    // return merge({}, role, status, user.permissions || {});
     const derivations = PermissionDerivations.map(o => o(user));
     return merge({}, ...[...derivations, user.permissions || {}]);
 }
@@ -95,7 +92,8 @@ function flattenKeys(object, initialPathPrefix = '') {
 }
 
 
-function authorize<T extends Permissions>(user: PermissibleUser, permission: T): AuthorizeResult<T> {
+/** Determines a user's authorization for the specified permission */
+export function authorize<T extends Permissions>(user: PermissibleUser, permission: T): AuthorizeResult<T> {
     const permissions = derivePermissions(user);
     const requested = flattenKeys(permission);
     for (const path in requested) {

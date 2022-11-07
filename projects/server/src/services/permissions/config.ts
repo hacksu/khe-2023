@@ -3,13 +3,15 @@ import { config } from '../../config';
 import { UserRole } from '../../models/users/data';
 const register = registerPermisions;
 
-
+/** All permissions */
 const ALL_PERMISSIONS = Object.fromEntries(
     Object.entries(Permission).map(([key, value]) => ([key, value?.All])).filter(o => o)
 );
 
+/** Are permissions disabled? */
 export const DISABLE_PERMISSIONS = config.disablePermissions;
 if (DISABLE_PERMISSIONS) {
+    /** Grant all users all permissions; as if they were a superadmin */
     register(user => user.email, () => ALL_PERMISSIONS);
 }
 
