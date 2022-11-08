@@ -5,6 +5,8 @@
  */
 
 import './config';
+import './utils/mongo';
+import './services/permissions';
 import { applyWSSHandler } from '@trpc/server/adapters/ws';
 import { isProxied, ReverseProxy } from './utils/proxy';
 import { createContext } from './utils/trpc/context';

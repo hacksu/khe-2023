@@ -1,12 +1,17 @@
 import { observable } from '@trpc/server/observable';
 import { randomUUID } from 'crypto';
 import { t } from '.';
+import { userProcedures } from '../../models/users/procedures';
 
 
 /** @export 'trpc/router' */
 
 /** Router type used in client imports */
 export type Router = typeof router;
+
+const models = t.router({
+    users: userProcedures,
+});
 
 /** Define one-off routes here */
 const routes = t.router({
@@ -37,4 +42,5 @@ const routes = t.router({
 /** Merge in any routers where other routes are defined */
 export const router = t.mergeRouters(
     routes,
-)
+    models
+);
