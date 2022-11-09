@@ -1,6 +1,7 @@
 import { observable } from '@trpc/server/observable';
 import { randomUUID } from 'crypto';
 import { t } from '.';
+import { ticketProcedures } from '../../models/tickets/procedures';
 import { userProcedures } from '../../models/users/procedures';
 
 
@@ -11,6 +12,7 @@ export type Router = typeof router;
 
 const models = t.router({
     users: userProcedures,
+    tickets: ticketProcedures,
 });
 
 /** Define one-off routes here */

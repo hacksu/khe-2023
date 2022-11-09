@@ -1,6 +1,8 @@
 import { timestampData } from '../../utils/types/timestamped';
 import { z } from 'zod';
 
+/** @export 'data/users' */
+
 
 export enum UserRole {
     Pending = 'pending',
