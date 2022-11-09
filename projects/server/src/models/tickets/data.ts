@@ -24,7 +24,7 @@ export const ticketData = z.object({
     email: z.string().email('Please enter a valid email!'),
     /** Ticket subject */
     subject: z.string()
-        .min(3, 'Subject cannot be empty!')
+        .min(3, 'Subject is too short! Tell us more.')
         .max(100, 'Subject is limited to 100 characters.'),
     /** Ticket message */
     message: z.string()

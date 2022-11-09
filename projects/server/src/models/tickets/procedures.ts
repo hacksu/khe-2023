@@ -1,3 +1,4 @@
+import { TRPCError } from '@trpc/server';
 import { access } from '../../services/permissions/middleware';
 import { t } from '../../utils/trpc';
 import { ticketData } from './data';
@@ -39,6 +40,7 @@ export const ticketProcedures = t.router({
             message: true,
         }))
         .mutation(async ({ input }) => {
+            // if (true) throw new Error('oof, failed');
             const ticket = new Ticket.Model(input);
             await ticket.save();
             return { ticket: ticket.toObject() }

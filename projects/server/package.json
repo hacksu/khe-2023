@@ -42,6 +42,12 @@
     "typescript": "^4.8.4"
   },
   "exports": {
+    "./data/tickets": {
+      "default": "./src/models/tickets/data.ts"
+    },
+    "./data/users": {
+      "default": "./src/models/users/data.ts"
+    },
     "./trpc/router": {
       "default": "./src/utils/trpc/router.ts"
     }
