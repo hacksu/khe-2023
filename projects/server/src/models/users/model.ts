@@ -41,7 +41,12 @@ export namespace User {
      */
     const schema = new Schema(fields.obj, {
         strict: false,
-        toJSON: { virtuals: true },
+        toJSON: {
+            transform(doc, ret, options) {
+                delete ret['password'];
+                return ret;
+            },
+        },
         timestamps: {
             createdAt: 'created',
             updatedAt: 'updated',

@@ -29,7 +29,7 @@ export const ticketProcedures = t.router({
             assignee: true,
         }).partial().optional())
         .query(async ({ input }) => {
-            const tickets = await Ticket.Model.find(input || {}).lean();
+            const tickets = await Ticket.Model.find(input || {});
             return { tickets }
         }),
 

@@ -35,7 +35,11 @@ export namespace Ticket {
      */
     const schema = new Schema(fields.obj, {
         strict: false,
-        toJSON: { virtuals: true },
+        toJSON: {
+            transform(doc, ret, options) {
+                return ret;
+            },
+        },
         timestamps: {
             createdAt: 'created',
             updatedAt: 'updated',
