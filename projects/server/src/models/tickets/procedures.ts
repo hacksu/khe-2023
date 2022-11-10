@@ -1,7 +1,7 @@
 import { TRPCError } from '@trpc/server';
 import { access } from '../../services/permissions/middleware';
 import { t } from '../../utils/trpc';
-import { ticketData } from './data';
+import { TicketData, ticketData } from './data';
 import { Ticket } from './model';
 
 
@@ -13,7 +13,7 @@ export const ticketProcedures = t.router({
         .use(access({ tickets: { read: true } }))
         .input(ticketData.shape._id)
         .query(async ({ input }) => {
-            const ticket = await Ticket.Model.findById(input);
+            const ticket = await Ticket.Model.findById(input).lean();
             return { ticket }
         }),
 
@@ -29,7 +29,7 @@ export const ticketProcedures = t.router({
             assignee: true,
         }).partial().optional())
         .query(async ({ input }) => {
-            const tickets = await Ticket.Model.find(input || {});
+            const tickets: TicketData[] = await Ticket.Model.find(input || {}).lean();
             return { tickets }
         }),
 

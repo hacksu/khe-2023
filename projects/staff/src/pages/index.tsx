@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { api } from '../utils/trpc';
+import { TicketsList } from '../widgets/tickets/list';
 
 
 export default function Homepage() {
@@ -16,6 +17,7 @@ export default function Homepage() {
         <p>ping: {ping?.data?.toLocaleString() || 'loading...'}</p>
         <p>subscription date: {date?.toLocaleString() || 'loading...'}</p>
         <div>{JSON.stringify(users?.data || {})}</div>
+        <TicketsList />
     </div>
 }
 
