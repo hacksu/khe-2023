@@ -9,6 +9,7 @@ import { Ticket } from './model';
 export const ticketProcedures = t.router({
     /** Get a ticket */
     get: t.procedure
+        .meta({ api: 'GET /tickets/:input' })
         .use(access({ tickets: { read: true } }))
         .input(ticketData.shape._id)
         .query(async ({ input }) => {
@@ -18,6 +19,7 @@ export const ticketProcedures = t.router({
 
     /** List tickets (can be filtered) */
     list: t.procedure
+        .meta({ api: 'GET /tickets' })
         .use(access({ tickets: { read: true } }))
         .input(ticketData.pick({
             status: true,
@@ -33,6 +35,7 @@ export const ticketProcedures = t.router({
 
     /** Create a ticket */
     create: t.procedure
+        .meta({ api: 'POST /tickets/create' })
         .input(ticketData.pick({
             name: true,
             email: true,
@@ -48,6 +51,7 @@ export const ticketProcedures = t.router({
 
     /** Update a ticket */
     update: t.procedure
+        .meta({ api: 'PATCH /tickets/:_id' })
         .use(access({ tickets: { write: true } }))
         .input(ticketData.pick({ _id: true }).merge(
             ticketData.omit({ _id: true }).partial()
@@ -59,6 +63,7 @@ export const ticketProcedures = t.router({
 
     /** Removes a ticket */
     remove: t.procedure
+        .meta({ api: 'DELETE /tickets/:input' })
         .use(access({ tickets: { delete: true }}))
         .input(ticketData.shape._id)
         .mutation(async ({ input }) => {
