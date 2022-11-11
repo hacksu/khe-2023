@@ -1,3 +1,4 @@
+import { NextLink } from '@mantine/next';
 import { useState } from 'react';
 import { api } from '../utils/trpc';
 
@@ -14,6 +15,7 @@ export default function Homepage() {
         Hey! Kent Hack Enough Website!
         <p>ping: {ping?.data?.toLocaleString() || 'loading...'}</p>
         <p>subscription date: {date?.toLocaleString() || 'loading...'}</p>
+        <NextLink href={'/contact'}>contact us!</NextLink>
     </div>
 }
 

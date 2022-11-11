@@ -10,8 +10,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@kenthackenough/server": "*",
     "@emotion/react": "^11.10.4",
     "@emotion/server": "^11.10.0",
+    "@hookform/resolvers": "^2.9.10",
     "@mantine/core": "^5.5.4",
     "@mantine/dates": "^5.5.4",
     "@mantine/form": "^5.5.4",
@@ -21,6 +23,7 @@
     "@mantine/notifications": "^5.5.4",
     "@mantine/nprogress": "^5.5.4",
     "@mantine/spotlight": "^5.5.4",
+    "@tabler/icons": "^1.110.0",
     "@tanstack/react-query": "^4.3.4",
     "@trpc/client": "^10.0.0-rc.2",
     "@trpc/next": "^10.0.0-rc.2",
@@ -34,7 +37,6 @@
     "react-hook-form": "^7.37.0"
   },
   "devDependencies": {
-    "@kenthackenough/server": "*",
     "@next/bundle-analyzer": "^12.3.1",
     "@types/lodash": "^4.14.186",
     "@types/react": "^18.0.21",
@@ -53,6 +55,9 @@
     },
     "./app": {
       "default": "./src/widgets/app.tsx"
+    },
+    "./tickets/contact": {
+      "default": "./src/widgets/tickets/contact.tsx"
     }
   }
 }

@@ -1,19 +1,18 @@
 import { HydratedDocumentFromSchema, model, Schema } from 'mongoose';
-import { UserData, UserRole } from '../../data/models/users';
-import { hashSync } from 'bcrypt';
+import { TicketData, TicketStatus } from '../../data/models/tickets';
 
 
-export namespace UserPermissions {
-    export const Read = { users: { read: true } } as const;
-    export const Write = { users: { write: true, read: true } } as const;
-    export const Delete = { users: { delete: true } } as const;
+export namespace TicketPermissions {
+    export const Read = { tickets: { read: true } } as const;
+    export const Write = { tickets: { write: true, read: true } } as const;
+    export const Delete = { tickets: { delete: true } } as const;
 }
 
 
-export namespace User {
-    export const ModelName = 'User';
+export namespace Ticket {
+    export const ModelName = 'Ticket';
     
-    export type Data = UserData & {};
+    export type Data = TicketData & {};
     export type Document = HydratedDocumentFromSchema<Schema>;
     export type Schema = typeof schema;
 
@@ -24,15 +23,10 @@ export namespace User {
      * @see https://mongoosejs.com/docs/schematypes.html
      */
     const fields = new Schema<Data>({
-        role: {
+        status: {
             type: String,
-            enum: UserRole,
-            default: UserRole.Pending,
-        },
-        password: {
-            type: String,
-            // Hash the password with bcrypt
-            set: v => hashSync(v, 10),
+            enum: TicketStatus,
+            default: TicketStatus.Open,
         },
     });
 
@@ -43,7 +37,6 @@ export namespace User {
         strict: false,
         toJSON: {
             transform(doc, ret, options) {
-                delete ret['password'];
                 return ret;
             },
         },

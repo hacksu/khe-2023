@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@kenthackenough/web": "*",
+    "@kenthackenough/server": "*",
     "@mantine/core": "^5.5.4",
     "@mantine/dates": "^5.5.4",
     "@mantine/form": "^5.5.4",

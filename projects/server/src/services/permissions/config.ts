@@ -1,6 +1,6 @@
 import { registerPermisions, Permission, derivePermissions, ALL_PERMISSIONS, DISABLE_PERMISSIONS } from './rbac';
 import { config } from '../../config';
-import { UserRole } from '../../models/users/data';
+import { UserRole } from '../../data/models/users';
 const register = registerPermisions;
 
 
@@ -21,7 +21,7 @@ register(UserRole, user => user.role, {
     },
     User: {
 
-    }
+    },
 })
 
 
@@ -35,7 +35,7 @@ register(UserRole, user => user.role, {
 
 
 register(user => user.email, {
-    ['cseitz5@kent.edu']: ALL_PERMISSIONS,
+    'cseitz5@kent.edu': ALL_PERMISSIONS,
 })
 
 // @ts-ignore

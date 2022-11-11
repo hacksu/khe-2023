@@ -5,7 +5,7 @@ import { User } from './model';
 export const userProcedures = t.router({
 
     list: t.procedure.query(async () => {
-        const users = await User.Model.find().lean();
+        const users = await User.Model.find();
         console.log({ users })
         return users;
     }),
