@@ -14,13 +14,12 @@ type withClasses<Names extends string> = {
 
 /** @export 'tickets/contact' */
 
-const formSchema = ticketData.pick({
+const formSchema = ticketData.strip().pick({
     name: true,
     email: true,
     subject: true,
     message: true,
 });
-
 
 
 export type ContactUsProps =
