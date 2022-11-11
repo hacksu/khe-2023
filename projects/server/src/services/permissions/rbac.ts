@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-type-constraint */
 /** RBAC Permissions system */
-import { DeepPartial, LiteralUnion, DeepMap, Merge } from 'react-hook-form';
+import { DeepPartial } from 'react-hook-form';
 import { merge, get } from 'lodash';
 import { UserPermissions } from '../../models/users/model';
-import { UserData } from '../../models/users/data';
 import { config } from '../../config';
 import { TicketPermissions } from '../../models/tickets/model';
+import { UserData } from '../../data/models/users';
 
 export const DISABLE_PERMISSIONS = config.disablePermissions;
 
