@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@kenthackenough/server": "*",
     "@emotion/react": "^11.10.4",
     "@emotion/server": "^11.10.0",
     "@hookform/resolvers": "^2.9.10",
@@ -36,7 +37,6 @@
     "react-hook-form": "^7.37.0"
   },
   "devDependencies": {
-    "@kenthackenough/server": "*",
     "@next/bundle-analyzer": "^12.3.1",
     "@types/lodash": "^4.14.186",
     "@types/react": "^18.0.21",
@@ -55,6 +55,9 @@
     },
     "./app": {
       "default": "./src/widgets/app.tsx"
+    },
+    "./tickets/contact": {
+      "default": "./src/widgets/tickets/contact.tsx"
     }
   }
 }

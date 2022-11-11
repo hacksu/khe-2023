@@ -1,5 +1,5 @@
-import { timestampData } from '../../utils/types/timestamped';
 import { z } from 'zod';
+import { timestampData } from '../includes/timestamped';
 
 /** @export 'data/users' */
 

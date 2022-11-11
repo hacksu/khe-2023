@@ -1,3 +1,4 @@
+import { ContactUs } from '@kenthackenough/web/tickets/contact';
 import { api } from '@kenthackenough/web/trpc';
 import { useState } from 'react';
 
@@ -14,6 +15,7 @@ export default function Homepage() {
         Hey! Kent Hack Enough Website!
         <p>ping: {ping?.data?.toLocaleString() || 'loading...'}</p>
         <p>subscription date: {date?.toLocaleString() || 'loading...'}</p>
+        <ContactUs />
     </div>
 }
 

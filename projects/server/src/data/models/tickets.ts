@@ -1,6 +1,5 @@
-import { timestampData } from '../../utils/types/timestamped';
 import { z } from 'zod';
-import { userData } from '../users/data';
+import { timestampData } from '../includes/timestamped';
 
 /** @export 'data/tickets' */
 

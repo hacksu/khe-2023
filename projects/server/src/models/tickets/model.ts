@@ -1,5 +1,5 @@
-import { HydratedDocument, HydratedDocumentFromSchema, model, Model, Schema } from 'mongoose';
-import { TicketData, TicketStatus } from './data';
+import { HydratedDocumentFromSchema, model, Schema } from 'mongoose';
+import { TicketData, TicketStatus } from '../../data/models/tickets';
 
 
 export namespace TicketPermissions {

@@ -4,6 +4,7 @@ import { Box, Button, Text, Textarea, TextInput } from '@mantine/core';
 import { api } from '../../utils/trpc';
 import { IconCheck, IconX } from '@tabler/icons'
 import { useState } from 'react';
+import { z } from 'zod';
 
 type withClasses<Names extends string> = {
     classes?: {
@@ -19,6 +20,7 @@ const formSchema = ticketData.pick({
     subject: true,
     message: true,
 });
+
 
 
 export type ContactUsProps =

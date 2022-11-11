@@ -1,8 +1,7 @@
-import { TRPCError } from '@trpc/server';
+import { TicketData, ticketData } from '../../data/models/tickets';
 import { access } from '../../services/permissions/middleware';
-import { t } from '../../utils/trpc';
-import { TicketData, ticketData } from './data';
 import { Ticket } from './model';
+import { t } from '../../utils/trpc';
 
 
 
@@ -13,7 +12,7 @@ export const ticketProcedures = t.router({
         .use(access({ tickets: { read: true } }))
         .input(ticketData.shape._id)
         .query(async ({ input }) => {
-            const ticket = await Ticket.Model.findById(input).lean();
+            const ticket = await Ticket.Model.findById(input).lean<TicketData>();
             return { ticket }
         }),
 
@@ -29,7 +28,7 @@ export const ticketProcedures = t.router({
             assignee: true,
         }).partial().optional())
         .query(async ({ input }) => {
-            const tickets: TicketData[] = await Ticket.Model.find(input || {}).lean();
+            const tickets = await Ticket.Model.find(input || {}).lean<TicketData[]>();
             return { tickets }
         }),
 
@@ -44,9 +43,10 @@ export const ticketProcedures = t.router({
         }))
         .mutation(async ({ input }) => {
             // if (true) throw new Error('oof, failed');
-            const ticket = new Ticket.Model(input);
-            await ticket.save();
-            return { ticket: ticket.toObject() }
+            const doc = new Ticket.Model(input);
+            await doc.save();
+            const ticket = doc.toObject<TicketData>();
+            return { ticket }
         }),
 
     /** Update a ticket */
@@ -66,7 +66,7 @@ export const ticketProcedures = t.router({
         .meta({ api: 'DELETE /tickets/:input' })
         .use(access({ tickets: { delete: true }}))
         .input(ticketData.shape._id)
-        .mutation(async ({ input }) => {
+        .mutation(async ({ input, ctx }) => {
             // TODO: implement
             return { success: false }
         }),
