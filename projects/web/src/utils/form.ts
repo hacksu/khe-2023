@@ -27,11 +27,9 @@ export function useWithForm<
     Config extends WithFormConfig
 >(form: UseFormReturn<TFieldValues, TContext>, config?: Config) {
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const $form = useRef(form);
     $form.current = form;
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const register = useCallback(function <
         TFieldName extends FieldPath<TFieldValues>
     >(name: TFieldName, options?: RegisterOptions<TFieldValues, TFieldName> & WithRegisterOptions<TFieldValues>) {
