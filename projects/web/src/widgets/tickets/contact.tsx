@@ -4,7 +4,7 @@ import { Box, Button, Text, Textarea, TextInput } from '@mantine/core';
 import { api } from '../../utils/trpc';
 import { IconCheck, IconX } from '@tabler/icons'
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm } from '../../utils/formhook';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
@@ -29,7 +29,7 @@ export type ContactUsProps =
 
 export function ContactUs(props: ContactUsProps) {
     const { classes } = props;
-    const form = useForm({
+    const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         reValidateMode: "onBlur",
         defaultValues: {
@@ -69,25 +69,20 @@ export function ContactUs(props: ContactUsProps) {
         }
     }
 
-    const getInputProps = (fieldName: keyof z.infer<typeof formSchema>) => ({
-        ...form.register(fieldName),
-        error: form.formState.errors[fieldName]?.message}
-    );
-
     console.log(mutation);
 
     return <form onSubmit={form.handleSubmit(onSubmit)} className={classes?.container}>
         <TextInput label='Email' placeholder='Email'
-            className={classes?.input} readOnly={isDisabled} {...getInputProps('email')} />
+            className={classes?.input} readOnly={isDisabled} {...form.getInputProps('email')} />
 
         <TextInput label='Name' placeholder='Name'
-            className={classes?.input} readOnly={isDisabled} {...getInputProps('name')} />
+            className={classes?.input} readOnly={isDisabled} {...form.getInputProps('name')} />
 
         <TextInput label='Subject' placeholder='Subject'
-            className={classes?.input} readOnly={isDisabled} {...getInputProps('subject')} />
+            className={classes?.input} readOnly={isDisabled} {...form.getInputProps('subject')} />
 
         <Textarea label='Message' placeholder='Message' autosize minRows={4}
-            className={classes?.input} readOnly={isDisabled} {...getInputProps('message')} />
+            className={classes?.input} readOnly={isDisabled} {...form.getInputProps('message')} />
 
         <Box mt="sm" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '1em' }}>
             <Button type='submit' className={classes?.submit}
