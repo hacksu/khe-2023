@@ -1,9 +1,11 @@
 import { ticketData } from '@kenthackenough/server/data/tickets';
-import { useForm, zodResolver } from '@mantine/form';
+// import { useForm, zodResolver } from '@mantine/form';
 import { Box, Button, Text, Textarea, TextInput } from '@mantine/core';
 import { api } from '../../utils/trpc';
 import { IconCheck, IconX } from '@tabler/icons'
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
 type withClasses<Names extends string> = {
@@ -28,9 +30,9 @@ export type ContactUsProps =
 export function ContactUs(props: ContactUsProps) {
     const { classes } = props;
     const form = useForm({
-        validate: zodResolver(formSchema),
-        validateInputOnBlur: true,
-        initialValues: {
+        resolver: zodResolver(formSchema),
+        reValidateMode: "onBlur",
+        defaultValues: {
             'email': 'a@a.com',
             name: '[name]',
             subject: '[subject]',
@@ -67,20 +69,25 @@ export function ContactUs(props: ContactUsProps) {
         }
     }
 
+    const getInputProps = (fieldName: keyof z.infer<typeof formSchema>) => ({
+        ...form.register(fieldName),
+        error: form.formState.errors[fieldName]?.message}
+    );
+
     console.log(mutation);
 
-    return <form onSubmit={form.onSubmit(onSubmit)} className={classes?.container}>
+    return <form onSubmit={form.handleSubmit(onSubmit)} className={classes?.container}>
         <TextInput label='Email' placeholder='Email'
-            className={classes?.input} readOnly={isDisabled} {...form.getInputProps('email')} />
+            className={classes?.input} readOnly={isDisabled} {...getInputProps('email')} />
 
         <TextInput label='Name' placeholder='Name'
-            className={classes?.input} readOnly={isDisabled} {...form.getInputProps('name')} />
+            className={classes?.input} readOnly={isDisabled} {...getInputProps('name')} />
 
         <TextInput label='Subject' placeholder='Subject'
-            className={classes?.input} readOnly={isDisabled} {...form.getInputProps('subject')} />
+            className={classes?.input} readOnly={isDisabled} {...getInputProps('subject')} />
 
         <Textarea label='Message' placeholder='Message' autosize minRows={4}
-            className={classes?.input} readOnly={isDisabled} {...form.getInputProps('message')} />
+            className={classes?.input} readOnly={isDisabled} {...getInputProps('message')} />
 
         <Box mt="sm" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '1em' }}>
             <Button type='submit' className={classes?.submit}
