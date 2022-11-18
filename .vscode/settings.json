@@ -13,6 +13,7 @@
         { "icon": "client", "extensions": ["website"] },
         { "icon": "github", "extensions": ["github"] },
         { "icon": "node", "extensions": ["npm"] },
+        { "icon": "electron", "extensions": ["react"] },
     ],
     "vsicons.associations.files": [
         { "icon": "nginx", "extensions": ["template"] },

@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "tsx watch --clear-screen=false src",
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsc --module=commonjs",
     "start": "node dist",
     "lint": "eslint ."
   },
