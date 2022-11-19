@@ -1,6 +1,6 @@
 {
   "name": "@kenthackenough/staff",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -10,8 +10,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@kenthackenough/tsconfig": "^1.0.25",
-    "@kenthackenough/server": "^1.0.25",
+    "@kenthackenough/tsconfig": "^1.0.26",
+    "@kenthackenough/server": "^1.0.26",
     "@emotion/react": "^11.10.4",
     "@emotion/server": "^11.10.0",
     "@hookform/resolvers": "^2.9.10",
