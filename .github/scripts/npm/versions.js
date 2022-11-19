@@ -4,7 +4,7 @@ const JSON5 = require('json5');
 const semver = require('semver');
 const glob = require('glob');
 const { execSync } = require("child_process");
-const { resolve } = require("path");
+const { resolve, relative } = require("path");
 
 
 const __cwd = execSync(`git rev-parse --show-toplevel`).toString('utf8').trim();
