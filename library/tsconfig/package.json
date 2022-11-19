@@ -1,0 +1,11 @@
+{
+  "name": "@kenthackenough/tsconfig",
+  "version": "1.0.24",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  }
+}

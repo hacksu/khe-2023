@@ -1,24 +1,5 @@
 {
-    "compilerOptions": {
-        "target": "es5",
-        "lib": [
-            "dom",
-            "dom.iterable",
-            "esnext"
-        ],
-        "allowJs": true,
-        "skipLibCheck": true,
-        "strict": false,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true,
-        "module": "esnext",
-        "moduleResolution": "NodeNext",
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "strictNullChecks": true,
-        "experimentalDecorators": true,
-        "jsx": "preserve",
-    },
+    "extends": "./library/tsconfig/tsconfig.base.json",
     "include": [
         "next-env.d.ts",
         "**/*.ts",

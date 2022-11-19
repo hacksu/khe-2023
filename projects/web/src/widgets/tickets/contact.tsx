@@ -128,3 +128,34 @@ export function ContactUs(props: ContactUsProps) {
  * ticket+1284388@staff.khe.io
  * 
  */
+
+
+function FormComponent(props) {
+    const { classes } = props;
+    const { form, register } = useForm({
+        schema: formSchema,
+        reValidateMode: "onChange",
+        delayError: 2000,
+        inputProps: {
+            className: classes?.input,
+        },
+    });
+
+    const onSubmit = data => { /* ... */ }
+    const isDisabled = false;
+
+    return <form onSubmit={form.handleSubmit(onSubmit)} className={classes?.container}>
+        <TextInput {...register('email', {
+            label: 'Email',
+            placeholder: 'Where should we contact you?',
+            readonly: isDisabled,
+        })} />
+
+        <TextInput {...register('name', {
+            label: 'Name',
+            placeholder: 'What is your name?',
+            readonly: isDisabled,
+        })} />
+
+    </form>
+}

@@ -1,32 +1,16 @@
 {
-   "compilerOptions": {
-      "target": "es5",
-      "lib": [
-         "dom",
-         "dom.iterable",
-         "esnext"
-      ],
-      "allowJs": true,
-      "skipLibCheck": true,
-      "strict": false,
-      "forceConsistentCasingInFileNames": true,
-      "esModuleInterop": true,
-      "noEmit": true,
-      "incremental": true,
-      "module": "esnext",
-      "moduleResolution": "NodeNext",
-      "resolveJsonModule": true,
-      "isolatedModules": true,
-      "strictNullChecks": true,
-      "experimentalDecorators": true,
-      "jsx": "preserve",
-   },
-   "include": [
-      "next-env.d.ts",
-      "**/*.ts",
-      "**/*.tsx"
-   ],
-   "exclude": [
-      "node_modules"
-   ],
+  "extends": "@kenthackenough/tsconfig/tsconfig.react.json",
+  "compilerOptions": {
+    "moduleResolution": "nodenext",
+    "noEmit": true,
+    "incremental": true
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

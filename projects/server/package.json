@@ -5,11 +5,12 @@
   "license": "MIT",
   "scripts": {
     "dev": "tsx watch --clear-screen=false src",
-    "build": "tsc --module=commonjs",
+    "build": "tsc --module commonjs",
     "start": "node dist",
     "lint": "eslint ."
   },
   "dependencies": {
+    "@kenthackenough/tsconfig": "^1.0.24",
     "@trpc/client": "^10.0.0-rc.2",
     "@trpc/next": "^10.0.0-rc.2",
     "@trpc/server": "^10.0.0-rc.2",

@@ -29,7 +29,7 @@ const nextConfig = {
 
     typescript: {
         ignoreBuildErrors: true,
-        outputFileTracingRoot: path.join(__dirname, '../../'),
+        // outputFileTracingRoot: path.join(__dirname, '../../'),
     },
     
 }
@@ -37,7 +37,7 @@ const nextConfig = {
 
 const { dependencies, devDependencies } = JSON.parse(readFileSync(__dirname + '/package.json', 'utf8'));
 const withDependencies = Object.entries({ ...dependencies, ...devDependencies })
-    .filter(([name, version]) => version === '*')
+    .filter(([name, version]) => name.startsWith('@kenthackenough') || version === '*')
     .map(([name]) => name);
 
 const withModules = [

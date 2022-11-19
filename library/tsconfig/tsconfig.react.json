@@ -1,5 +1,5 @@
 {
-  "extends": "@kenthackenough/tsconfig/tsconfig.react.json",
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "moduleResolution": "nodenext",
     "noEmit": true,
