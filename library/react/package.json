@@ -30,5 +30,16 @@
     "eslint": "^8.26.0",
     "eslint-config-next": "^13.0.1",
     "typescript": "^4.8.4"
+  },
+  "exports": {
+    "./hooks": {
+      "default": "./src/hooks/index.ts"
+    },
+    "./hooks/useForm": {
+      "default": "./src/hooks/useForm.ts"
+    },
+    "./hooks/useMediaQuery": {
+      "default": "./src/hooks/useMediaQuery.ts"
+    }
   }
 }
