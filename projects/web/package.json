@@ -12,6 +12,7 @@
   "dependencies": {
     "@kenthackenough/server": "^1.0.26",
     "@kenthackenough/tsconfig": "^1.0.26",
+    "@kenthackenough/react": "^1.0.26",
     "@emotion/react": "^11.10.4",
     "@emotion/server": "^11.10.0",
     "@hookform/resolvers": "^2.9.10",

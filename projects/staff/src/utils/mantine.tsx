@@ -3,7 +3,7 @@ import { getCookie, setCookie } from 'cookies-next';
 import { merge } from 'lodash';
 import { AppContext } from 'next/app';
 import { useEffect, useMemo, useState } from 'react';
-import { useMediaQuery } from '../hooks';
+import { useMediaQuery } from '@kenthackenough/react/hooks';
 
 
 type ExtendedCustomColors = DefaultMantineColor

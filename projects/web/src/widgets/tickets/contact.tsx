@@ -4,8 +4,9 @@ import { api } from '../../utils/trpc';
 import { IconCheck, IconX } from '@tabler/icons'
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from '@kenthackenough/react/hooks';
 import { z } from 'zod';
-import { useForm } from '../../utils/form';
+
 
 type withClasses<Names extends string> = {
     classes?: {
