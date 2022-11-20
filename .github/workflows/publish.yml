@@ -12,7 +12,7 @@ on:
 jobs:
   publish:
     name: Publish
-    if: github.ref == 'refs/heads/project-bugfixes'
+    if: github.ref == 'refs/heads/project-build-fixing'
     runs-on: ubuntu-latest
     concurrency:
       group: publish
