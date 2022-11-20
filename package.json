@@ -1,6 +1,6 @@
 {
   "name": "khe-2023",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "main": "index.js",
   "license": "MIT",
   "private": true,
@@ -18,7 +18,6 @@
     "template": "cd templates && npm run",
     "postversion": "node .github/scripts/npm/versions.js",
     "deploy": "node .github/scripts/npm/can-deploy.js && node .github/scripts/npm/versions.js --",
-    "old-deploy": "node .github/scripts/npm/can-deploy.js && npm version patch && git commit --allow-empty -m '@deploy' && git push",
     "exports": "exports"
   },
   "devDependencies": {

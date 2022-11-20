@@ -10,9 +10,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@kenthackenough/web": "^1.0.26",
-    "@kenthackenough/server": "^1.0.26",
-    "@kenthackenough/tsconfig": "^1.0.26",
+    "@kenthackenough/web": "^1.0.27",
+    "@kenthackenough/server": "^1.0.27",
+    "@kenthackenough/tsconfig": "^1.0.27",
     "@mantine/core": "^5.5.4",
     "@mantine/dates": "^5.5.4",
     "@mantine/form": "^5.5.4",

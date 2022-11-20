@@ -1,6 +1,6 @@
 {
   "name": "@kenthackenough/react",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
@@ -21,7 +21,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.37.0",
-    "@kenthackenough/tsconfig": "^1.0.26"
+    "@kenthackenough/tsconfig": "^1.0.27"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.186",
