@@ -10,6 +10,9 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package: [react, server, staff, web]
     concurrency:
       group: lint
       cancel-in-progress: true
@@ -21,11 +24,14 @@ jobs:
         with:
           node-version: 16.x
           cache: 'npm'
+      - uses: actions/cache@v3
+        id: turbo-cache
+        with:
+          path: .turbo
+          key: turbo-${{ github.job }}-${{ github.ref_name }}-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ github.job }}-${{ github.ref_name }}-
       - name: Installing Dependencies
         run: npm install
-      - name: Linting - Server
-        run: npm run lint --filter=@kenthackenough/server
-      - name: Linting - Staff
-        run: npm run lint --filter=@kenthackenough/staff
-      - name: Linting - Web
-        run: npm run lint --filter=@kenthackenough/web
+      - name: Linting - ${{ matrix.package }}
+        run: npm run lint --cache-dir=.turbo --filter=@kenthackenough/${{ matrix.package }}
