@@ -3,6 +3,7 @@ import { randomUUID } from 'crypto';
 import { t } from '.';
 import { ticketProcedures } from '../../models/tickets/procedures';
 import { userProcedures } from '../../models/users/procedures';
+import '../../session';
 
 
 /** @export 'trpc/router' */

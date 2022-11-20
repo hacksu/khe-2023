@@ -9,10 +9,12 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 // @link https://github.com/belgattitude/nextjs-monorepo-example/blob/main/apps/nextjs-app/next.config.js
 
+/** @type {import('./config').ServerRuntimeConfig} */
 const serverRuntimeConfig = {
     env: process.env.NODE_ENV,
 }
 
+/** @type {import('./config').PublicRuntimeConfig} */
 const publicRuntimeConfig = {
     
 }
@@ -29,7 +31,6 @@ const nextConfig = {
 
     typescript: {
         ignoreBuildErrors: true,
-        // outputFileTracingRoot: path.join(__dirname, '../../'),
     },
     
 }
