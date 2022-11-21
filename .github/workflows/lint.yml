@@ -20,12 +20,29 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
+      - name: Get Turbo Version
+        run: echo "TURBO_VERSION=$( npm show turbo version )"
       - uses: actions/cache@v3
-        name: Cache
-        id: npm-cache
+        name: Cache - Turbo
+        id: turbo-cache
         with:
           path: |
             .turbo
+            ${{ github.workspace }}/node_modules/.bin/turbo
+            ${{ github.workspace }}/node_modules/turbo
+            ${{ github.workspace }}/node_modules/turbo-linux-64
+          key: cache-turbo-${{ env.TURBO_VERSION }}
+          restore-keys: |
+            cache-turbo-
+      - name: Installing Turbo
+        run: npm install turbo@${{ env.TURBO_VERSION }}
+      - name: Get Turbo Info
+        run: npm run lint -- --cache-dir=.turbo --dry --only --filter=@kenthackenough/${{ matrix.package }}
+      - uses: actions/cache@v3
+        name: Cache - NPM
+        id: npm-cache
+        with:
+          path: |
             ${{ github.workspace }}/projects/*/.next/cache
             ~/.npm
             ${{ github.workspace }}/node_modules
