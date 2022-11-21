@@ -16,7 +16,7 @@
     "build": "cross-env FORCE_COLOR=1 turbo run build --parallel --filter=!./templates/*",
     "lint": "cross-env FORCE_COLOR=1 turbo run lint --filter=!./templates/*",
     "template": "cd templates && npm run",
-    "postversion": "node .github/scripts/npm/versions.js",
+    "postversion": "node .github/scripts/npm/versions.js --postversion",
     "deploy": "node .github/scripts/npm/can-deploy.js && node .github/scripts/npm/versions.js --",
     "exports": "exports"
   },

@@ -129,7 +129,8 @@ glob(__cwd + '/**/package.json', {
 
     // console.log({ latest, [increment]: increment ? semver.inc(latest, increment) : latest });
 
-    if (process.env.npm_lifecycle_event === 'deploy' && !DRY) {
+    // if (process.env.npm_lifecycle_event === 'deploy' && !DRY) {
+    if (process.argv.find(o => o.includes('postversion')) && !DRY) {
         execSync(`git commit --allow-empty -m '@deploy' && git push`);
     }
 
