@@ -55,6 +55,7 @@ jobs:
             cache-check-${{ matrix.package }}-${{ github.ref_name }}-
       - name: Installing Dependencies
         if: ${{ env.FULL_TURBO == 'no' }}
+        run: npm install --no-audit --no-fund
       - name: Installing Task Dependencies
         if: ${{ env.FULL_TURBO == 'yes' }}
         run: npm install -g cross-env
