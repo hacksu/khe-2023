@@ -27,9 +27,13 @@ on:
         description: 'Directory to execute commands within'
     secrets:
       host:
-        required: true
+        required: false
       key:
-        required: true
+        required: false
+      user:
+        required: false
+      port:
+        required: false
   # workflow_dispatch:
   # push:
   #   branches:
@@ -48,10 +52,11 @@ jobs:
       - name: Execute Commands
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.host }}
-          port: ${{ inputs.port }}
-          username: ${{ inputs.user }}
-          key: ${{ secrets.key }}
+          host: ${{ secrets.host || inputs.host }}
+          port: ${{ secrets.port || inputs.port }}
+          username: ${{ secrets.user || inputs.user }}
+          key: ${{ secrets.key || inputs.key }}
+          script_stop: true
           script: |
             cd ${{ inputs.directory }}
             whoami
@@ -62,6 +67,7 @@ jobs:
           port: ${{ inputs.port }}
           username: ${{ inputs.user }}
           key: ${{ secrets.key }}
+          script_stop: true
           script: |
             cd ${{ inputs.directory }}
             ls
