@@ -20,7 +20,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: 'npm'
       - uses: actions/cache@v3
         name: Cache
         id: npm-cache
@@ -35,9 +34,9 @@ jobs:
             ${{ github.workspace }}/library/*/node_modules
             ${{ github.workspace }}/projects/*/node_modules
             ${{ github.workspace }}/*/*/node_modules
-          key: cache-${{ github.job }}-${{ github.ref_name }}-${{ hashFiles('package-lock.json') }}
+          key: cache-ci-${{ github.ref_name }}-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            cache-${{ github.job }}-${{ github.ref_name }}-
+            cache-ci-${{ github.ref_name }}-
       - name: Installing Dependencies
         run: npm install
       - name: Building - ${{ matrix.package }}
