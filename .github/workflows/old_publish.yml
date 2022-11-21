@@ -1,0 +1,84 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - package.json
+  push:
+    paths:
+      - package.json
+
+jobs:
+  publish:
+    name: Publish
+    if: github.ref == 'refs/heads/project-build-fixing'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: publish
+      cancel-in-progress: true
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Get Version
+        id: get-version
+        run: echo "PACKAGE_VERSION=$(node .github/scripts/github/get-version)" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v3
+        id: cache
+        with:
+          key: workflow-cache-${{ runner.os }}-${{ steps.get-version.outputs.PACKAGE_VERSION }}
+          path: |
+            .workflow-cache
+      # - name: Print cache hit (workflow-cache-${{ runner.os }}-${{ steps.get-version.outputs.PACKAGE_VERSION }}) ${{ steps.cache.outputs.cache-hit != 'true' }}
+      #   run: echo 'hi'
+      - name: Use Node.js
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          registry-url: 'https://registry.npmjs.org'
+          scope: '@kenthackenough'
+          cache: 'npm'
+      - name: Installing Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm install
+      - name: Publish?
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: echo $(node .github/scripts/github/do-publish --verbose)
+      - name: Building
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm run build
+      - name: Publish - Server
+        if: steps.cache.outputs.cache-hit != 'true'
+        working-directory: projects/server
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish - Staff
+        if: steps.cache.outputs.cache-hit != 'true'
+        working-directory: projects/staff
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish - Web
+        if: steps.cache.outputs.cache-hit != 'true'
+        working-directory: projects/web
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish - Library/TSConfig
+        if: steps.cache.outputs.cache-hit != 'true'
+        working-directory: library/tsconfig
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish - Library/React
+        if: steps.cache.outputs.cache-hit != 'true'
+        working-directory: library/react
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Copy Package.json to cache
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          cp package.json .workflow-cache/package.json
