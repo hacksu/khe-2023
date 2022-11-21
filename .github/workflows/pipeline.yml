@@ -1,0 +1,8 @@
+name: CI/CD
+
+on:
+  workflow_dispatch:
+
+jobs:
+  lint:
+    uses: hacksu/khe-2023/.github/workflows/test.yml@actions-improvements
