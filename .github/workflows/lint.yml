@@ -1,17 +1,17 @@
 name: Lint
 
 on:
-  workflow_dispatch:
-  push:
-    branches-ignore:
-      - "main"
+  workflow_call:
 
 jobs:
   lint:
-    name: Lint
+    name: Packages
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package: [react, server, staff, web]
     concurrency:
-      group: lint
+      group: ${{ github.workflow }} - ${{ matrix.package }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}
       cancel-in-progress: true
 
     steps:
@@ -20,12 +20,39 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: 'npm'
-      - name: Installing Dependencies
-        run: npm install
-      - name: Linting - Server
-        run: npm run lint --filter=@kenthackenough/server
-      - name: Linting - Staff
-        run: npm run lint --filter=@kenthackenough/staff
-      - name: Linting - Web
-        run: npm run lint --filter=@kenthackenough/web
+      - name: Calculating Hash
+        run: |
+          echo "TURBO_VERSION=$( npm show turbo version )" >> $GITHUB_ENV
+          echo "NPM_GLOBAL_MODULES=$( npm root -g )" >> $GITHUB_ENV
+          echo "TURBO_HASH=$( npx --yes turbo run lint --dry --only --filter=@kenthackenough/${{ matrix.package }} | grep = | grep Hash | tail -1 | cut -f2- -d= | xargs )" >> $GITHUB_ENV
+      - uses: actions/cache@v3
+        name: Cache - Turbo
+        id: turbo-cache
+        with:
+          path: |
+            .turbo
+            ${{ github.workspace }}/projects/*/.next/cache
+          key: cache-turbo-lint-${{ matrix.package }}-${{ hashFiles('package-lock.json') }}-${{ env.TURBO_HASH }}
+          restore-keys: |
+            cache-turbo-lint-${{ matrix.package }}-${{ hashFiles('package-lock.json') }}-
+      - name: Validate Hash
+        run: |
+          echo "FULL_TURBO=$( $(find .turbo -iname "${{ env.TURBO_HASH }}-*" | grep ${{ env.TURBO_HASH }}) && echo 'yes' || echo 'no' )" >> $GITHUB_ENV
+      - uses: actions/cache@v3
+        name: Cache - NPM
+        id: npm-cache
+        with:
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/node_modules
+            ${{ github.workspace }}/package.json
+            ${{ github.workspace }}/github/scripts/*/node_modules
+            ${{ github.workspace }}/*/*/node_modules
+          key: cache-npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            cache-npm-
+      - name: Installing Dependencies ${{ env.FULL_TURBO }}
+        if: ${{ env.FULL_TURBO == 'no' }}
+        run: npm install --no-audit --no-fund
+      - name: Linting
+        run: npm run lint -- --cache-dir=.turbo --only --filter=@kenthackenough/${{ matrix.package }}

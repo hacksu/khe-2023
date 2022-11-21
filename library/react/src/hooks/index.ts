@@ -1,6 +1,13 @@
-import useMediaQuery from './mediaQuery';
+import { useMediaQuery } from './useMediaQuery';
+import { useForm } from './useForm';
 
-export { useMediaQuery }
+/** @export 'hooks' */
+
+export {
+    useForm,
+    useMediaQuery
+}
+
 
 export function mappedActions<Actions extends Record<string, (...args: any[]) => any>>(actions: Actions) {
     return function <

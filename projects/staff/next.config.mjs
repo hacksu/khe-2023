@@ -9,10 +9,12 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 // @link https://github.com/belgattitude/nextjs-monorepo-example/blob/main/apps/nextjs-app/next.config.js
 
+/** @type {import('./config').ServerRuntimeConfig} */
 const serverRuntimeConfig = {
     env: process.env.NODE_ENV,
 }
 
+/** @type {import('./config').PublicRuntimeConfig} */
 const publicRuntimeConfig = {
     
 }
@@ -29,7 +31,6 @@ const nextConfig = {
 
     typescript: {
         ignoreBuildErrors: true,
-        outputFileTracingRoot: path.join(__dirname, '../../'),
     },
     
 }
@@ -37,7 +38,7 @@ const nextConfig = {
 
 const { dependencies, devDependencies } = JSON.parse(readFileSync(__dirname + '/package.json', 'utf8'));
 const withDependencies = Object.entries({ ...dependencies, ...devDependencies })
-    .filter(([name, version]) => version === '*')
+    .filter(([name, version]) => name.startsWith('@kenthackenough') || version === '*')
     .map(([name]) => name);
 
 const withModules = [

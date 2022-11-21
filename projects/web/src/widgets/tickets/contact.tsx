@@ -1,10 +1,12 @@
 import { ticketData } from '@kenthackenough/server/data/tickets';
-import { useForm, zodResolver } from '@mantine/form';
 import { Box, Button, Text, Textarea, TextInput } from '@mantine/core';
 import { api } from '../../utils/trpc';
 import { IconCheck, IconX } from '@tabler/icons'
 import { useState } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from '@kenthackenough/react/hooks';
 import { z } from 'zod';
+
 
 type withClasses<Names extends string> = {
     classes?: {
@@ -14,7 +16,7 @@ type withClasses<Names extends string> = {
 
 /** @export 'tickets/contact' */
 
-const formSchema = ticketData.strip().pick({
+const formSchema = ticketData.pick({
     name: true,
     email: true,
     subject: true,
@@ -25,17 +27,23 @@ const formSchema = ticketData.strip().pick({
 export type ContactUsProps =
     & withClasses<'container' | 'input' | 'submit'>;
 
+
+
 export function ContactUs(props: ContactUsProps) {
     const { classes } = props;
-    const form = useForm({
-        validate: zodResolver(formSchema),
-        validateInputOnBlur: true,
-        initialValues: {
-            'email': 'a@a.com',
-            name: '[name]',
-            subject: '[subject]',
-            message: '[message goes here]',
-        }
+    const { form, register } = useForm({
+        schema: formSchema,
+        reValidateMode: "onChange",
+        delayError: 2000,
+        inputProps: {
+            className: classes?.input,
+        },
+        // defaultValues: {
+        //     email: 'a@a.com',
+        //     name: '[name]',
+        //     subject: '[subject]',
+        //     message: '[message goes here]',
+        // }
     });
 
     const [state, setState] = useState<'loading' | 'success' | 'error' | null>(null);
@@ -67,20 +75,30 @@ export function ContactUs(props: ContactUsProps) {
         }
     }
 
-    console.log(mutation);
+    return <form onSubmit={form.handleSubmit(onSubmit)} className={classes?.container}>
+        <TextInput {...register('email', {
+            label: 'Email',
+            placeholder: 'Where should we contact you?',
+            readonly: isDisabled,
+        })} />
 
-    return <form onSubmit={form.onSubmit(onSubmit)} className={classes?.container}>
-        <TextInput label='Email' placeholder='Email'
-            className={classes?.input} readOnly={isDisabled} {...form.getInputProps('email')} />
+        <TextInput {...register('name', {
+            label: 'Name',
+            placeholder: 'What is your name?',
+            readonly: isDisabled,
+        })} />
 
-        <TextInput label='Name' placeholder='Name'
-            className={classes?.input} readOnly={isDisabled} {...form.getInputProps('name')} />
+        <TextInput {...register('subject', {
+            label: 'Subject',
+            placeholder: 'What do you need to talk to us about?',
+            readonly: isDisabled,
+        })} />
 
-        <TextInput label='Subject' placeholder='Subject'
-            className={classes?.input} readOnly={isDisabled} {...form.getInputProps('subject')} />
-
-        <Textarea label='Message' placeholder='Message' autosize minRows={4}
-            className={classes?.input} readOnly={isDisabled} {...form.getInputProps('message')} />
+        <Textarea autosize minRows={4} {...register('message', {
+            label: 'Message',
+            placeholder: 'Give us all the details!',
+            readonly: isDisabled,
+        })} />
 
         <Box mt="sm" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '1em' }}>
             <Button type='submit' className={classes?.submit}
@@ -100,8 +118,8 @@ export function ContactUs(props: ContactUsProps) {
             ) : null)}
         </Box>
 
-        
-        
+
+
     </form>
 }
 
@@ -111,3 +129,34 @@ export function ContactUs(props: ContactUsProps) {
  * ticket+1284388@staff.khe.io
  * 
  */
+
+
+function FormComponent(props) {
+    const { classes } = props;
+    const { form, register } = useForm({
+        schema: formSchema,
+        reValidateMode: "onChange",
+        delayError: 2000,
+        inputProps: {
+            className: classes?.input,
+        },
+    });
+
+    const onSubmit = data => { /* ... */ }
+    const isDisabled = false;
+
+    return <form onSubmit={form.handleSubmit(onSubmit)} className={classes?.container}>
+        <TextInput {...register('email', {
+            label: 'Email',
+            placeholder: 'Where should we contact you?',
+            readonly: isDisabled,
+        })} />
+
+        <TextInput {...register('name', {
+            label: 'Name',
+            placeholder: 'What is your name?',
+            readonly: isDisabled,
+        })} />
+
+    </form>
+}

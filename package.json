@@ -1,6 +1,6 @@
 {
   "name": "khe-2023",
-  "version": "1.0.24",
+  "version": "1.0.33",
   "main": "index.js",
   "license": "MIT",
   "private": true,
@@ -15,9 +15,9 @@
     "start": "cross-env FORCE_COLOR=1 turbo run start --parallel --filter=!./templates/*",
     "build": "cross-env FORCE_COLOR=1 turbo run build --parallel --filter=!./templates/*",
     "lint": "cross-env FORCE_COLOR=1 turbo run lint --filter=!./templates/*",
-    "postversion": "node .github/scripts/npm/postversion",
     "template": "cd templates && npm run",
-    "deploy": "node .github/scripts/npm/can-deploy.js && npm version patch && git commit --allow-empty -m '@deploy' && git push",
+    "postversion": "node .github/scripts/npm/versions.js --postversion",
+    "deploy": "node .github/scripts/npm/can-deploy.js && node .github/scripts/npm/versions.js --",
     "exports": "exports"
   },
   "devDependencies": {

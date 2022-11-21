@@ -1,14 +1,16 @@
 {
-    "extends": "../../tsconfig.json",
-    "compilerOptions": {
-        "moduleResolution": "nodenext",
-    },
-    "include": [
-        "next-env.d.ts",
-        "**/*.ts",
-        "**/*.tsx"
-    ],
-    "exclude": [
-        "node_modules"
-    ]
+   "extends": "@kenthackenough/tsconfig/tsconfig.node.json",
+   "compilerOptions": {
+      "moduleResolution": "nodenext",
+      "rootDir": "./src",
+      "outDir": "./dist"
+   },
+   "include": [
+      "next-env.d.ts",
+      "**/*.ts",
+      "**/*.tsx"
+   ],
+   "exclude": [
+      "node_modules"
+   ]
 }

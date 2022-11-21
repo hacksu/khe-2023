@@ -1,21 +1,20 @@
 name: Publish
 
 on:
-  workflow_dispatch:
-  pull_request:
-    paths:
-      - package.json
-  push:
-    paths:
-      - package.json
+  workflow_call:
+    secrets:
+      NPM_TOKEN:
+        required: true
 
 jobs:
   publish:
-    name: Publish
-    if: github.ref == 'refs/heads/main'
+    name: NPM
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package: [tsconfig, react, server, staff, web]
     concurrency:
-      group: publish
+      group: ${{ github.workflow }} - ${{ matrix.package }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}
       cancel-in-progress: true
 
     steps:
@@ -24,49 +23,67 @@ jobs:
         id: get-version
         run: echo "PACKAGE_VERSION=$(node .github/scripts/github/get-version)" >> $GITHUB_OUTPUT
       - uses: actions/cache@v3
-        id: cache
+        id: published
         with:
-          key: workflow-cache-${{ runner.os }}-${{ steps.get-version.outputs.PACKAGE_VERSION }}
+          key: cache-publish-${{ matrix.package }}-${{ steps.get-version.outputs.PACKAGE_VERSION }}
           path: |
-            .workflow-cache
-      # - name: Print cache hit (workflow-cache-${{ runner.os }}-${{ steps.get-version.outputs.PACKAGE_VERSION }}) ${{ steps.cache.outputs.cache-hit != 'true' }}
-      #   run: echo 'hi'
+            .publish-cache
       - name: Use Node.js
-        if: steps.cache.outputs.cache-hit != 'true'
+        if: steps.published.outputs.cache-hit != 'true'
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
           registry-url: 'https://registry.npmjs.org'
           scope: '@kenthackenough'
           cache: 'npm'
+      - name: Calculating Hash
+        if: steps.published.outputs.cache-hit != 'true'
+        run: |
+          echo "TURBO_VERSION=$( npm show turbo version )" >> $GITHUB_ENV
+          echo "NPM_GLOBAL_MODULES=$( npm root -g )" >> $GITHUB_ENV
+          echo "TURBO_HASH=$( npx --yes turbo run build --dry --only --filter=@kenthackenough/${{ matrix.package }} | grep = | grep Hash | tail -1 | cut -f2- -d= | xargs )" >> $GITHUB_ENV
+      - uses: actions/cache@v3
+        if: steps.published.outputs.cache-hit != 'true'
+        name: Cache - Turbo
+        id: turbo-cache
+        with:
+          path: |
+            .turbo
+            ${{ github.workspace }}/projects/*/.next/cache
+          key: cache-turbo-build-${{ matrix.package }}-${{ hashFiles('package-lock.json') }}-${{ env.TURBO_HASH }}
+          restore-keys: |
+            cache-turbo-build-${{ matrix.package }}-${{ hashFiles('package-lock.json') }}-
+      - name: Validate Hash
+        if: steps.published.outputs.cache-hit != 'true'
+        run: |
+          echo "FULL_TURBO=$( $(find .turbo -iname "${{ env.TURBO_HASH }}-*" | grep ${{ env.TURBO_HASH }}) && echo 'yes' || echo 'no' )" >> $GITHUB_ENV
+      - uses: actions/cache@v3
+        if: steps.published.outputs.cache-hit != 'true'
+        name: Cache - NPM
+        id: npm-cache
+        with:
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/node_modules
+            ${{ github.workspace }}/package.json
+            ${{ github.workspace }}/github/scripts/*/node_modules
+            ${{ github.workspace }}/*/*/node_modules
+          key: cache-npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            cache-npm-
       - name: Installing Dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm install
-      - name: Publish?
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: echo $(node .github/scripts/github/do-publish --verbose)
+        if: steps.published.outputs.cache-hit != 'true' || ${{ env.FULL_TURBO == 'no' }}
+        run: npm install --no-audit --no-fund
       - name: Building
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm run build
-      - name: Publish - Server
-        if: steps.cache.outputs.cache-hit != 'true'
-        working-directory: projects/server
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Publish - Staff
-        if: steps.cache.outputs.cache-hit != 'true'
-        working-directory: projects/staff
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Publish - Web
-        if: steps.cache.outputs.cache-hit != 'true'
-        working-directory: projects/web
-        run: npm publish
+        if: steps.published.outputs.cache-hit != 'true'
+        run: npm run build -- --cache-dir=.turbo --only --filter=@kenthackenough/${{ matrix.package }}
+      - name: Publish
+        if: steps.published.outputs.cache-hit != 'true'
+        run: npm publish -w @kenthackenough/${{ matrix.package }} --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Copy Package.json to cache
-        if: steps.cache.outputs.cache-hit != 'true'
+        if: steps.published.outputs.cache-hit != 'true'
         run: |
-          cp package.json .workflow-cache/package.json
+          mkdir -p .publish-cache
+          cp package.json .publish-cache/package.json

@@ -1,21 +1,24 @@
 name: Build
 
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - "main"
-  pull_request:
-    branches:
-      - "main"
+  workflow_call:
+    outputs:
+      publish:
+        description: "Indicates if the project should be published to NPM"
+        value: ${{ jobs.build.outputs.publish }}
 
 jobs:
   build:
-    name: Build
+    name: Projects
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package: [server, staff, web]
     concurrency:
-      group: build
+      group: ${{ github.workflow }} - ${{ matrix.package }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}
       cancel-in-progress: true
+    outputs:
+      publish: ${{ steps.do-publish.outputs.publish }}
 
     steps:
       - uses: actions/checkout@v3
@@ -23,12 +26,39 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: 'npm'
+      - name: Calculating Hash
+        run: |
+          echo "TURBO_VERSION=$( npm show turbo version )" >> $GITHUB_ENV
+          echo "NPM_GLOBAL_MODULES=$( npm root -g )" >> $GITHUB_ENV
+          echo "TURBO_HASH=$( npx --yes turbo run build --dry --only --filter=@kenthackenough/${{ matrix.package }} | grep = | grep Hash | tail -1 | cut -f2- -d= | xargs )" >> $GITHUB_ENV
+      - uses: actions/cache@v3
+        name: Cache - Turbo
+        id: turbo-cache
+        with:
+          path: |
+            .turbo
+            ${{ github.workspace }}/projects/*/.next/cache
+          key: cache-turbo-build-${{ matrix.package }}-${{ hashFiles('package-lock.json') }}-${{ env.TURBO_HASH }}
+          restore-keys: |
+            cache-turbo-build-${{ matrix.package }}-${{ hashFiles('package-lock.json') }}-
+      - name: Validate Hash
+        run: |
+          echo "FULL_TURBO=$( $(find .turbo -iname "${{ env.TURBO_HASH }}-*" | grep ${{ env.TURBO_HASH }}) && echo 'yes' || echo 'no' )" >> $GITHUB_ENV
+      - uses: actions/cache@v3
+        name: Cache - NPM
+        id: npm-cache
+        with:
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/node_modules
+            ${{ github.workspace }}/package.json
+            ${{ github.workspace }}/github/scripts/*/node_modules
+            ${{ github.workspace }}/*/*/node_modules
+          key: cache-npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            cache-npm-
       - name: Installing Dependencies
-        run: npm install
-      - name: Building - Server
-        run: npm run build --filter=@kenthackenough/server
-      - name: Building - Staff
-        run: npm run build --filter=@kenthackenough/staff
-      - name: Building - Web
-        run: npm run build --filter=@kenthackenough/web
+        if: ${{ env.FULL_TURBO == 'no' }}
+        run: npm install --no-audit --no-fund
+      - name: Building
+        run: npm run build -- --cache-dir=.turbo --only --filter=@kenthackenough/${{ matrix.package }}

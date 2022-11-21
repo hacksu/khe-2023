@@ -1,9 +1,9 @@
 {
-  "extends": "@kenthackenough/tsconfig/tsconfig.react.json",
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "moduleResolution": "nodenext",
-    "noEmit": true,
-    "incremental": true
+    "rootDir": "./src",
+    "outDir": "./dist"
   },
   "include": [
     "next-env.d.ts",

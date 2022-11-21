@@ -1,0 +1,30 @@
+name: CI/CD
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "actions-improvements"
+
+jobs:
+  lint:
+    name: Lint
+    uses: hacksu/khe-2023/.github/workflows/lint.yml@actions-improvements
+
+  build:
+    name: Build
+    needs: [lint]
+    uses: hacksu/khe-2023/.github/workflows/build.yml@actions-improvements
+
+  prepublish:
+    name: Publish
+    needs: [lint]
+    uses: hacksu/khe-2023/.github/workflows/prepublish.yml@actions-improvements
+
+  publish:
+    name: Publish
+    if: github.ref == 'refs/heads/main' && needs.prepublish.outputs.publish == 'true'
+    needs: [build, prepublish]
+    uses: hacksu/khe-2023/.github/workflows/publish.yml@actions-improvements
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

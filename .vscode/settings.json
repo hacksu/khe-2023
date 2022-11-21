@@ -13,14 +13,15 @@
         { "icon": "client", "extensions": ["website"] },
         { "icon": "github", "extensions": ["github"] },
         { "icon": "node", "extensions": ["npm"] },
+        { "icon": "electron", "extensions": ["react"] },
     ],
     "vsicons.associations.files": [
         { "icon": "nginx", "extensions": ["template"] },
         { "icon": "tsconfig", "extensions": [
-            "tsconfig/base.json",
-            "tsconfig/next.json",
-            "tsconfig/node.json",
-            "tsconfig/react.json"
+            "tsconfig/tsconfig.base.json",
+            "tsconfig/tsconfig.next.json",
+            "tsconfig/tsconfig.node.json",
+            "tsconfig/tsconfig.react.json"
         ], "filename": true },
         {
             "icon": "tsconfig",
@@ -30,7 +31,7 @@
     ],
     "files.associations": {
         "**/nginx/**/*.template": "nginx",
-        "**/.env.local": "env"
+        "**/.env.local": "env",
     },
     "typescript.preferences.importModuleSpecifierEnding": "minimal",
     "files.exclude": {

@@ -4,6 +4,9 @@
  * - Incorporates reverse proxies for development mode
  */
 
+console.time('server ready');
+console.log('starting...');
+
 import './config';
 import './utils/mongo';
 import './services/permissions';
@@ -130,4 +133,6 @@ process.on('SIGTERM', () => {
 
 
 /** Start the server on the specified port */
-server.listen(port);
+server.listen(port, () => {
+    console.timeEnd('server ready');
+});
