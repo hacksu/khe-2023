@@ -26,16 +26,21 @@ jobs:
           echo "NPM_GLOBAL_MODULES=$( npm root -g )" >> $GITHUB_ENV
           echo "TURBO_HASH=$( npx --yes turbo run lint --dry --only --filter=@kenthackenough/${{ matrix.package }} | grep = | grep Hash | tail -1 | cut -f2- -d= | cut -c 2- )" >> $GITHUB_ENV
       - uses: actions/cache@v3
-        name: Cache - Turbo (${{ env.TURBO_HASH }})
+        name: Cache - Turbo
         id: turbo-cache
         with:
           path: |
             .turbo
-          key: cache-turbo-${{ env.TURBO_HASH }}
+          key: cache-turbo-${{ hashFiles('package-lock.json') }}-${{ env.TURBO_HASH }}
           restore-keys: |
-            cache-turbo-
+            cache-turbo-${{ hashFiles('package-lock.json') }}-
+      - name: Validate Hash ${{ env.TURBO_HASH }}
+        run: |
+          echo "FULL_TURBO=$( find .turbo -iname "${{ env.TURBO_HASH }}-*" | grep ${{ env.TURBO_HASH }} && "yes" || "no" )" >> $GITHUB_ENV
+          echo "NPM_GLOBAL_MODULES=$( npm root -g )" >> $GITHUB_ENV
       - uses: actions/cache@v3
         name: Cache - NPM
+        if: ${{ env.FULL_TURBO == 'no' }}
         id: npm-cache
         with:
           path: |
@@ -49,8 +54,7 @@ jobs:
           restore-keys: |
             cache-check-${{ matrix.package }}-${{ github.ref_name }}-
       - name: Installing Dependencies
+        if: ${{ env.FULL_TURBO == 'no' }}
         run: npm install --no-audit --no-fund
-      - name: Turbo - ${{ matrix.package }}
-        run: npm run lint -- --cache-dir=.turbo --dry --only --filter=@kenthackenough/${{ matrix.package }}
       - name: Linting - ${{ matrix.package }}
         run: npm run lint -- --cache-dir=.turbo --only --filter=@kenthackenough/${{ matrix.package }}
