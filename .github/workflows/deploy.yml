@@ -2,22 +2,27 @@ name: Deploy
 
 on:
   workflow_call:
-    secrets:
-      HOST:
+    inputs:
+      host:
         required: true
         description: 'Server to SSH into'
-      USER:
-        required: true
+      user:
+        required: false
+        type: string
+        default: 'root'
         description: 'User to SSH into the host with'
-      PORT:
-        required: true
+      port:
+        required: false
+        type: number
+        default: 22
         description: 'Port that SSH is running on'
+      directory:
+        required: true
+        description: 'Directory to execute commands within'
+    secrets:
       KEY:
         required: true
         description: 'SSH Key to authenticate with'
-      DIR:
-        required: true
-        description: 'Directory to execute commands within'
   workflow_dispatch:
   push:
     branches:
@@ -36,12 +41,12 @@ jobs:
       - name: Execute Commands
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ inputs.HOST }}
-          port: ${{ inputs.PORT }}
-          username: ${{ inputs.USER }}
-          key: ${{ inputs.KEY }}
+          host: ${{ inputs.host }}
+          port: ${{ inputs.port }}
+          username: ${{ inputs.user }}
+          key: ${{ secrets.KEY }}
           script: |
-            cd ${{ inputs.DIR }}
+            cd ${{ inputs.directory }}
             whoami
             pwd
             ls
