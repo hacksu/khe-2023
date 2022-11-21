@@ -8,6 +8,7 @@ on:
         description: 'Server to SSH into'
       user:
         required: false
+        type: string
         default: 'root'
         description: 'User to SSH into the host with'
       port:
