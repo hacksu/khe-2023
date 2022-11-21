@@ -11,7 +11,40 @@ on:
       - main
 
 jobs:
-  Prepare:
+  prepare:
     name: Prepare
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call' || contains(github.event.head_commit.message, '@deploy'))
+
+  install:
+    name: Install
+    needs: prepare
+    runs-on: ubuntu-latest
+    # Run commands to git fetch & install dependencies on the server
+    steps:
+      - name: Install
+        run: echo "Run commands to git fetch & install dependencies on the server"
+
+  build:
+    name: Build
+    needs: install
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: [server, staff, web]
+    # Run .github/scripts/server/deploy/${{ matrix.project }}.sh script on server
+    steps:
+      - name: Install
+        run: echo "Run .github/scripts/server/deploy/${{ matrix.project }}.sh script on server"
+
+  status:
+    name: Healthcheck
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: [server, staff, web]
+    # do `pm2 show ${{ matrix.project }}`
+    steps:
+      - name: Install
+        run: echo "do `pm2 show ${{ matrix.project }}`"
