@@ -20,25 +20,36 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
+      - name: Calculating Hash
+        run: |
+          echo "TURBO_VERSION=$( npm show turbo version )" >> $GITHUB_ENV
+          echo "NPM_GLOBAL_MODULES=$( npm root -g )" >> $GITHUB_ENV
+          echo "TURBO_HASH=$( npx --yes turbo run lint --dry --only --filter=@kenthackenough/${{ matrix.package }} | grep = | grep Hash | cut -f2- -d= | cut -c 2- )" >> $GITHUB_ENV
       - uses: actions/cache@v3
-        name: Cache
-        id: npm-cache
+        name: Cache - Turbo
+        id: turbo-cache
         with:
           path: |
             .turbo
+          key: cache-turbo-${{ env.TURBO_HASH }}
+          restore-keys: |
+            cache-turbo-
+      - uses: actions/cache@v3
+        name: Cache - NPM
+        id: npm-cache
+        with:
+          path: |
             ${{ github.workspace }}/projects/*/.next/cache
             ~/.npm
             ${{ github.workspace }}/node_modules
             ${{ github.workspace }}/package.json
             ${{ github.workspace }}/github/scripts/*/node_modules
-            ${{ github.workspace }}/library/*/node_modules
-            ${{ github.workspace }}/projects/*/node_modules
             ${{ github.workspace }}/*/*/node_modules
           key: cache-check-${{ matrix.package }}-${{ github.ref_name }}-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             cache-check-${{ matrix.package }}-${{ github.ref_name }}-
       - name: Installing Dependencies
-        run: npm install
+        run: npm install --no-audit --no-fund
       - name: Turbo - ${{ matrix.package }}
         run: npm run lint -- --cache-dir=.turbo --dry --only --filter=@kenthackenough/${{ matrix.package }}
       - name: Building - ${{ matrix.package }}
