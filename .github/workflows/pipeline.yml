@@ -16,10 +16,15 @@ jobs:
     needs: [lint]
     uses: hacksu/khe-2023/.github/workflows/build.yml@actions-improvements
 
+  prepublish:
+    name: Check Publish
+    needs: [lint]
+    uses: hacksu/khe-2023/.github/workflows/prepublish.yml@actions-improvements
+
   publish:
     name: Publish
-    if: github.ref == 'refs/heads/actions-improvements' && needs.build.outputs.publish == 'true'
-    needs: [build]
+    if: github.ref == 'refs/heads/actions-improvements' && needs.prepublish.outputs.publish == 'true'
+    needs: [build, prepublish]
     uses: hacksu/khe-2023/.github/workflows/publish.yml@actions-improvements
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
