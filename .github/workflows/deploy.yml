@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       host:
-        required: true
+        required: false
         description: 'Server to SSH into'
       user:
         required: false
@@ -15,11 +15,16 @@ on:
         default: '22'
         description: 'Port that SSH is running on'
       key:
-        required: true
+        required: false
         description: 'SSH Key to authenticate with'
       directory:
         required: true
         description: 'Directory to execute commands within'
+    secrets:
+      host:
+        required: true
+      key:
+        required: true
   # workflow_dispatch:
   # push:
   #   branches:

@@ -27,9 +27,10 @@ jobs:
     if: github.ref == 'refs/heads/deployment' && (true || github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '@deploy'))
     needs: [build]
     uses: hacksu/khe-2023/.github/workflows/deploy.yml@deployment
-    with:
+    secrets:
       host: ${{ secrets.KHE_DEV_HOST }} 
       key: ${{ secrets.KHE_DEV_KEY }}
+    with:
       directory: /opt/khe/khe-2023
       
 
