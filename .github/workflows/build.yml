@@ -18,7 +18,7 @@ jobs:
       group: ${{ github.workflow }} - ${{ matrix.package }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}
       cancel-in-progress: true
     outputs:
-      publish: ${{ steps.step1.outputs.firstword }}
+      publish: ${{ steps.do-publish.outputs.publish }}
 
     steps:
       - uses: actions/checkout@v3
@@ -57,7 +57,7 @@ jobs:
           key: cache-npm-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             cache-npm-
-            
+
       - name: Get Version
         id: get-version
         run: echo "PACKAGE_VERSION=$(node .github/scripts/github/get-version)" >> $GITHUB_OUTPUT
