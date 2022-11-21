@@ -123,14 +123,14 @@ glob(__cwd + '/**/package.json', {
         updatePackage(pkg);
     }
 
-    if (changedFiles.size > 0 && !DRY && process.env.npm_lifecycle_event !== 'deploy' ) {
+    if (changedFiles.size > 0 && !DRY) {
         execSync(`git commit ${[...changedFiles].map(o => relative(__cwd, o)).join(' ')} -m "Updated Package Versions to v${version}"`);
     }
 
     // console.log({ latest, [increment]: increment ? semver.inc(latest, increment) : latest });
 
-    // if (process.env.npm_lifecycle_event === 'deploy' && !DRY) {
-    if (process.argv.find(o => o.includes('postversion')) && !DRY) {
+    if (process.env.npm_lifecycle_event === 'deploy' && !DRY) {
+    // if (process.argv.find(o => o.includes('postversion')) && !DRY) {
         execSync(`git commit --allow-empty -m '@deploy' && git push`);
     }
 
