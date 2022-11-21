@@ -8,4 +8,10 @@ on:
 
 jobs:
   lint:
-    uses: hacksu/khe-2023/.github/workflows/test.yml@actions-improvements
+    name: Lint
+    uses: hacksu/khe-2023/.github/workflows/actions/lint.yml@actions-improvements
+
+  build:
+    name: Build
+    needs: [lint]
+    uses: hacksu/khe-2023/.github/workflows/actions/build.yml@actions-improvements
