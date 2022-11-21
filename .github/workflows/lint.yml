@@ -31,13 +31,6 @@ jobs:
         with:
           path: |
             .turbo
-            ${{ github.workspace }}/node_modules/cross-env
-            ${{ github.workspace }}/node_modules/cross-spawn
-            ${{ github.workspace }}/node_modules/isexe
-            ${{ github.workspace }}/node_modules/path-key
-            ${{ github.workspace }}/node_modules/shebang-command
-            ${{ github.workspace }}/node_modules/shebang-regex
-            ${{ github.workspace }}/node_modules/which
           key: cache-turbo-${{ hashFiles('package-lock.json') }}-${{ env.TURBO_HASH }}
           restore-keys: |
             cache-turbo-${{ hashFiles('package-lock.json') }}-
@@ -47,7 +40,6 @@ jobs:
           echo "NPM_GLOBAL_MODULES=$( npm root -g )" >> $GITHUB_ENV
       - uses: actions/cache@v3
         name: Cache - NPM
-        if: ${{ env.FULL_TURBO == 'no' }}
         id: npm-cache
         with:
           path: |
