@@ -27,9 +27,9 @@ on:
         description: 'Directory to execute commands within'
     secrets:
       host:
-        required: false
+        required: true
       key:
-        required: false
+        required: true
   # workflow_dispatch:
   # push:
   #   branches:
@@ -45,19 +45,19 @@ jobs:
     steps:
       - name: Debug
         run: echo "Run commands to git fetch & install dependencies on the server"
-      # - name: Execute Commands
-      #   uses: appleboy/ssh-action@master
-      #   with:
-      #     host: ${{ inputs.host }}
-      #     port: ${{ inputs.port }}
-      #     username: ${{ inputs.user }}
-      #     key: ${{ inputs.key }}
-      #     script: |
-      #       cd ${{ inputs.directory }}
-      #       whoami
-      #       pwd
-      #       ls
-      #       exit
+      - name: Execute Commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.host }}
+          port: ${{ inputs.port }}
+          username: ${{ inputs.user }}
+          key: ${{ secrets.keyy }}
+          script: |
+            cd ${{ inputs.directory }}
+            whoami
+            pwd
+            ls
+            exit
 
 
   build:
