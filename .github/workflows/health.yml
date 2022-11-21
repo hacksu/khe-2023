@@ -1,0 +1,21 @@
+name: Health
+
+on:
+  workflow_call:
+    secrets:
+      NPM_TOKEN:
+        required: true
+  workflow_dispatch:
+
+jobs:
+
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: [server, staff, web]
+    # do `pm2 show ${{ matrix.project }}`
+    steps:
+      - name: Debug
+        run: echo "do pm2 show ${{ matrix.project }}"

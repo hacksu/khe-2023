@@ -34,3 +34,11 @@ jobs:
     uses: hacksu/khe-2023/.github/workflows/deploy.yml@deployment
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  health:
+    name: Health
+    needs: [build, publish, deploy]
+    if: ${{ always() }}
+    uses: hacksu/khe-2023/.github/workflows/health.yml@deployment
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

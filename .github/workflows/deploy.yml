@@ -32,15 +32,3 @@ jobs:
     steps:
       - name: Debug
         run: echo "Run .github/scripts/server/deploy/${{ matrix.project }}.sh script on server"
-
-  status:
-    name: Healthcheck
-    needs: build
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        project: [server, staff, web]
-    # do `pm2 show ${{ matrix.project }}`
-    steps:
-      - name: Debug
-        run: echo "do `pm2 show ${{ matrix.project }}`"
