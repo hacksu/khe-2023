@@ -2,10 +2,6 @@ name: Deploy
 
 on:
   workflow_call:
-    secrets:
-      KEY:
-        required: true
-        description: 'SSH Key to authenticate with'
     inputs:
       host:
         required: true
@@ -21,6 +17,9 @@ on:
         type: number
         default: 22
         description: 'Port that SSH is running on'
+      key:
+        required: true
+        description: 'SSH Key to authenticate with'
       directory:
         required: true
         type: string
@@ -46,7 +45,7 @@ jobs:
           host: ${{ inputs.host }}
           port: ${{ inputs.port }}
           username: ${{ inputs.user }}
-          key: ${{ secrets.KEY }}
+          key: ${{ inputs.key }}
           script: |
             cd ${{ inputs.directory }}
             whoami
