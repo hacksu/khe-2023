@@ -2,9 +2,14 @@ name: Deploy
 
 on:
   workflow_call:
+    secrets:
+      KEY:
+        required: true
+        description: 'SSH Key to authenticate with'
     inputs:
       host:
         required: true
+        type: string
         description: 'Server to SSH into'
       user:
         required: false
@@ -18,11 +23,8 @@ on:
         description: 'Port that SSH is running on'
       directory:
         required: true
+        type: string
         description: 'Directory to execute commands within'
-    secrets:
-      KEY:
-        required: true
-        description: 'SSH Key to authenticate with'
   workflow_dispatch:
   push:
     branches:
