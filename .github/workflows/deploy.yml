@@ -7,22 +7,16 @@ on:
         required: true
         description: 'Server to SSH into'
       user:
-        required: false
-        default: 'root'
-        type: string
+        required: true
         description: 'User to SSH into the host with'
       port:
-        required: false
-        type: number
-        default: 22
+        required: true
         description: 'Port that SSH is running on'
       key:
         required: true
-        type: string
         description: 'SSH Key to authenticate with'
       dir:
         required: true
-        type: string
         description: 'Directory to execute commands within'
   workflow_dispatch:
   push:
