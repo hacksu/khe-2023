@@ -14,11 +14,6 @@ jobs:
     needs: [lint]
     uses: hacksu/khe-2023/.github/workflows/build.yml@deployment
 
-  # prepublish:
-  #   name: Publish
-  #   needs: [lint]
-  #   uses: hacksu/khe-2023/.github/workflows/prepublish.yml@deployment
-
   publish:
     name: Publish
     if: github.ref == 'refs/heads/main' && needs.build.outputs.publish == 'true'
@@ -32,7 +27,6 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/deployment' && (true || github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '@deploy'))
     needs: [build]
-    # uses: hacksu/khe-2023/.github/workflows/deploy.yml@deployment
     uses: ./.github/workflows/deploy.yml
     secrets:
       host: ${{ secrets.KHE_DEV_HOST }} 
