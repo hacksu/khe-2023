@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-      - name: Calculating Hash - ${{ env.TURBO_HASH || "Loading..." }}
+      - name: Calculating Hash - ${{ env.TURBO_HASH }}
         run: |
           echo "TURBO_VERSION=$( npm show turbo version )" >> $GITHUB_ENV
           echo "NPM_GLOBAL_MODULES=$( npm root -g )" >> $GITHUB_ENV
