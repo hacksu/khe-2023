@@ -33,6 +33,7 @@ jobs:
             ${{ github.workspace }}/github/scripts/*/node_modules
             ${{ github.workspace }}/library/*/node_modules
             ${{ github.workspace }}/projects/*/node_modules
+            ${{ github.workspace }}/*/*/node_modules
           key: turbo-${{ github.job }}-${{ github.ref_name }}-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             npm-${{ github.job }}-${{ github.ref_name }}-
