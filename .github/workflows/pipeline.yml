@@ -17,7 +17,7 @@ jobs:
     uses: hacksu/khe-2023/.github/workflows/build.yml@actions-improvements
 
   prepublish:
-    name: Check Publish
+    name: Publish
     needs: [lint]
     uses: hacksu/khe-2023/.github/workflows/prepublish.yml@actions-improvements
 
