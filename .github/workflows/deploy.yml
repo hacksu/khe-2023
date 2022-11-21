@@ -51,7 +51,7 @@ jobs:
           host: ${{ secrets.host }}
           port: ${{ inputs.port }}
           username: ${{ inputs.user }}
-          key: ${{ secrets.keyy }}
+          key: ${{ secrets.key }}
           script: |
             cd ${{ inputs.directory }}
             whoami
