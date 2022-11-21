@@ -1,22 +1,17 @@
 name: Deploy
 
 on:
+  workflow_call:
+    secrets:
+      NPM_TOKEN:
+        required: true
   workflow_dispatch:
   push:
     branches:
       - main
 
 jobs:
-  publish:
-    name: Deploy
-    if: github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '@deploy'))
+  Prepare:
+    name: Prepare
     runs-on: ubuntu-latest
-    concurrency:
-      group: deploy
-      cancel-in-progress: true
-    steps:
-      - uses: actions/checkout@v3
-      - name: Get Version
-        id: get-version
-        run: echo "PACKAGE_VERSION=$(node .github/scripts/github/get-version)" >> $GITHUB_OUTPUT
-        
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call' || contains(github.event.head_commit.message, '@deploy'))

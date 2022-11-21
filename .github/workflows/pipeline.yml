@@ -26,3 +26,11 @@ jobs:
     uses: hacksu/khe-2023/.github/workflows/publish.yml@actions-improvements
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  deploy:
+    name: Deploy
+    if: github.ref == 'refs/heads/deployment' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '@deploy'))
+    needs: [build, prepublish]
+    uses: hacksu/khe-2023/.github/workflows/deploy.yml@actions-improvements
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
