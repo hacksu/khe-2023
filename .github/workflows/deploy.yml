@@ -12,7 +12,7 @@ on:
         description: 'User to SSH into the host with'
       port:
         required: false
-        default: 22
+        default: '22'
         description: 'Port that SSH is running on'
       key:
         required: true
