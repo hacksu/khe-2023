@@ -24,10 +24,10 @@ on:
         required: true
         type: string
         description: 'Directory to execute commands within'
-  workflow_dispatch:
-  push:
-    branches:
-      - main
+  # workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main
 
 jobs:
 
