@@ -28,6 +28,14 @@ jobs:
           key: turbo-${{ github.job }}-${{ github.ref_name }}-${{ github.sha }}
           restore-keys: |
             turbo-${{ github.job }}-${{ github.ref_name }}-
+      - uses: actions/cache@v3
+        id: next-cache
+        with:
+          path: |
+            ${{ github.workspace }}/projects/*/.next/cache
+          key: next-${{ github.job }}-${{ github.ref_name }}-${{ github.sha }}
+          restore-keys: |
+            next-${{ github.job }}-${{ github.ref_name }}-
       - name: Installing Dependencies
         run: npm install
       - name: Linting - ${{ matrix.package }}
