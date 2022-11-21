@@ -32,13 +32,13 @@ jobs:
     if: github.ref == 'refs/heads/deployment' && (true || github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '@deploy'))
     needs: [build]
     uses: hacksu/khe-2023/.github/workflows/deploy.yml@deployment
+    secrets:
+      KEY: ${{ secrets.KHE_DEV_KEY }}
     with:
       directory: /opt/khe/khe-2023
       host: ${{ secrets.KHE_DEV_HOST }}
       user: root
       port: 22
-    secrets:
-      KEY: ${{ secrets.KHE_DEV_KEY }}
 
   health:
     name: Health
