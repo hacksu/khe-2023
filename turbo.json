@@ -3,14 +3,17 @@
     "pipeline": {
         "build": {
             "dependsOn": ["^build"],
-            "outputs": [".next/**", "dist/**"]
+            "outputs": [".next/**", "dist/**"],
+            "cache": true,
+            "inputs": ["src/**/*.tsx", "src/**/*.ts", "next.config.mjs"]
         },
         "dev": {
             "cache": false,
             "outputMode": "none"
         },
         "lint": {
-            "cache": true
+            "cache": true,
+            "inputs": ["src/**/*.tsx", "src/**/*.ts", "next.config.mjs"]
         },
         "start": {
             "dependsOn": ["build"]
