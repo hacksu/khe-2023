@@ -14,7 +14,6 @@ jobs:
 
   install:
     name: Install
-    needs: prepare
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/deployment' && (github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call' || contains(github.event.head_commit.message, '@deploy'))
     # Run commands to git fetch & install dependencies on the server
