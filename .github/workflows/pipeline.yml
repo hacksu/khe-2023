@@ -16,9 +16,17 @@ jobs:
     needs: [lint]
     uses: hacksu/khe-2023/.github/workflows/build.yml@actions-improvements
 
+  publish-debug:
+    name: Publish - Debug
+    if: github.ref == 'refs/heads/actions-improvements'
+    needs: [build]
+    steps:
+      - name: Test
+        run: echo ${{ needs.build.outputs.publish }}
+
   publish:
     name: Publish
-    if: github.ref == 'refs/heads/actions-improvements'
+    if: github.ref == 'refs/heads/actions-improvements' && needs.build.outputs.publish
     needs: [build]
     uses: hacksu/khe-2023/.github/workflows/publish.yml@actions-improvements
     secrets:
