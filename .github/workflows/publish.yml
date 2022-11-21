@@ -84,4 +84,6 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Copy Package.json to cache
         if: steps.published.outputs.cache-hit != 'true'
-        run: cp package.json .publish-cache/package.json
+        run: |
+          mkdir -p .publish-cache
+          cp package.json .publish-cache/package.json
