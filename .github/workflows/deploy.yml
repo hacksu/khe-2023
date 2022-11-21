@@ -57,10 +57,7 @@ jobs:
           username: ${{ secrets.user || inputs.user }}
           key: ${{ secrets.key || inputs.key }}
           script_stop: true
-          script: |
-            cd ${{ inputs.directory }}
-            whoami
-            exit
+          script: cd ${{ inputs.directory }} && whoami && exit
       - name: Execute Commands 2
         uses: appleboy/ssh-action@master
         with:
