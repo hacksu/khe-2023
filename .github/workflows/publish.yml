@@ -72,7 +72,7 @@ jobs:
           restore-keys: |
             cache-npm-
       - name: Installing Dependencies
-        if: steps.published.outputs.cache-hit != 'true' && ${{ env.FULL_TURBO == 'no' }}
+        if: steps.published.outputs.cache-hit != 'true' || ${{ env.FULL_TURBO == 'no' }}
         run: npm install --no-audit --no-fund
       - name: Building
         if: steps.published.outputs.cache-hit != 'true'

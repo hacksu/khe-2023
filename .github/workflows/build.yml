@@ -2,6 +2,10 @@ name: Build
 
 on:
   workflow_call:
+    outputs:
+      publish:
+        description: "Indicates if the project should be published to NPM"
+        value: ${{ jobs.build.outputs.publish }}
 
 jobs:
   build:
@@ -13,6 +17,8 @@ jobs:
     concurrency:
       group: ${{ github.workflow }} - ${{ matrix.package }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}
       cancel-in-progress: true
+    outputs:
+      publish: ${{ steps.step1.outputs.firstword }}
 
     steps:
       - uses: actions/checkout@v3
@@ -51,6 +57,25 @@ jobs:
           key: cache-npm-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             cache-npm-
+            
+      - name: Get Version
+        id: get-version
+        run: echo "PACKAGE_VERSION=$(node .github/scripts/github/get-version)" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v3
+        id: prepublished
+        with:
+          key: cache-prepublish-${{ matrix.package }}-${{ steps.get-version.outputs.PACKAGE_VERSION }}
+          path: |
+            .prepublish-cache
+      - name: Check Publish
+        id: do-publish
+        run: echo "publish=${{steps.prepublished.outputs.cache-hit != 'true'}}" >> $GITHUB_OUTPUT
+      - name: Copy Package.json to cache
+        if: steps.prepublished.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p .prepublish-cache
+          cp package.json .prepublish-cache/package.json
+
       - name: Installing Dependencies
         if: ${{ env.FULL_TURBO == 'no' }}
         run: npm install --no-audit --no-fund
