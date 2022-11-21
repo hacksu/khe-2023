@@ -15,6 +15,9 @@ jobs:
     name: Prepare
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/deployment' && (github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call' || contains(github.event.head_commit.message, '@deploy'))
+    steps:
+      - name: Debug
+        run: echo "to be determined"
 
   install:
     name: Install
@@ -22,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     # Run commands to git fetch & install dependencies on the server
     steps:
-      - name: Install
+      - name: Debug
         run: echo "Run commands to git fetch & install dependencies on the server"
 
   build:
@@ -34,7 +37,7 @@ jobs:
         project: [server, staff, web]
     # Run .github/scripts/server/deploy/${{ matrix.project }}.sh script on server
     steps:
-      - name: Install
+      - name: Debug
         run: echo "Run .github/scripts/server/deploy/${{ matrix.project }}.sh script on server"
 
   status:
@@ -46,5 +49,5 @@ jobs:
         project: [server, staff, web]
     # do `pm2 show ${{ matrix.project }}`
     steps:
-      - name: Install
+      - name: Debug
         run: echo "do `pm2 show ${{ matrix.project }}`"
