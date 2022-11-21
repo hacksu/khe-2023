@@ -29,7 +29,6 @@ jobs:
         id: turbo-cache
         with:
           path: |
-            .turbo
             ${{ env.NPM_GLOBAL_MODULES }}/turbo
           key: cache-turbo-${{ env.TURBO_VERSION }}
           restore-keys: |
@@ -37,7 +36,16 @@ jobs:
       - name: Calculating Hash
         run: echo "TURBO_HASH=$( npx --yes turbo run lint --dry --only --filter=@kenthackenough/${{ matrix.package }} | grep = | grep Hash | cut -f2- -d= | cut -c 2- )" >> $GITHUB_ENV
       - uses: actions/cache@v3
-        name: Cache - NPM - ${{ env.TURBO_HASH }}
+        name: Cache - Turbo2
+        id: turbo-.cache
+        with:
+          path: |
+            .turbo
+          key: cache-.turbo-${{ env.TURBO_CACHE }}
+          restore-keys: |
+            cache-.turbo-
+      - uses: actions/cache@v3
+        name: Cache - NPM
         id: npm-cache
         with:
           path: |
