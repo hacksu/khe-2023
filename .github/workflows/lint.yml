@@ -22,6 +22,19 @@ jobs:
           node-version: 16.x
           cache: 'npm'
       - uses: actions/cache@v3
+        name: Cache - NPM
+        id: npm-cache
+        with:
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/node_modules
+            ${{ github.workspace }}/github/scripts/*/node_modules
+            ${{ github.workspace }}/library/*/node_modules
+            ${{ github.workspace }}/projects/*/node_modules
+          key: turbo-${{ github.job }}-${{ github.ref_name }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            npm-${{ github.job }}-${{ github.ref_name }}-
+      - uses: actions/cache@v3
         name: Cache - Turbo
         id: turbo-cache
         with:

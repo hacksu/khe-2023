@@ -40,5 +40,5 @@ jobs:
             next-${{ github.job }}-${{ github.ref_name }}
       - name: Installing Dependencies
         run: npm install
-      - name: Linting - ${{ matrix.package }}
+      - name: Building - ${{ matrix.package }}
         run: npm run build -- --only --cache-dir=.turbo --filter=@kenthackenough/${{ matrix.package }}
