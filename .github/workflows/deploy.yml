@@ -27,9 +27,9 @@ on:
         description: 'Directory to execute commands within'
     secrets:
       host:
-        required: true
+        required: false
       key:
-        required: true
+        required: false
   # workflow_dispatch:
   # push:
   #   branches:

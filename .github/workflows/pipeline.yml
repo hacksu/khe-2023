@@ -28,10 +28,10 @@ jobs:
     needs: [build]
     uses: hacksu/khe-2023/.github/workflows/deploy.yml@deployment
     secrets:
-      host: ${{ secrets.KHE_DEV_HOST }} 
       key: ${{ secrets.KHE_DEV_KEY }}
     with:
       directory: /opt/khe/khe-2023
+      host: ${{ secrets.KHE_DEV_HOST }} 
       
 
   health:
