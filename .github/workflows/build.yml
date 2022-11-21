@@ -65,7 +65,7 @@ jobs:
   
 
   prepublish:
-    name: Version
+    name: Check Version
     runs-on: ubuntu-latest
     concurrency:
       group: ${{ github.workflow }} - ${{ matrix.package }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}
