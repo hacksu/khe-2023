@@ -1,15 +1,19 @@
-name: Build
+name: Lint
 
 on:
-  workflow_call:
+  workflow_dispatch:
+  push:
+    branches-ignore:
+      - "main"
+      - "actions-improvements"
 
 jobs:
-  build:
-    name: Build
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        package: [server, staff, web]
+        package: [react, server, staff, web]
     concurrency:
       group: ${{ github.workflow }} - ${{ matrix.package }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}
       cancel-in-progress: true
@@ -31,4 +35,4 @@ jobs:
       - name: Installing Dependencies
         run: npm install
       - name: Linting - ${{ matrix.package }}
-        run: npm run build --cache-dir=.turbo --filter=@kenthackenough/${{ matrix.package }}
+        run: npm run lint --cache-dir=.turbo --filter=@kenthackenough/${{ matrix.package }}

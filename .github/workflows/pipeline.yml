@@ -9,9 +9,9 @@ on:
 jobs:
   lint:
     name: Lint
-    uses: hacksu/khe-2023/.github/workflows/actions/lint.yml@actions-improvements
+    uses: hacksu/khe-2023/.github/workflows/lint.yml@actions-improvements
 
   build:
     name: Build
     needs: [lint]
-    uses: hacksu/khe-2023/.github/workflows/actions/build.yml@actions-improvements
+    uses: hacksu/khe-2023/.github/workflows/build.yml@actions-improvements

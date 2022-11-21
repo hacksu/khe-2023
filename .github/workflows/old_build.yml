@@ -1,0 +1,34 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    concurrency:
+      group: build
+      cancel-in-progress: true
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: 'npm'
+      - name: Installing Dependencies
+        run: npm install
+      - name: Building - Server
+        run: npm run build --filter=@kenthackenough/server
+      - name: Building - Staff
+        run: npm run build --filter=@kenthackenough/staff
+      - name: Building - Web
+        run: npm run build --filter=@kenthackenough/web
