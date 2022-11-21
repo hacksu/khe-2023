@@ -34,9 +34,9 @@ jobs:
             ${{ github.workspace }}/library/*/node_modules
             ${{ github.workspace }}/projects/*/node_modules
             ${{ github.workspace }}/*/*/node_modules
-          key: cache-ci-${{ github.ref_name }}-${{ hashFiles('package-lock.json') }}
+          key: cache-ci-${{ matrix.package }}-${{ github.ref_name }}-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            cache-ci-${{ github.ref_name }}-
+            cache-ci-${{ matrix.package }}-${{ github.ref_name }}-
       - name: Installing Dependencies
         run: npm install
       - name: Building - ${{ matrix.package }}
