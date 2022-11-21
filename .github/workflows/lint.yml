@@ -37,7 +37,7 @@ jobs:
             cache-turbo-lint-${{ matrix.package }}-${{ hashFiles('package-lock.json') }}-
       - name: Validate Hash
         run: |
-          echo "FULL_TURBO=$( find .turbo -iname "${{ env.TURBO_HASH }}-*" | grep ${{ env.TURBO_HASH }} && echo yes || echo no )" >> $GITHUB_ENV
+          echo "FULL_TURBO=$( $(find .turbo -iname "${{ env.TURBO_HASH }}-*" | grep ${{ env.TURBO_HASH }}) && echo 'yes' || echo 'no' )" >> $GITHUB_ENV
       - uses: actions/cache@v3
         name: Cache - NPM
         id: npm-cache
