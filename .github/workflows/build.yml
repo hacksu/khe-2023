@@ -31,6 +31,7 @@ jobs:
         with:
           path: |
             .turbo
+            ${{ github.workspace }}/projects/*/.next/cache
           key: cache-turbo-build-${{ matrix.package }}-${{ hashFiles('package-lock.json') }}-${{ env.TURBO_HASH }}
           restore-keys: |
             cache-turbo-build-${{ matrix.package }}-${{ hashFiles('package-lock.json') }}-
@@ -43,15 +44,14 @@ jobs:
         id: npm-cache
         with:
           path: |
-            ${{ github.workspace }}/projects/*/.next/cache
             ~/.npm
             ${{ github.workspace }}/node_modules
             ${{ github.workspace }}/package.json
             ${{ github.workspace }}/github/scripts/*/node_modules
             ${{ github.workspace }}/*/*/node_modules
-          key: cache-check-build-${{ matrix.package }}-${{ github.ref_name }}-${{ hashFiles('package-lock.json') }}
+          key: cache-check-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            cache-check-build-${{ matrix.package }}-${{ github.ref_name }}-
+            cache-check-
       - name: Installing Dependencies
         if: ${{ env.FULL_TURBO == 'no' }}
         run: npm install --no-audit --no-fund
