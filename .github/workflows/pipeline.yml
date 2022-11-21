@@ -33,7 +33,11 @@ jobs:
     needs: [build]
     uses: hacksu/khe-2023/.github/workflows/deploy.yml@deployment
     secrets:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      DIR: /opt/khe/khe-2023
+      HOST: ${{ secrets.KHE_DEV_HOST }}
+      PORT: ${{ secrets.KHE_DEV_PORT }}
+      USER: ${{ secrets.KHE_DEV_USER }}
+      KEY: ${{ secrets.KHE_DEV_KEY }}
 
   health:
     name: Health
