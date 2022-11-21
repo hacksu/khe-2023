@@ -14,7 +14,7 @@ jobs:
       matrix:
         package: [react, server, staff, web]
     concurrency:
-      group: ${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}
+      group: ${{ github.workflow }} - ${{ matrix.package }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}
       cancel-in-progress: true
 
     steps:
