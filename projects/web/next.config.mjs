@@ -29,6 +29,8 @@ const nextConfig = {
     reactStrictMode: true,
     swcMinify: true,
 
+    distDir: process.env.BUILD_DIR || undefined,
+
     typescript: {
         ignoreBuildErrors: true,
     },
