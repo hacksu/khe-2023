@@ -35,19 +35,19 @@ jobs:
     steps:
       - name: Debug
         run: echo "Run commands to git fetch & install dependencies on the server"
-      - name: Execute Commands
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ inputs.host }}
-          port: ${{ inputs.port }}
-          username: ${{ inputs.user }}
-          key: ${{ inputs.key }}
-          script: |
-            cd ${{ inputs.directory }}
-            whoami
-            pwd
-            ls
-            exit
+      # - name: Execute Commands
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{ inputs.host }}
+      #     port: ${{ inputs.port }}
+      #     username: ${{ inputs.user }}
+      #     key: ${{ inputs.key }}
+      #     script: |
+      #       cd ${{ inputs.directory }}
+      #       whoami
+      #       pwd
+      #       ls
+      #       exit
 
 
   build:
