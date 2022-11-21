@@ -52,7 +52,7 @@ jobs:
           key: cache-check-lint-${{ matrix.package }}-${{ github.ref_name }}-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             cache-check-lint-${{ matrix.package }}-${{ github.ref_name }}-
-      - name: Installing Dependencies
+      - name: Installing Dependencies ${{ env.FULL_TURBO }}
         if: ${{ env.FULL_TURBO == 'no' }}
         run: npm install --no-audit --no-fund
       - name: Linting
