@@ -18,6 +18,7 @@ jobs:
 
   publish-debug:
     name: Publish - Debug
+    runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/actions-improvements'
     needs: [build]
     steps:
