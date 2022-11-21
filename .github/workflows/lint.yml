@@ -35,6 +35,8 @@ jobs:
           restore-keys: |
             cache-turbo-
       - name: Installing Turbo
+        run: npx --yes turbo --help
+      - name: Installing Turbo2
         run: npx --yes turbo --cache-dir=.turbo --dry --only --filter=@kenthackenough/${{ matrix.package }}
       - uses: actions/cache@v3
         name: Cache - NPM
