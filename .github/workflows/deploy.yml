@@ -9,6 +9,7 @@ on:
       user:
         required: false
         default: 'root'
+        type: string
         description: 'User to SSH into the host with'
       port:
         required: false
@@ -17,6 +18,7 @@ on:
         description: 'Port that SSH is running on'
       key:
         required: true
+        type: string
         description: 'SSH Key to authenticate with'
       dir:
         required: true
