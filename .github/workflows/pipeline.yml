@@ -24,7 +24,6 @@ jobs:
 
   deploy:
     name: Deploy
-    runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/deployment' && (true || github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '@deploy'))
     needs: [build]
     uses: hacksu/khe-2023/.github/workflows/deploy.yml@deployment
