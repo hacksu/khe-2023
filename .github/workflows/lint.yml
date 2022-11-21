@@ -22,6 +22,7 @@ jobs:
           node-version: 16.x
           cache: 'npm'
       - uses: actions/cache@v3
+        name: Cache - Turbo
         id: turbo-cache
         with:
           path: .turbo
@@ -29,6 +30,7 @@ jobs:
           restore-keys: |
             turbo-${{ github.job }}-${{ github.ref_name }}-
       - uses: actions/cache@v3
+        name: Cache - Next.js
         id: next-cache
         with:
           path: |
