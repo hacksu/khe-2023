@@ -24,26 +24,17 @@ jobs:
         run: echo "TURBO_VERSION=$( npm show turbo version )" >> $GITHUB_ENV
       - name: Get NPM Global Node_Modules
         run: echo "NPM_GLOBAL_MODULES=$( npm root -g )" >> $GITHUB_ENV
+      - name: Calculating Hash
+        run: echo "TURBO_HASH=$( npx --yes turbo run lint --dry --only --filter=@kenthackenough/${{ matrix.package }} | grep = | grep Hash | cut -f2- -d= | cut -c 2- )" >> $GITHUB_ENV
       - uses: actions/cache@v3
         name: Cache - Turbo
         id: turbo-cache
         with:
           path: |
-            ${{ env.NPM_GLOBAL_MODULES }}/turbo
-          key: cache-turbo-${{ env.TURBO_VERSION }}
+            .turbo
+          key: cache-turbo-${{ env.TURBO_HASH }}
           restore-keys: |
             cache-turbo-
-      - name: Calculating Hash
-        run: echo "TURBO_HASH=$( npx --yes turbo run lint --dry --only --filter=@kenthackenough/${{ matrix.package }} | grep = | grep Hash | cut -f2- -d= | cut -c 2- )" >> $GITHUB_ENV
-      - uses: actions/cache@v3
-        name: Cache - Turbo2
-        id: turbo-cache2
-        with:
-          path: |
-            .turbo
-          key: cache-.turbo2-${{ env.TURBO_CACHE }}
-          restore-keys: |
-            cache-turbo2-
       - uses: actions/cache@v3
         name: Cache - NPM
         id: npm-cache
