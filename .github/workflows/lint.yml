@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: 16.x
       - uses: actions/cache@v3
-        name: Cache - NPM
+        name: Cache
         id: npm-cache
         with:
           path: |
@@ -37,6 +37,6 @@ jobs:
           restore-keys: |
             npm-${{ github.job }}-${{ github.ref_name }}-
       - name: Installing Dependencies
-        run: npm install
+        run: npm install --loglevel verbose
       - name: Linting - ${{ matrix.package }}
         run: npm run lint -- --only --cache-dir=.turbo --filter=@kenthackenough/${{ matrix.package }}
