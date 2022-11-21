@@ -5,7 +5,7 @@ on:
 
 jobs:
   lint:
-    name: Lint
+    name: Packages
     runs-on: ubuntu-latest
     strategy:
       matrix:

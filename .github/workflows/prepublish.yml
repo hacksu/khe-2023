@@ -1,4 +1,4 @@
-name: Check Publish
+name: Publish
 
 on:
   workflow_call:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Check Publish
+    name: Check
     runs-on: ubuntu-latest
     concurrency:
       group: ${{ github.workflow }} - ${{ matrix.package }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}
