@@ -60,6 +60,7 @@ jobs:
           script: |
             cd ${{ inputs.directory }}
             whoami
+            exit
       - name: Execute Commands 2
         uses: appleboy/ssh-action@master
         with:
@@ -71,6 +72,7 @@ jobs:
           script: |
             cd ${{ inputs.directory }}
             ls
+            exit
 
 
   build:
