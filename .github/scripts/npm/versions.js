@@ -123,7 +123,7 @@ glob(__cwd + '/**/package.json', {
         updatePackage(pkg);
     }
 
-    if (changedFiles.size > 0 && !DRY) {
+    if (changedFiles.size > 0 && !DRY && process.env.npm_lifecycle_event !== 'deploy' ) {
         execSync(`git commit ${[...changedFiles].map(o => relative(__cwd, o)).join(' ')} -m "Updated Package Versions to v${version}"`);
     }
 
