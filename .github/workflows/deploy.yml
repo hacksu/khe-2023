@@ -55,9 +55,16 @@ jobs:
           script: |
             cd ${{ inputs.directory }}
             whoami
-            pwd
+      - name: Execute Commands 2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.host }}
+          port: ${{ inputs.port }}
+          username: ${{ inputs.user }}
+          key: ${{ secrets.key }}
+          script: |
+            cd ${{ inputs.directory }}
             ls
-            exit
 
 
   build:
