@@ -21,3 +21,5 @@ jobs:
     if: github.ref == 'refs/heads/actions-improvements'
     needs: [build]
     uses: hacksu/khe-2023/.github/workflows/publish.yml@actions-improvements
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
