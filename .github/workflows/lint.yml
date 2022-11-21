@@ -40,4 +40,4 @@ jobs:
       - name: Installing Dependencies
         run: npm install
       - name: Linting - ${{ matrix.package }}
-        run: npm run lint -- --only --cache-dir=.turbo --filter=@kenthackenough/${{ matrix.package }}
+        run: npm run lint -- --only --filter=@kenthackenough/${{ matrix.package }}
