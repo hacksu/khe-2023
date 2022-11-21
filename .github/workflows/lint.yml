@@ -48,9 +48,9 @@ jobs:
             ${{ github.workspace }}/package.json
             ${{ github.workspace }}/github/scripts/*/node_modules
             ${{ github.workspace }}/*/*/node_modules
-          key: cache-check-${{ hashFiles('package-lock.json') }}
+          key: cache-npm-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            cache-check-
+            cache-npm-
       - name: Installing Dependencies ${{ env.FULL_TURBO }}
         if: ${{ env.FULL_TURBO == 'no' }}
         run: npm install --no-audit --no-fund
