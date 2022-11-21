@@ -31,10 +31,10 @@ jobs:
         with:
           path: |
             .turbo
-          key: cache-turbo-${{ hashFiles('package-lock.json') }}-${{ env.TURBO_HASH }}
+          key: cache-turbo-lint-${{ matrix.package }}-${{ hashFiles('package-lock.json') }}-${{ env.TURBO_HASH }}
           restore-keys: |
-            cache-turbo-${{ hashFiles('package-lock.json') }}-
-      - name: Validate Hash ${{ env.TURBO_HASH }}
+            cache-turbo-lint-${{ matrix.package }}-${{ hashFiles('package-lock.json') }}-
+      - name: Validate Hash
         run: |
           echo "FULL_TURBO=$( find .turbo -iname "${{ env.TURBO_HASH }}-*" | grep ${{ env.TURBO_HASH }} && "yes" || "no" )" >> $GITHUB_ENV
           echo "NPM_GLOBAL_MODULES=$( npm root -g )" >> $GITHUB_ENV
@@ -49,11 +49,11 @@ jobs:
             ${{ github.workspace }}/package.json
             ${{ github.workspace }}/github/scripts/*/node_modules
             ${{ github.workspace }}/*/*/node_modules
-          key: cache-check-${{ matrix.package }}-${{ github.ref_name }}-${{ hashFiles('package-lock.json') }}
+          key: cache-check-lint-${{ matrix.package }}-${{ github.ref_name }}-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            cache-check-${{ matrix.package }}-${{ github.ref_name }}-
+            cache-check-lint-${{ matrix.package }}-${{ github.ref_name }}-
       - name: Installing Dependencies
         if: ${{ env.FULL_TURBO == 'no' }}
         run: npm install --no-audit --no-fund
-      - name: Linting - ${{ matrix.package }}
+      - name: Linting
         run: npm run lint -- --cache-dir=.turbo --only --filter=@kenthackenough/${{ matrix.package }}
