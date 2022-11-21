@@ -25,31 +25,17 @@ jobs:
         id: npm-cache
         with:
           path: |
+            .turbo
+            ${{ github.workspace }}/projects/*/.next/cache
             ~/.npm
             ${{ github.workspace }}/node_modules
+            ${{ github.workspace }}/package.json
             ${{ github.workspace }}/github/scripts/*/node_modules
             ${{ github.workspace }}/library/*/node_modules
             ${{ github.workspace }}/projects/*/node_modules
           key: turbo-${{ github.job }}-${{ github.ref_name }}-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             npm-${{ github.job }}-${{ github.ref_name }}-
-      - uses: actions/cache@v3
-        name: Cache - Turbo
-        id: turbo-cache
-        with:
-          path: .turbo
-          key: turbo-${{ github.job }}-${{ github.ref_name }}
-          restore-keys: |
-            turbo-${{ github.job }}-${{ github.ref_name }}
-      - uses: actions/cache@v3
-        name: Cache - Next.js
-        id: next-cache
-        with:
-          path: |
-            ${{ github.workspace }}/projects/*/.next/cache
-          key: next-${{ github.job }}-${{ github.ref_name }}
-          restore-keys: |
-            next-${{ github.job }}-${{ github.ref_name }}
       - name: Installing Dependencies
         run: npm install
       - name: Linting - ${{ matrix.package }}
