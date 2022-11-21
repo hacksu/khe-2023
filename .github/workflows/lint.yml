@@ -32,10 +32,12 @@ jobs:
             ${{ github.workspace }}/package.json
             ${{ github.workspace }}/github/scripts/*/node_modules
             ${{ github.workspace }}/*/*/node_modules
-          key: cache-ci-${{ matrix.package }}-${{ github.ref_name }}-${{ hashFiles('package-lock.json') }}
+          key: cache-check-${{ matrix.package }}-${{ github.ref_name }}-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            cache-ci-${{ matrix.package }}-${{ github.ref_name }}-
+            cache-check-${{ matrix.package }}-${{ github.ref_name }}-
       - name: Installing Dependencies
         run: npm install
+      - name: Turbo - ${{ matrix.package }}
+        run: npm run lint -- --cache-dir=.turbo --dry --only --filter=@kenthackenough/${{ matrix.package }}
       - name: Linting - ${{ matrix.package }}
         run: npm run lint -- --cache-dir=.turbo --only --filter=@kenthackenough/${{ matrix.package }}
