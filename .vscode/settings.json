@@ -27,7 +27,7 @@
             "icon": "tsconfig",
             "extensions": ["src/config.ts"],
             "filename": true
-        },
+        }
     ],
     "files.associations": {
         "**/nginx/**/*.template": "nginx",
