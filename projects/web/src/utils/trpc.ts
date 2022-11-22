@@ -24,7 +24,7 @@ function getEndingLink(ctx?: NextPageContext | undefined) {
         return http;
     }
 
-    const client = typeof window === 'undefined'
+    const client = location.host.includes('localhost')
         ? createWSClient({ url: `ws://localhost:5000` })
         : createWSClient({ url: `wss://${API_HOST}/api` })
 
