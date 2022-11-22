@@ -18,7 +18,7 @@ if mv .next-build .next; then
 #   Start the project
     if pm2 show $PROJECT; then
         echo "pm2: start $PROJECT"
-        pm2 restart $PROJECT
+        NODE_ENV=production pm2 restart $PROJECT --update-env
     else
         echo "pm2: initialize $PROJECT"
         pm2 start --name $PROJECT "npm run start -- --only --filter=@kenthackenough/$PROJECT"

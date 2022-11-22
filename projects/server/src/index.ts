@@ -40,8 +40,6 @@ export const wss = new WebSocketServer({
     noServer: true,
 })
 
-console.log(process.env);
-
 /** Define reverse proxies (like NGINX) */
 const proxyRequest = ReverseProxy({ server }, {
     api: {
