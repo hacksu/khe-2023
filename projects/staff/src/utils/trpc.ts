@@ -16,11 +16,11 @@ const WS_URL = `ws://${API_HOST}`;
 function getEndingLink(ctx?: NextPageContext | undefined) {
     // console.log('OK CTX', ctx)
     // console.log('OK WINDOW', typeof window === 'undefined' ? null : window);
-    console.log('protocol', typeof window === 'undefined' ? ctx?.req?.headers?.['x-forwarded-proto'] : location.protocol)
-    const http = httpLink({ url: `${APP_URL}/api/trpc` })
+    // console.log('protocol', typeof window === 'undefined' ? ctx?.req?.headers : location.protocol)
     if (typeof window === 'undefined') {
-        return http;
+        return httpLink({ url: `http://localhost:5000/api/trpc` })
     }
+    const http = httpLink({ url: `${location.protocol}//${API_HOST}/api/trpc` })
     const client = createWSClient({
         url: WS_URL,
     });
