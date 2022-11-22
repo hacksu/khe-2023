@@ -35,7 +35,7 @@ function getEndingLink(ctx?: NextPageContext | undefined) {
             console.log('got url', window)
             return typeof window === 'undefined'
                 ? `ws://localhost:5000`
-                : `wss://${API_HOST}`
+                : `wss://${API_HOST}/api`
         }
     })
 
