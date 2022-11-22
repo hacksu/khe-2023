@@ -4,6 +4,7 @@ server {
     listen 80;
     listen [::]:80;
     server_name dev.khe.io;
+    proxy_intercept_errors on;
     include includes/errors;
     include includes/api-proxy;
     include includes/web-proxy;
@@ -13,6 +14,7 @@ server {
     listen 80;
     listen [::]:80;
     server_name staff.dev.khe.io;
+    proxy_intercept_errors on;
     include includes/errors;
     include includes/api-proxy;
     include includes/staff-proxy;
@@ -24,6 +26,7 @@ server {
     server_name dev.khe.io;
     ssl_certificate "/root/.acme.sh/dev.khe.io/fullchain.cer";
     ssl_certificate_key "/root/.acme.sh/dev.khe.io/dev.khe.io.key";
+    proxy_intercept_errors on;
     include includes/errors;
     include includes/api-proxy;
     include includes/web-proxy;
@@ -34,6 +37,7 @@ server {
     server_name staff.dev.khe.io;
     ssl_certificate "/root/.acme.sh/dev.khe.io/fullchain.cer";
     ssl_certificate_key "/root/.acme.sh/dev.khe.io/dev.khe.io.key";
+    proxy_intercept_errors on;
     include includes/errors;
     include includes/api-proxy;
     include includes/staff-proxy;
