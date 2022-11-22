@@ -23,9 +23,18 @@ function getEndingLink(ctx?: NextPageContext | undefined) {
         return http;
     }
 
-    const client = typeof window === 'undefined'
-        ? createWSClient({ url: `ws://localhost:5000` })
-        : createWSClient({ url: `ws://${API_HOST}` })
+    // const client = typeof window === 'undefined'
+    //     ? createWSClient({ url: `ws://localhost:5000` })
+    //     : createWSClient({ url: `ws://${API_HOST}` })
+
+    const client = createWSClient({
+        get url() {
+            console.log('got url')
+            return typeof window === 'undefined'
+                ? `ws://localhost:5000`
+                : `ws://${API_HOST}`
+        }
+    })
 
     const ws = wsLink<Router>({
         client,
