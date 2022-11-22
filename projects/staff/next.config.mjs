@@ -16,7 +16,7 @@ const serverRuntimeConfig = {
 
 /** @type {import('./config').PublicRuntimeConfig} */
 const publicRuntimeConfig = {
-    
+    api: process.env.API_HOST || 'localhost:5000',
 }
 
 /** @type {import('next').NextConfig} */

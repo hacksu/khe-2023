@@ -5,12 +5,16 @@ import { get, merge } from 'lodash';
 import { NextPageContext } from 'next';
 import type { Router } from '@kenthackenough/server/trpc/router';
 import superjson from 'superjson';
+import getConfig from 'next/config';
 
 
-const APP_URL = 'http://localhost:5000';
-const WS_URL = 'ws://localhost:5000';
+const API_HOST = getConfig().publicRuntimeConfig.api;
+
+const APP_URL = `http://${API_HOST}`;
+const WS_URL = `ws://${API_HOST}`;
 
 function getEndingLink(ctx?: NextPageContext | undefined) {
+    console.log('OK THINGY', ctx?.req?.headers)
     const http = httpLink({ url: `${APP_URL}/api/trpc` })
     if (typeof window === 'undefined') {
         return http;
