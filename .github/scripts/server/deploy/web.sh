@@ -23,8 +23,10 @@ if mv .next-build .next; then
     cd $REPO
 #   Start the project
     if pm2 show $PROJECT; then
+        echo "pm2: start $PROJECT"
 #        pm2 start $PROJECT
     else
+        echo "pm2: initialize $PROJECT"
 #        pm2 start --name $PROJECT "npm run start -- --only --filter=@kenthackenough/$PROJECT"
     fi
 #    pm2 show $PROJECT
