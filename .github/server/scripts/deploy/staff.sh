@@ -11,7 +11,7 @@ BUILD_DIR=.next-build npm run build -- --only --filter=@kenthackenough/$PROJECT
 cd $REPO/projects/$PROJECT
 
 source $REPO/.github/server/scripts/utils/nginx.sh
-enable_offline_page /etc/nginx/includes/staff-proxy;
+enable_offline_page '/etc/nginx/includes/staff-proxy';
 
 # Move old dist folder
 mv .next .next-old
@@ -29,7 +29,7 @@ if mv .next-build .next; then
     pm2 show $PROJECT
     rm -rf .next-old
 else
-    disable_offline_page /etc/nginx/includes/staff-proxy;
+    disable_offline_page '/etc/nginx/includes/staff-proxy';
     mv .next-old .next
     exit 1
 fi
