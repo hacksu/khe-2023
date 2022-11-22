@@ -11,7 +11,7 @@ npm run build -- --only --filter=@kenthackenough/$PROJECT -- --outDir ./dist-bui
 cd $REPO/projects/$PROJECT
 
 # Stop the server
-pm2 stop server
+#pm2 stop server
 
 # Erase old dist folder
 rm -rf dist
@@ -21,9 +21,9 @@ if mv dist-build dist; then
     cd $REPO
 #   Start the project
     if pm2 show $PROJECT; then
-        pm2 start $PROJECT
+#        pm2 start $PROJECT
     else
-        pm2 start --name $PROJECT "npm run start -- --only --filter=@kenthackenough/$PROJECT"
+#        pm2 start --name $PROJECT "npm run start -- --only --filter=@kenthackenough/$PROJECT"
     fi
-    pm2 show $PROJECT
+#    pm2 show $PROJECT
 fi

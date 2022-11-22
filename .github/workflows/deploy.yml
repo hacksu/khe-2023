@@ -49,7 +49,7 @@ jobs:
     steps:
       - name: Debug
         run: echo "Run commands to git fetch & install dependencies on the server"
-      - name: Execute Commands
+      - name: Fetch
         uses: garygrossgarten/github-action-ssh@release
         with:
           host: ${{ secrets.host || inputs.host }}
@@ -58,9 +58,20 @@ jobs:
           privateKey: ${{ secrets.key || inputs.key }}
           command: |
             cd ${{ inputs.directory }}
-            pwd
-            whoami
-            exit
+            git stash
+            git fetch
+            git pull
+      - name: Install
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          host: ${{ secrets.host || inputs.host }}
+          port: ${{ secrets.port || inputs.port }}
+          username: ${{ secrets.user || inputs.user }}
+          privateKey: ${{ secrets.key || inputs.key }}
+          command: |
+            cd ${{ inputs.directory }}
+            npm install
+        
       - name: Execute Commands 2
         uses: garygrossgarten/github-action-ssh@release
         with:
@@ -85,3 +96,22 @@ jobs:
     steps:
       - name: Debug
         run: echo "Run .github/scripts/server/deploy/${{ matrix.project }}.sh script on server"
+      - uses: actions/cache@v3
+        name: Cache - Turbo
+        id: turbo-cache
+        with:
+          path: |
+            .turbo
+            ${{ github.workspace }}/projects/*/.next/cache
+          key: cache-turbo-build-${{ matrix.package }}-${{ hashFiles('package-lock.json') }}-${{ env.TURBO_HASH }}
+          restore-keys: |
+            cache-turbo-build-${{ matrix.package }}-${{ hashFiles('package-lock.json') }}-
+      - name: Sync - Turbo Cache
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          host: ${{ secrets.host || inputs.host }}
+          port: ${{ secrets.port || inputs.port }}
+          username: ${{ secrets.user || inputs.user }}
+          privateKey: ${{ secrets.key || inputs.key }}
+          local: .turbo
+          remote: ${{ inputs.directory }}/node_modules/.cache

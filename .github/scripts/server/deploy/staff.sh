@@ -12,7 +12,7 @@ cd $REPO/projects/$PROJECT
 
 # Stop the project
 if pm2 show $PROJECT; then
-    pm2 stop $PROJECT
+#    pm2 stop $PROJECT
 fi
 
 # Erase old build folder
@@ -23,9 +23,9 @@ if mv .next-build .next; then
     cd $REPO
 #   Start the project
     if pm2 show $PROJECT; then
-        pm2 start $PROJECT
+#        pm2 start $PROJECT
     else
-        pm2 start --name $PROJECT "npm run start -- --only --filter=@kenthackenough/$PROJECT"
+#        pm2 start --name $PROJECT "npm run start -- --only --filter=@kenthackenough/$PROJECT"
     fi
-    pm2 show $PROJECT
+#    pm2 show $PROJECT
 fi
