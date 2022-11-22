@@ -8,7 +8,10 @@ import getConfig from 'next/config';
 import superjson from 'superjson';
 
 
-const API_HOST = getConfig().publicRuntimeConfig.api;
+// const API_HOST = getConfig().publicRuntimeConfig.api;
+const API_HOST = typeof window !== 'undefined'
+    ? location.host.split('.').filter(o => o != 'staff').join('.')
+    : 'localhost:5000'
 
 const WS_ENABLED = true;
 
@@ -29,7 +32,7 @@ function getEndingLink(ctx?: NextPageContext | undefined) {
 
     const client = createWSClient({
         get url() {
-            console.log('got url')
+            console.log('got url', window)
             return typeof window === 'undefined'
                 ? `ws://localhost:5000`
                 : `ws://${API_HOST}`
