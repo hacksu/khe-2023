@@ -12,12 +12,14 @@ const API_HOST = getConfig().publicRuntimeConfig.api;
 
 const WS_ENABLED = true;
 
+// TODO: service static files saying "oops, maintenance" when website is down
+
 function getEndingLink(ctx?: NextPageContext | undefined) {
     const http = typeof window === 'undefined'
         ? httpLink({ url: `http://${API_HOST}/api/trpc` })
         : httpLink({ url: `/api/trpc` })
 
-    if (!WS_ENABLED || typeof window === 'undefined') {
+    if (typeof window === 'undefined' || !WS_ENABLED) {
         return http;
     }
 
