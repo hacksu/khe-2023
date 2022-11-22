@@ -50,14 +50,13 @@ jobs:
       - name: Debug
         run: echo "Run commands to git fetch & install dependencies on the server"
       - name: Execute Commands
-        uses: appleboy/ssh-action@master
+        uses: garygrossgarten/github-action-ssh@release
         with:
           host: ${{ secrets.host || inputs.host }}
           port: ${{ secrets.port || inputs.port }}
           username: ${{ secrets.user || inputs.user }}
-          key: ${{ secrets.key || inputs.key }}
-          script_stop: true
-          script: cd ${{ inputs.directory }} && whoami && exit
+          privateKey: ${{ secrets.key || inputs.key }}
+          command: cd ${{ inputs.directory }} && whoami && exit
       - name: Execute Commands 2
         uses: appleboy/ssh-action@master
         with:
