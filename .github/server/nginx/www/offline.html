@@ -210,7 +210,9 @@
                 const url = location.href;
                 fetch(url, { signal })
                     .then(res => {
-                        window.location.reload();
+                        if (res.ok()) {
+                            window.location.reload();
+                        }
                     })
                     .catch(err => {
                         
