@@ -4,21 +4,25 @@ import { createFlatProxy, createRecursiveProxy } from '@trpc/server/shared';
 import { get, merge } from 'lodash';
 import { NextPageContext } from 'next';
 import type { Router } from '@kenthackenough/server/trpc/router';
+import getConfig from 'next/config';
 import superjson from 'superjson';
 
 /** @export 'trpc' */
 
 
-const APP_URL = 'http://localhost:5000';
-const WS_URL = 'ws://localhost:5000';
+const API_HOST = getConfig().publicRuntimeConfig.api;
+
+const WS_ENABLED = false;
 
 function getEndingLink(ctx?: NextPageContext | undefined) {
-    const http = httpLink({ url: `${APP_URL}/api/trpc` })
-    if (typeof window === 'undefined') {
+    const http = typeof window === 'undefined'
+        ? httpLink({ url: `http://${API_HOST}/api/trpc` })
+        : httpLink({ url: `/api/trpc` });
+    if (!WS_ENABLED) {
         return http;
     }
     const client = createWSClient({
-        url: WS_URL,
+        url: `ws://${API_HOST}`,
     });
     const ws = wsLink<Router>({
         client,
