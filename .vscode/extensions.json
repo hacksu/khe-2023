@@ -5,7 +5,8 @@
         "eamodio.gitlens",
         "mikebovenlander.formate",
         "ms-vscode.vscode-typescript-next",
-        "vscode-icons-team.vscode-icons"
+        "vscode-icons-team.vscode-icons",
+        "ahmadalli.vscode-nginx-conf"
     ],
     "unwantedRecommendations": [
         "Vue.volar"

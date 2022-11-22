@@ -17,7 +17,7 @@
         { "icon": "log", "extensions": [".github/workflows"] },
     ],
     "vsicons.associations.files": [
-        { "icon": "nginx", "extensions": ["template"] },
+        { "icon": "nginx", "extensions": [".github/server/nginx/*"] },
         { "icon": "tsconfig", "extensions": [
             "tsconfig/tsconfig.base.json",
             "tsconfig/tsconfig.next.json",
@@ -32,6 +32,7 @@
     ],
     "files.associations": {
         "**/nginx/**/*.template": "nginx",
+        "**/nginx/*": "nginx",
         "**/.env.local": "env",
     },
     "typescript.preferences.importModuleSpecifierEnding": "minimal",
