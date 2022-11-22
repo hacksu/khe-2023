@@ -80,7 +80,6 @@ jobs:
     strategy:
       matrix:
         project: [server, staff, web]
-    # Run .github/scripts/server/deploy/${{ matrix.project }}.sh script on server
     steps:
       - uses: actions/checkout@v3
       - name: Calculating Hash
@@ -116,4 +115,4 @@ jobs:
           privateKey: ${{ secrets.key || inputs.key }}
           command: |
             cd ${{ inputs.directory }}
-            bash .github/scripts/server/deploy/${{ matrix.project }}.sh
+            bash .github/server/scripts/deploy/${{ matrix.project }}.sh
