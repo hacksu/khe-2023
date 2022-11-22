@@ -40,12 +40,13 @@ export const wss = new WebSocketServer({
     noServer: true,
 })
 
+console.log(process.env);
 
 /** Define reverse proxies (like NGINX) */
 const proxyRequest = ReverseProxy({ server }, {
     api: {
         // This rule prevents requests to the API from being proxied
-        enabled: true,
+        enabled: process.env.NODE_ENV != "production",
         match(req, { ws }) {
             if (ws) {
                 if (!req.url?.startsWith('/_next'))
@@ -58,7 +59,7 @@ const proxyRequest = ReverseProxy({ server }, {
     },
     staff: {
         // This rule proxies requests to the staff portal, which runs one port higher than the API
-        enabled: true,
+        enabled: process.env.NODE_ENV != "production",
         server: {
             ws: true,
             target: {
@@ -74,7 +75,7 @@ const proxyRequest = ReverseProxy({ server }, {
     },
     template: {
         // This rule proxies requests to the staff portal, which runs 3 ports higher than the API
-        enabled: true,
+        enabled: process.env.NODE_ENV != "production",
         server: {
             ws: true,
             target: {
@@ -90,7 +91,7 @@ const proxyRequest = ReverseProxy({ server }, {
     },
     web: {
         // This rule proxies requests to the website, which runs two ports higher than the API
-        enabled: true,
+        enabled: process.env.NODE_ENV != "production",
         server: {
             ws: true,
             target: {
