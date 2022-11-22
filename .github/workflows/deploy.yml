@@ -106,7 +106,7 @@ jobs:
           privateKey: ${{ secrets.key || inputs.key }}
           local: .turbo
           remote: ${{ inputs.directory }}/node_modules/.cache
-      - name: Build
+      - name: Deploy
         uses: garygrossgarten/github-action-ssh@release
         with:
           host: ${{ secrets.host || inputs.host }}
@@ -115,4 +115,6 @@ jobs:
           privateKey: ${{ secrets.key || inputs.key }}
           command: |
             cd ${{ inputs.directory }}
+            export TERM=xterm-256color
+            export FORCE_COLOR=1
             bash .github/server/scripts/deploy/${{ matrix.project }}.sh
