@@ -4,6 +4,11 @@ import { fileURLToPath } from 'url';
 import { readFileSync } from 'fs';
 import path from 'path';
 
+import * as dotenv from 'dotenv'
+dotenv.config()
+
+console.log('host', process.env.API_HOST);
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
