@@ -15,7 +15,6 @@ mv dist dist-old
 
 # Copy over the new one
 if mv dist-build dist; then
-    cd $REPO
 #   Start the project
     if pm2 show $PROJECT; then
         echo "pm2: start $PROJECT"

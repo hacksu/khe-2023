@@ -15,7 +15,6 @@ mv .next .next-old
 
 # Copy over the new one
 if mv .next-build .next; then
-    cd $REPO
 #   Start the project
     if pm2 show $PROJECT; then
         echo "pm2: start $PROJECT"
