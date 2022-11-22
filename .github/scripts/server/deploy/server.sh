@@ -10,8 +10,11 @@ npm run build -- --only --filter=@kenthackenough/$PROJECT -- --outDir ./dist-bui
 
 cd $REPO/projects/$PROJECT
 
-# Stop the server
-#pm2 stop server
+# Stop the project
+if pm2 show $PROJECT; then
+    echo "pm2: stop $PROJECT"
+#    pm2 stop $PROJECT
+fi
 
 # Erase old dist folder
 rm -rf dist

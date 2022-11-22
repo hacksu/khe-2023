@@ -12,6 +12,7 @@ cd $REPO/projects/$PROJECT
 
 # Stop the project
 if pm2 show $PROJECT; then
+    echo "pm2: stop $PROJECT"
 #    pm2 stop $PROJECT
 fi
 
