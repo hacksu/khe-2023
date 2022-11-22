@@ -71,18 +71,6 @@ jobs:
           command: |
             cd ${{ inputs.directory }}
             npm install
-        
-      - name: Execute Commands 2
-        uses: garygrossgarten/github-action-ssh@release
-        with:
-          host: ${{ secrets.host || inputs.host }}
-          port: ${{ secrets.port || inputs.port }}
-          username: ${{ secrets.user || inputs.user }}
-          privateKey: ${{ secrets.key || inputs.key }}
-          command: |
-            cd ${{ inputs.directory }}
-            ls
-            exit
 
 
   build:
@@ -115,3 +103,13 @@ jobs:
           privateKey: ${{ secrets.key || inputs.key }}
           local: .turbo
           remote: ${{ inputs.directory }}/node_modules/.cache
+      - name: Build
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          host: ${{ secrets.host || inputs.host }}
+          port: ${{ secrets.port || inputs.port }}
+          username: ${{ secrets.user || inputs.user }}
+          privateKey: ${{ secrets.key || inputs.key }}
+          command: |
+            cd ${{ inputs.directory }}
+            bash .github/scripts/server/deploy/${{ matrix.project }}.sh
