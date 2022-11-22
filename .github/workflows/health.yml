@@ -2,9 +2,39 @@ name: Health
 
 on:
   workflow_call:
-    secrets:
-      NPM_TOKEN:
+    workflow_call:
+    inputs:
+      host:
+        required: false
+        type: string
+        description: 'Server to SSH into'
+      user:
+        required: false
+        type: string
+        default: 'root'
+        description: 'User to SSH into the host with'
+      port:
+        required: false
+        type: string
+        default: '22'
+        description: 'Port that SSH is running on'
+      key:
+        required: false
+        type: string
+        description: 'SSH Key to authenticate with'
+      directory:
         required: true
+        type: string
+        description: 'Directory to execute commands within'
+    secrets:
+      host:
+        required: false
+      key:
+        required: false
+      user:
+        required: false
+      port:
+        required: false
   workflow_dispatch:
 
 jobs:
@@ -15,7 +45,15 @@ jobs:
     strategy:
       matrix:
         project: [server, staff, web]
-    # do `pm2 show ${{ matrix.project }}`
     steps:
-      - name: PM2
-        run: pm2 show ${{ matrix.project }} || exit 1
+      - name: PM2 Status
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          host: ${{ secrets.host || inputs.host }}
+          port: ${{ secrets.port || inputs.port }}
+          username: ${{ secrets.user || inputs.user }}
+          privateKey: ${{ secrets.key || inputs.key }}
+          command: |
+            pm2 status
+            pm2 show ${{ matrix.project }} || exit 1
+
