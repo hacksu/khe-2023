@@ -50,5 +50,6 @@ jobs:
           privateKey: ${{ secrets.key || inputs.key }}
           command: |
             pm2 status
-            pm2 show ${{ matrix.project }} || exit 1
+            pm2 show ${{ matrix.project }}
+            pm2 show ${{ matrix.project }} | grep stopped && exit 1;
 
