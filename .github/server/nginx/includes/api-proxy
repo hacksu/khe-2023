@@ -7,6 +7,4 @@ location /api {
     proxy_set_header X-Real-IP: $remote_addr;
     proxy_set_header X-Forwarded-Proto $scheme;
     proxy_set_header X-Forwarded-URI $request_uri;
-    
-#    rewrite ^/api/(.*) /$1 break;
 }
