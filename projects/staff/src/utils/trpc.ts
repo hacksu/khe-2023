@@ -20,27 +20,29 @@ function getEndingLink(ctx?: NextPageContext | undefined) {
     if (typeof window === 'undefined') {
         return httpLink({ url: `http://localhost:5000/api/trpc` })
     }
-    const http = httpLink({ url: `${location.protocol}//${API_HOST}/api/trpc` })
-    const client = createWSClient({
-        url: WS_URL,
-    });
-    const ws = wsLink<Router>({
-        client,
-    });
-    return splitLink({
-        condition(op) {
-            if (op.type === 'subscription') {
-                return true;
-            }
-            return false;
-        },
-        true: ws,
-        false: http,
-    })
+    // const http = httpLink({ url: `${location.protocol}//${API_HOST}/api/trpc` })
+    const http = httpLink({ url: `/api/trpc` })
+    return http;
+    // const client = createWSClient({
+    //     url: WS_URL,
+    // });
+    // const ws = wsLink<Router>({
+    //     client,
+    // });
+    // return splitLink({
+    //     condition(op) {
+    //         if (op.type === 'subscription') {
+    //             return true;
+    //         }
+    //         return false;
+    //     },
+    //     true: ws,
+    //     false: http,
+    // })
 }
 
 export const trpc = createTRPCNext<Router>({
-    ssr: true,
+    ssr: false,
     config({ ctx }) {
         return {
             transformer: superjson,
