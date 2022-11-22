@@ -22,10 +22,6 @@ on:
         required: false
         type: string
         description: 'SSH Key to authenticate with'
-      directory:
-        required: true
-        type: string
-        description: 'Directory to execute commands within'
     secrets:
       host:
         required: false

@@ -41,4 +41,5 @@ jobs:
     if: ${{ always() }}
     uses: hacksu/khe-2023/.github/workflows/health.yml@deployment
     secrets:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      key: ${{ secrets.KHE_DEV_KEY }}
+      host: ${{ secrets.KHE_DEV_HOST }}
