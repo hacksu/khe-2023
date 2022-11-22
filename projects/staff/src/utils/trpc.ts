@@ -14,8 +14,9 @@ const APP_URL = `http://${API_HOST}`;
 const WS_URL = `ws://${API_HOST}`;
 
 function getEndingLink(ctx?: NextPageContext | undefined) {
-    console.log('OK CTX', ctx)
-    console.log('OK WINDOW', window);
+    // console.log('OK CTX', ctx)
+    // console.log('OK WINDOW', typeof window === 'undefined' ? null : window);
+    console.log('protocol', typeof window === 'undefined' ? ctx?.req?.headers?.['x-forwarded-proto'] : location.protocol)
     const http = httpLink({ url: `${APP_URL}/api/trpc` })
     if (typeof window === 'undefined') {
         return http;
