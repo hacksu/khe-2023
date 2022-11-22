@@ -31,4 +31,6 @@ if mv dist-build dist; then
         pm2 start --name $PROJECT "npm run start -- --only --filter=@kenthackenough/$PROJECT"
     fi
     pm2 show $PROJECT
+else
+    exit 1
 fi

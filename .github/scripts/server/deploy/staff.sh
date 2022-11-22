@@ -6,7 +6,7 @@ REPO=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && git rev-pars
 PROJECT=staff
 
 echo "building $PROJECT"
-BUILD_DIR=.next-build npm run build -- --only --filter=@kenthackenough/staff
+BUILD_DIR=.next-build npm run build -- --only --filter=@kenthackenough/$PROJECT
 
 cd $REPO/projects/$PROJECT
 
@@ -31,4 +31,6 @@ if mv .next-build .next; then
         pm2 start --name $PROJECT "npm run start -- --only --filter=@kenthackenough/$PROJECT"
     fi
     pm2 show $PROJECT
+else
+    exit 1
 fi
