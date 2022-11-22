@@ -10,13 +10,9 @@ npm run build -- --only --filter=@kenthackenough/$PROJECT -- --outDir ./dist-bui
 
 cd $REPO/projects/$PROJECT
 
-# source $REPO/.github/server/scripts/utils/nginx.sh
-# enable_offline_page '/etc/nginx/includes/api-proxy';
-
 # Move old dist folder
 mv dist dist-old
 
-# include includes/errors/offline;
 
 # Copy over the new one
 if mv dist-build dist; then
@@ -46,7 +42,6 @@ if mv dist-build dist; then
         rm -rf /var/www/old-nginx
         rm -rf /etc/nginx/old-includes
         rm -rf /etc/nginx/old-sites-enabled
-#        disable_offline_page '/etc/nginx/includes/api-proxy';
     else
         nginx -t
         rm -rf /etc/nginx/www
@@ -58,7 +53,6 @@ if mv dist-build dist; then
         exit 1
     fi
 else
-#    disable_offline_page '/etc/nginx/includes/api-proxy';
     mv dist-old dist
     exit 1
 fi
