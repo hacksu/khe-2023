@@ -207,7 +207,7 @@
                 controller.abort();
                 controller = new AbortController();
                 const signal = controller.signal;
-                const url = 'http://localhost:5000'; //location.href;
+                const url = location.href;
                 fetch(url, { signal })
                     .then(res => {
                         window.location.reload();
