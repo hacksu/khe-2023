@@ -14,6 +14,7 @@
         { "icon": "github", "extensions": ["github"] },
         { "icon": "node", "extensions": ["npm"] },
         { "icon": "electron", "extensions": ["react"] },
+        { "icon": "log", "extensions": [".github/workflows"] },
     ],
     "vsicons.associations.files": [
         { "icon": "nginx", "extensions": ["template"] },
