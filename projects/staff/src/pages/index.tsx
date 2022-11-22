@@ -4,8 +4,8 @@ import { api } from '../utils/trpc';
 import { TicketsList } from '../widgets/tickets/list';
 
 
-// import bruh from 'this-should-error';
-// bruh();
+import bruh from 'this-should-error';
+bruh();
 
 export default function Homepage() {
     const ping = api.ping.useQuery();
