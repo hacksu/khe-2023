@@ -36,8 +36,7 @@ if mv dist-build dist; then
     cp -R $REPO/.github/server/nginx/www /var/www/nginx
     cp -R $REPO/.github/server/nginx/includes /etc/nginx/includes
     cp -R $REPO/.github/server/nginx/sites-enabled /etc/nginx/sites-enabled
-    chmod 755 /var/www/nginx
-    chmod 644 -R /var/www/nginx
+    chmod 755 -R /var/www/nginx
     if nginx -t; then
         rm -rf /var/www/old-nginx
         rm -rf /etc/nginx/old-includes
