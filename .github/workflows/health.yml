@@ -49,7 +49,9 @@ jobs:
           username: ${{ secrets.user || inputs.user }}
           privateKey: ${{ secrets.key || inputs.key }}
           command: |
-            TERM=xterm-256color FORCE_COLOR=1pm2 status
-            TERM=xterm-256color FORCE_COLOR=1 pm2 show ${{ matrix.project }}
+            export TERM=xterm-256color
+            export FORCE_COLOR=1
+            pm2 status
+            pm2 show ${{ matrix.project }}
             exit $(pm2 show ${{ matrix.project }} | grep -c stopped);
 
