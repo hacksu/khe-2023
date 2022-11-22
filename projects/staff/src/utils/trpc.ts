@@ -17,7 +17,7 @@ function getEndingLink(ctx?: NextPageContext | undefined) {
         ? httpLink({ url: `http://${API_HOST}/api/trpc` })
         : httpLink({ url: `/api/trpc` })
 
-    if (!WS_ENABLED) {
+    if (!WS_ENABLED || typeof window === 'undefined') {
         return http;
     }
 
