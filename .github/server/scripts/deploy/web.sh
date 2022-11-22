@@ -27,6 +27,7 @@ if mv .next-build .next; then
         pm2 start --name $PROJECT "npm run start -- --only --filter=@kenthackenough/$PROJECT"
     fi
     pm2 show $PROJECT
+    disable_offline_page '/etc/nginx/includes/web-proxy';
     rm -rf .next-old
 else
     disable_offline_page '/etc/nginx/includes/web-proxy';

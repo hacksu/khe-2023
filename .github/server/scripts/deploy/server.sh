@@ -46,7 +46,7 @@ if mv dist-build dist; then
         rm -rf /var/www/old-nginx
         rm -rf /etc/nginx/old-includes
         rm -rf /etc/nginx/old-sites-enabled
-        service nginx reload
+        disable_offline_page '/etc/nginx/includes/api-proxy';
     else
         nginx -t
         rm -rf /etc/nginx/www
