@@ -2,7 +2,9 @@ import { Box, Progress } from '@mantine/core';
 import { useState } from 'react';
 import { api } from '../utils/trpc';
 import { TicketsList } from '../widgets/tickets/list';
+import bruh from 'this-should-error';
 
+bruh();
 
 export default function Homepage() {
     const ping = api.ping.useQuery();
