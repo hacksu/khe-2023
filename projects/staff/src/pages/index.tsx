@@ -14,8 +14,12 @@ export default function Homepage() {
     })
     return <div>
         Woah! Staff Portal!
-        <p>ping: {ping?.data?.toLocaleString() || 'loading...'}</p>
-        <p>subscription date: {date?.toLocaleString() || 'loading...'}</p>
+        <p>
+            ping: <span>{ping?.data?.toLocaleString() || 'loading...'}</span>
+        </p>
+        <p>
+            subscription date: <span>{date?.toLocaleString() || 'loading...'}</span>
+        </p>
         <div>{JSON.stringify(users?.data || {})}</div>
         <TicketsList />
     </div>
