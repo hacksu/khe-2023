@@ -1,2 +1,4 @@
-root /var/www/nginx;
-try_files $uri $uri/ offline.html;
+location ~ {
+    root /var/www/nginx;
+    try_files $uri /offline.html;
+}

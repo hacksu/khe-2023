@@ -1,3 +1,4 @@
+include includes/offline;
 location /api {
     proxy_pass "http://localhost:5000/api";
     proxy_read_timeout 20s;
