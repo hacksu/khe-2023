@@ -30,14 +30,14 @@ if mv dist-build dist; then
     mkdir -p /etc/nginx/includes
     mkdir -p /etc/nginx/www
     cd /etc/nginx
-    mv www old-www
+    mv /var/www/nginx /var/www/old-nginx
     mv includes old-includes
     mv sites-enabled old-sites-enabled
-    cp -R $REPO/.github/server/nginx/www /etc/nginx/www
+    cp -R $REPO/.github/server/nginx/www /var/www/nginx
     cp -R $REPO/.github/server/nginx/includes /etc/nginx/includes
     cp -R $REPO/.github/server/nginx/sites-enabled /etc/nginx/sites-enabled
     if nginx -t; then
-        rm -rf /etc/nginx/old-www
+        rm -rf /var/www/old-nginx
         rm -rf /etc/nginx/old-includes
         rm -rf /etc/nginx/old-sites-enabled
         service nginx reload
@@ -46,7 +46,7 @@ if mv dist-build dist; then
         rm -rf /etc/nginx/www
         rm -rf /etc/nginx/includes
         rm -rf /etc/nginx/sites-enabled
-        mv old-www www
+        mv /var/www/old-nginx /var/www/nginx
         mv old-includes includes
         mv old-sites-enabled sites-enabled
         exit 1

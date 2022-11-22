@@ -1,0 +1,2 @@
+root /var/www/nginx;
+try_files $uri $uri/ offline.html;

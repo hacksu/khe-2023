@@ -1,4 +1,0 @@
-location @error_page {
-    root /etc/nginx/www;
-    try_files $uri $uri/ offline.html;
-}
