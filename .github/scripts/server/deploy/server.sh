@@ -13,7 +13,7 @@ cd $REPO/projects/$PROJECT
 # Stop the project
 if pm2 show $PROJECT; then
     echo "pm2: stop $PROJECT"
-#    pm2 stop $PROJECT
+    pm2 stop $PROJECT
 fi
 
 # Erase old dist folder
@@ -25,10 +25,10 @@ if mv dist-build dist; then
 #   Start the project
     if pm2 show $PROJECT; then
         echo "pm2: start $PROJECT"
-#        pm2 start $PROJECT
+        pm2 start $PROJECT
     else
         echo "pm2: initialize $PROJECT"
-#        pm2 start --name $PROJECT "npm run start -- --only --filter=@kenthackenough/$PROJECT"
+        pm2 start --name $PROJECT "npm run start -- --only --filter=@kenthackenough/$PROJECT"
     fi
-#    pm2 show $PROJECT
+    pm2 show $PROJECT
 fi
