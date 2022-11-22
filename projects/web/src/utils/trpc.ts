@@ -9,24 +9,29 @@ import superjson from 'superjson';
 
 /** @export 'trpc' */
 
+const WS_ENABLED = true;
+const API_HOST = typeof window !== 'undefined'
+    ? location.host.split('.').filter(o => o != 'staff').join('.')
+    : 'localhost:5000'
 
-const API_HOST = getConfig().publicRuntimeConfig.api;
-
-const WS_ENABLED = false;
-
+    
 function getEndingLink(ctx?: NextPageContext | undefined) {
     const http = typeof window === 'undefined'
         ? httpLink({ url: `http://${API_HOST}/api/trpc` })
-        : httpLink({ url: `/api/trpc` });
-    if (!WS_ENABLED) {
+        : httpLink({ url: `/api/trpc` })
+
+    if (typeof window === 'undefined' || !WS_ENABLED) {
         return http;
     }
-    const client = createWSClient({
-        url: `ws://${API_HOST}`,
-    });
+
+    const client = typeof window === 'undefined'
+        ? createWSClient({ url: `ws://localhost:5000` })
+        : createWSClient({ url: `wss://${API_HOST}/api` })
+
     const ws = wsLink<Router>({
         client,
     });
+
     return splitLink({
         condition(op) {
             if (op.type === 'subscription') {
