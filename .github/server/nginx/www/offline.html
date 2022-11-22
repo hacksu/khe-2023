@@ -210,7 +210,7 @@
                 const url = location.href;
                 fetch(url, { signal })
                     .then(res => {
-                        if (res.ok()) {
+                        if (res.ok) {
                             window.location.reload();
                         }
                     })
@@ -221,7 +221,7 @@
 
             setInterval(function() {
                 attemptReconnection();
-            }, 2000)
+            }, 3000)
         </script>
         <div id="__next">
             <style data-emotion="css-global zl4edr">
