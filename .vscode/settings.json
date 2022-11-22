@@ -32,7 +32,7 @@
     ],
     "files.associations": {
         "**/nginx/**/*.template": "nginx",
-        "**/nginx/*": "nginx",
+        "**/nginx/**": "nginx",
         "**/.env.local": "env",
     },
     "typescript.preferences.importModuleSpecifierEnding": "minimal",
