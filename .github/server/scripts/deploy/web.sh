@@ -14,7 +14,7 @@ cd $REPO/projects/$PROJECT
 mv .next .next-old
 
 # Copy over the new one
-if mv .next-build dist; then
+if mv .next-build .next; then
     cd $REPO
 #   Start the project
     if pm2 show $PROJECT; then
