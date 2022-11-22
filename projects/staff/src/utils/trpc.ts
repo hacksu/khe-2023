@@ -10,21 +10,25 @@ import superjson from 'superjson';
 
 const API_HOST = getConfig().publicRuntimeConfig.api;
 
-const WS_ENABLED = false;
+const WS_ENABLED = true;
 
 function getEndingLink(ctx?: NextPageContext | undefined) {
     const http = typeof window === 'undefined'
         ? httpLink({ url: `http://${API_HOST}/api/trpc` })
-        : httpLink({ url: `/api/trpc` });
+        : httpLink({ url: `/api/trpc` })
+
     if (!WS_ENABLED) {
         return http;
     }
-    const client = createWSClient({
-        url: `ws://${API_HOST}`,
-    });
+
+    const client = typeof window === 'undefined'
+        ? createWSClient({ url: `ws://localhost:5000` })
+        : createWSClient({ url: `ws://${API_HOST}` })
+
     const ws = wsLink<Router>({
         client,
     });
+
     return splitLink({
         condition(op) {
             if (op.type === 'subscription') {
@@ -38,7 +42,7 @@ function getEndingLink(ctx?: NextPageContext | undefined) {
 }
 
 export const trpc = createTRPCNext<Router>({
-    ssr: false,
+    ssr: true,
     config({ ctx }) {
         return {
             transformer: superjson,
