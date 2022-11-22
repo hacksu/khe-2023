@@ -10,27 +10,23 @@ BUILD_DIR=.next-build npm run build -- --only --filter=@kenthackenough/$PROJECT
 
 cd $REPO/projects/$PROJECT
 
-# Stop the project
-if pm2 show $PROJECT; then
-    echo "pm2: stop $PROJECT"
-    pm2 stop $PROJECT
-fi
-
-# Erase old build folder
-rm -rf .next
+# Move old dist folder
+mv .next .next-old
 
 # Copy over the new one
-if mv .next-build .next; then
+if mv .next-build dist; then
     cd $REPO
 #   Start the project
     if pm2 show $PROJECT; then
         echo "pm2: start $PROJECT"
-        pm2 start $PROJECT
+        pm2 restart $PROJECT
     else
         echo "pm2: initialize $PROJECT"
         pm2 start --name $PROJECT "npm run start -- --only --filter=@kenthackenough/$PROJECT"
     fi
     pm2 show $PROJECT
+    rm -rf .next-old
 else
+    mv .next-old .next
     exit 1
 fi

@@ -10,14 +10,8 @@ npm run build -- --only --filter=@kenthackenough/$PROJECT -- --outDir ./dist-bui
 
 cd $REPO/projects/$PROJECT
 
-# Stop the project
-if pm2 show $PROJECT; then
-    echo "pm2: stop $PROJECT"
-    pm2 stop $PROJECT
-fi
-
-# Erase old dist folder
-rm -rf dist
+# Move old dist folder
+mv dist dist-old
 
 # Copy over the new one
 if mv dist-build dist; then
@@ -25,12 +19,14 @@ if mv dist-build dist; then
 #   Start the project
     if pm2 show $PROJECT; then
         echo "pm2: start $PROJECT"
-        pm2 start $PROJECT
+        pm2 restart $PROJECT
     else
         echo "pm2: initialize $PROJECT"
         pm2 start --name $PROJECT "npm run start -- --only --filter=@kenthackenough/$PROJECT"
     fi
     pm2 show $PROJECT
+    rm -rf dist-old
 else
+    mv dist-old dist
     exit 1
 fi
