@@ -14,7 +14,8 @@ const APP_URL = `http://${API_HOST}`;
 const WS_URL = `ws://${API_HOST}`;
 
 function getEndingLink(ctx?: NextPageContext | undefined) {
-    console.log('OK THINGY', ctx?.req?.headers)
+    console.log('OK CTX', ctx)
+    console.log('OK WINDOW', window);
     const http = httpLink({ url: `${APP_URL}/api/trpc` })
     if (typeof window === 'undefined') {
         return http;
@@ -38,7 +39,7 @@ function getEndingLink(ctx?: NextPageContext | undefined) {
 }
 
 export const trpc = createTRPCNext<Router>({
-    ssr: false,
+    ssr: true,
     config({ ctx }) {
         return {
             transformer: superjson,
