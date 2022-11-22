@@ -10,8 +10,8 @@ BUILD_DIR=.next-build npm run build -- --only --filter=@kenthackenough/$PROJECT
 
 cd $REPO/projects/$PROJECT
 
-source $REPO/.github/server/scripts/utils/nginx.sh
-enable_offline_page '/etc/nginx/includes/web-proxy';
+#source $REPO/.github/server/scripts/utils/nginx.sh
+#enable_offline_page '/etc/nginx/includes/web-proxy';
 
 # Move old dist folder
 mv .next .next-old
@@ -27,10 +27,10 @@ if mv .next-build .next; then
         pm2 start --name $PROJECT "npm run start -- --only --filter=@kenthackenough/$PROJECT"
     fi
     pm2 show $PROJECT
-    disable_offline_page '/etc/nginx/includes/web-proxy';
+#    disable_offline_page '/etc/nginx/includes/web-proxy';
     rm -rf .next-old
 else
-    disable_offline_page '/etc/nginx/includes/web-proxy';
+#    disable_offline_page '/etc/nginx/includes/web-proxy';
     mv .next-old .next
     exit 1
 fi

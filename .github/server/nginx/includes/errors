@@ -1,0 +1,10 @@
+#location ~ {
+#    root /var/www/nginx;
+#}
+
+proxy_intercept_errors on;
+error_page 502 /offline.html;
+location /offline.html {
+    root /var/www/nginx;
+    internal;
+}
