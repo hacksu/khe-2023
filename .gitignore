@@ -10,12 +10,15 @@ node_modules
 
 # next.js
 .next-build/
+.next-old/
 .next/
 out/
 
 # production
 build
 dist
+dist-build
+dist-old
 docker/data
 
 # misc
