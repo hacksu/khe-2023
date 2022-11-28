@@ -1,0 +1,3 @@
+zod schema for "ticket" objects
+zod schema for "user" objects
+...
