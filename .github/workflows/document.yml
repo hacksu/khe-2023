@@ -18,7 +18,7 @@ jobs:
       - name: create markdown bundle
         run: |
           cd main
-          npx bundle-md projects --no-tree projects --extra-tree projects/server projects/staff --output ../bundle-md
+          npx bundle-md projects --no-tree projects --extra-tree projects/server projects/staff --link-to https://github.com/${{ github.repository }}/tree/${{ github.head_ref || github.ref_name }}/ --output ../bundle-md
           cd ../
       - name: checkout wiki
         uses: actions/checkout@v3
