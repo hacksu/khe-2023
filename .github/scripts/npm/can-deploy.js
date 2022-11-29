@@ -1,7 +1,8 @@
 const { execSync } = require('child_process');
 const chalk = require('chalk');
 
-if (execSync('git rev-parse --abbrev-ref HEAD').toString('utf8').trim() === 'main' || process.argv.find(o => o.includes('--force'))) {
+console.log(process.env)
+if (execSync('git rev-parse --abbrev-ref HEAD').toString('utf8').trim() === 'main' || process.env.npm_config_argv.original.find(o => o.includes('--force'))) {
     process.exit(0);
 } else {
     console.log(chalk.red(`You can only deploy from the ${chalk.white.underline('main')} branch!`));
