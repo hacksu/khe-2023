@@ -1,4 +1,4 @@
-import { createWSClient, httpLink, splitLink, wsLink, createTRPCProxyClient } from '@trpc/client';
+import { createWSClient, httpLink, splitLink, wsLink, createTRPCProxyClient, TRPCLink } from '@trpc/client';
 import { createTRPCNext } from '@trpc/next';
 import { createFlatProxy, createRecursiveProxy } from '@trpc/server/shared';
 import { get, merge } from 'lodash';
@@ -9,7 +9,7 @@ import superjson from 'superjson';
 
 /** @export 'trpc' */
 
-const WS_ENABLED = true;
+const WS_ENABLED = getConfig().publicRuntimeConfig.websocket || false;
 const API_HOST = typeof window !== 'undefined'
     ? location.host.split('.').filter(o => o != 'staff').join('.')
     : 'localhost:5000'

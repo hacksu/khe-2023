@@ -22,6 +22,7 @@ const serverRuntimeConfig = {
 /** @type {import('./config').PublicRuntimeConfig} */
 const publicRuntimeConfig = {
     api: process.env.API_HOST || 'localhost:5000',
+    websocket: true,
 }
 
 /** @type {import('next').NextConfig} */
