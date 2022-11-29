@@ -13,8 +13,6 @@ const WS_ENABLED = getConfig().publicRuntimeConfig.websocket || false;
 const API_HOST = typeof window !== 'undefined'
     ? location.host.split('.').filter(o => o != 'staff').join('.')
     : 'localhost:5001'
-
-console.log({ API_HOST })
     
 function getEndingLink(ctx?: NextPageContext | undefined) {
     const http = typeof window === 'undefined'
@@ -46,7 +44,7 @@ function getEndingLink(ctx?: NextPageContext | undefined) {
 }
 
 export const trpc = createTRPCNext<Router>({
-    ssr: true,
+    ssr: false,
     config({ ctx }) {
         return {
             transformer: superjson,
