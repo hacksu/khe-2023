@@ -44,7 +44,7 @@ function getEndingLink(ctx?: NextPageContext | undefined) {
 }
 
 export const trpc = createTRPCNext<Router>({
-    ssr: true,
+    ssr: false,
     config({ ctx }) {
         return {
             transformer: superjson,
