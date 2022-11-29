@@ -5,9 +5,10 @@
 
 import { ColorScheme, ColorSchemeProvider, MantineProvider, MantineThemeOverride } from '@mantine/core'
 import { NotificationsProvider } from '@mantine/notifications'
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AppProps } from 'next/app';
 import { trpc } from '../utils/trpc';
+import { useQueryClient } from '@tanstack/react-query';
 
 
 type InitialProps = AppProps;
@@ -32,9 +33,9 @@ export function App(...args) {
         const [config, Component] = useMemo<[AppConfig, (args: any) => JSX.Element]>(() => {
             return [baseAppConfig, ...args].slice(-2) as any;
         }, args);
-    
+
         const [colorScheme, setColorScheme] = useState<ColorScheme>(config.colorScheme || baseAppConfig.colorScheme);
-    
+
         const toggleColorScheme = useCallback(((color) => color
             ? setColorScheme(color)
             : setColorScheme(colorScheme == 'dark' ? 'light' : 'dark')
@@ -45,6 +46,18 @@ export function App(...args) {
             __proto__: config.theme || baseAppConfig.theme,
         };
 
+        const _trpc = trpc.useContext();
+        const queryClient = useQueryClient();
+        useEffect(() => {
+            if (typeof window !== 'undefined') {
+                console.log('query cache', queryClient.getQueryCache())
+                if (Object.keys(((queryClient.getQueryCache() as any).queriesMap as Map<string, any>)).length === 0) {
+                    console.log('invalidate queries');
+                    _trpc.invalidate();
+                }
+            }
+        }, [typeof window])
+
         return <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
             <MantineProvider withGlobalStyles withNormalizeCSS theme={theme}>
                 <NotificationsProvider>
@@ -53,6 +66,8 @@ export function App(...args) {
             </MantineProvider>
         </ColorSchemeProvider>
     }
+
+
 
     return trpc.withTRPC(app);
 }
