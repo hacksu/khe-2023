@@ -39,6 +39,7 @@ if mv dist-build dist; then
     cp -R $REPO/docker/server/nginx/sites-enabled /etc/nginx/sites-enabled
     chmod 755 -R /var/www/nginx
     if nginx -t; then
+        service nginx reload
         rm -rf /var/www/old-nginx
         rm -rf /etc/nginx/old-includes
         rm -rf /etc/nginx/old-sites-enabled

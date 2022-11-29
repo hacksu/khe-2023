@@ -9,6 +9,7 @@ echo "building $PROJECT"
 BUILD_DIR=.next-build npm run build -- --only --filter=@kenthackenough/$PROJECT
 
 cd $REPO/repos/templates/web
+PWD=$( pwd );
 
 # Move old dist folder
 mv .next .next-old
@@ -21,7 +22,9 @@ if mv .next-build .next; then
         NODE_ENV=production pm2 restart $PROJECT --update-env
     else
         echo "pm2: initialize $PROJECT"
+        cd $REPO
         pm2 start --name $PROJECT "npm run start -- --only --filter=@kenthackenough/$PROJECT"
+        cd $PWD
     fi
     pm2 show $PROJECT
     rm -rf .next-old
