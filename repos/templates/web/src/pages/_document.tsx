@@ -1,2 +1,2 @@
-import { WebDocument } from '@kenthackenough/web/document';
+import { WebDocument } from '@kenthackenough/ui/document';
 export default WebDocument;

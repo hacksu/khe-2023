@@ -1,5 +1,5 @@
-import { ContactUs } from '@kenthackenough/web/tickets/contact';
-import { api } from '@kenthackenough/web/trpc';
+import { ContactUs } from '@kenthackenough/ui/tickets/contact';
+import { api } from '@kenthackenough/ui/trpc';
 import { useState } from 'react';
 
 

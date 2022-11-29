@@ -1,4 +1,4 @@
-import { App } from '@kenthackenough/web/app';
+import { App } from '@kenthackenough/ui/app';
 
 export default App({
 
