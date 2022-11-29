@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "next dev --port 5003",
-    "start": "next start --port 5003",
+    "dev": "next dev --port 5004",
+    "start": "next start --port 5004",
     "build": "next build",
     "lint": "next lint"
   },

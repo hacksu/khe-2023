@@ -117,4 +117,4 @@ jobs:
             cd ${{ inputs.directory }}
             export TERM=xterm-256color
             export FORCE_COLOR=1
-            bash .github/server/scripts/deploy/${{ matrix.project }}.sh
+            bash docker/server/scripts/deploy/${{ matrix.project }}.sh

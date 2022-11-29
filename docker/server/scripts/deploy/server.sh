@@ -34,9 +34,9 @@ if mv dist-build dist; then
     mv /var/www/nginx /var/www/old-nginx
     mv includes old-includes
     mv sites-enabled old-sites-enabled
-    cp -R $REPO/.github/server/nginx/www /var/www/nginx
-    cp -R $REPO/.github/server/nginx/includes /etc/nginx/includes
-    cp -R $REPO/.github/server/nginx/sites-enabled /etc/nginx/sites-enabled
+    cp -R $REPO/docker/server/nginx/www /var/www/nginx
+    cp -R $REPO/docker/server/nginx/includes /etc/nginx/includes
+    cp -R $REPO/docker/server/nginx/sites-enabled /etc/nginx/sites-enabled
     chmod 755 -R /var/www/nginx
     if nginx -t; then
         rm -rf /var/www/old-nginx
