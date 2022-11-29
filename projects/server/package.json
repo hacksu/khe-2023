@@ -1,6 +1,6 @@
 {
   "name": "@kenthackenough/server",
-  "version": "1.0.34",
+  "version": "1.0.35",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -10,7 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@kenthackenough/tsconfig": "^1.0.34",
+    "@kenthackenough/tsconfig": "^1.0.35",
     "@trpc/client": "^10.0.0-rc.2",
     "@trpc/next": "^10.0.0-rc.2",
     "@trpc/server": "^10.0.0-rc.2",
