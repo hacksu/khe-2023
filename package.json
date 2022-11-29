@@ -8,6 +8,8 @@
     "templates/*",
     "projects/*",
     "library/*",
+    "repos/*",
+    "repos/templates/*",
     "docker/tools/*",
     ".github/scripts"
   ],

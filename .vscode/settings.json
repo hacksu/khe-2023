@@ -15,6 +15,7 @@
         { "icon": "node", "extensions": ["npm"] },
         { "icon": "electron", "extensions": ["react"] },
         { "icon": "log", "extensions": [".github/workflows"] },
+        { "icon": "git", "extensions": ["repos"] },
     ],
     "vsicons.associations.files": [
         { "icon": "nginx", "extensions": ["docker/server/nginx/*"] },

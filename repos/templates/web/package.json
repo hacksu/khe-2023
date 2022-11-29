@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@kenthackenough/web": "^1.0.34",
+    "@kenthackenough/ui": "^1.0.34",
     "@kenthackenough/server": "^1.0.34",
     "@kenthackenough/tsconfig": "^1.0.34",
     "@mantine/core": "^5.5.4",
