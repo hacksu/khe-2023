@@ -1,6 +1,6 @@
 {
   "name": "@kenthackenough/web",
-  "version": "1.0.0",
+  "version": "1.0.36",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -10,10 +10,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@kenthackenough/ui": "^1.0.35",
-    "@kenthackenough/react": "^1.0.35",
-    "@kenthackenough/server": "^1.0.35",
-    "@kenthackenough/tsconfig": "^1.0.35",
+    "@kenthackenough/ui": "^1.0.36",
+    "@kenthackenough/react": "^1.0.36",
+    "@kenthackenough/server": "^1.0.36",
+    "@kenthackenough/tsconfig": "^1.0.36",
     "@mantine/core": "^5.5.4",
     "@mantine/dates": "^5.5.4",
     "@mantine/form": "^5.5.4",
