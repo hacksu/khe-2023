@@ -1,7 +1,6 @@
 const { execSync } = require('child_process');
 const chalk = require('chalk');
 
-console.log(process.env)
 if (execSync('git rev-parse --abbrev-ref HEAD').toString('utf8').trim() === 'main' || process.env.npm_config_argv.includes('--force')) {
     process.exit(0);
 } else {
