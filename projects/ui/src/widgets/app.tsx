@@ -50,9 +50,9 @@ export function App(...args) {
         const queryClient = useQueryClient();
         useEffect(() => {
             if (typeof window !== 'undefined') {
-                console.log('query cache2', queryClient.getQueryCache())
+                // console.log('query cache2', queryClient.getQueryCache())
                 if (Object.keys(((queryClient.getQueryCache() as any).queriesMap as Map<string, any>)).length === 0) {
-                    console.log('invalidate queries');
+                    // console.log('invalidate queries');
                     _trpc.invalidate();
                 }
             }
