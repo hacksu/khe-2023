@@ -12,7 +12,7 @@ import superjson from 'superjson';
 const WS_ENABLED = getConfig().publicRuntimeConfig.websocket || false;
 const API_HOST = typeof window !== 'undefined'
     ? location.host.split('.').filter(o => o != 'staff').join('.')
-    : 'localhost:5000'
+    : 'localhost:5001'
 
     
 function getEndingLink(ctx?: NextPageContext | undefined) {
