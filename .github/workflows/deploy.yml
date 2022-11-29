@@ -44,7 +44,7 @@ jobs:
   install:
     name: Install
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/deployment' && (true || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call' || contains(github.event.head_commit.message, '@deploy'))
+    if: github.ref == 'refs/heads/reorg' && (true || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call' || contains(github.event.head_commit.message, '@deploy'))
     # Run commands to git fetch & install dependencies on the server
     steps:
       - name: Debug
@@ -79,7 +79,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        project: [server, staff, template-web]
+        project: [server, staff, web]
     steps:
       - uses: actions/checkout@v3
       - name: Calculating Hash
