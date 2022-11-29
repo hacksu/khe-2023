@@ -4,6 +4,7 @@ import { NextPageContext } from 'next';
 import { AppContext, AppProps } from 'next/app';
 import { ThemeProvider } from '../utils/mantine';
 import { trpc } from '../utils/trpc';
+import { Navigation } from '../widgets/navigation';
 
 
 function App(props: InitialProps) {
@@ -16,6 +17,7 @@ function App(props: InitialProps) {
 
     return <ThemeProvider {...{ theme, colorScheme, firstVisit }}>
         <NotificationsProvider>
+            {/* <Navigation /> */}
             <Component {...pageProps} />
         </NotificationsProvider>
     </ThemeProvider>

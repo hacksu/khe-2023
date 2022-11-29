@@ -1,7 +1,7 @@
 import ExpressSession from 'express-session';
 import type { CreateExpressContextOptions } from '@trpc/server/adapters/express';
 import type { Request } from 'express';
-
+import { randomUUID } from 'crypto';
 
 declare module 'express-session' {
     interface SessionData {
