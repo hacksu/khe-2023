@@ -6,7 +6,11 @@ import { useState } from 'react';
 
 
 export default function Homepage() {
-    const ping = api.ping.useQuery();
+    const ping = api.ping.useQuery(undefined, {
+        onSuccess(data) {
+            console.log('did fetch', data);
+        },
+    });
     return <div>
         <Title>Hey! Kent Hack Enough Website!</Title>
         <p>wooah its the web template project!</p>
