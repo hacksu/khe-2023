@@ -1,16 +1,17 @@
 {
-  "name": "@template/web",
+  "name": "@kenthackenough/web",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
     "dev": "next dev --port 5004",
     "start": "next start --port 5004",
-    "build": "next build",
+    "build": "tsc --noEmit --incremental false && next build",
     "lint": "next lint"
   },
   "dependencies": {
     "@kenthackenough/ui": "^1.0.34",
+    "@kenthackenough/react": "^1.0.34",
     "@kenthackenough/server": "^1.0.34",
     "@kenthackenough/tsconfig": "^1.0.34",
     "@mantine/core": "^5.5.4",

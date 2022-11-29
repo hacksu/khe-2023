@@ -14,10 +14,10 @@
     ".github/scripts"
   ],
   "scripts": {
-    "dev": "cross-env FORCE_COLOR=1 turbo run dev --parallel --filter=!./templates/*",
-    "start": "cross-env FORCE_COLOR=1 turbo run start --parallel --filter=!./templates/*",
-    "build": "cross-env FORCE_COLOR=1 turbo run build --parallel --filter=!./templates/*",
-    "lint": "cross-env FORCE_COLOR=1 turbo run lint --filter=!./templates/*",
+    "dev": "cross-env FORCE_COLOR=1 turbo run dev --parallel",
+    "start": "cross-env FORCE_COLOR=1 turbo run start --parallel",
+    "build": "cross-env FORCE_COLOR=1 turbo run build --parallel",
+    "lint": "cross-env FORCE_COLOR=1 turbo run lint",
     "template": "cd templates && npm run",
     "postversion": "node .github/scripts/npm/versions.js --postversion",
     "deploy": "node .github/scripts/npm/can-deploy.js && node .github/scripts/npm/versions.js --",

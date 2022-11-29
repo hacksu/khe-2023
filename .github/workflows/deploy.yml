@@ -79,7 +79,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        project: [server, staff, web]
+        project: [server, staff, template-web]
     steps:
       - uses: actions/checkout@v3
       - name: Calculating Hash

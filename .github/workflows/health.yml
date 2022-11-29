@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        project: [server, staff, web]
+        project: [server, staff, template-web]
     steps:
       - name: PM2 Status
         uses: garygrossgarten/github-action-ssh@release

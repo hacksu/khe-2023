@@ -1,5 +1,5 @@
 import { ticketData } from '@kenthackenough/server/data/tickets';
-import { Box, Button, Text, Textarea, TextInput } from '@mantine/core';
+import { Box, Button, Divider, Flex, Text, Textarea, TextInput } from '@mantine/core';
 import { api } from '../../utils/trpc';
 import { IconCheck, IconX } from '@tabler/icons'
 import { useState } from 'react';
@@ -66,7 +66,7 @@ export function ContactUs(props: ContactUsProps) {
     const isLoading = state === 'loading';
     const isSuccess = state === 'success';
     const isDisabled = state === 'loading' || state === 'success';
-    const isError = state === 'error';
+    const isError = true; //state === 'error';
 
     const onSubmit = data => {
         console.log('submit', data);
@@ -76,6 +76,7 @@ export function ContactUs(props: ContactUsProps) {
     }
 
     return <form onSubmit={form.handleSubmit(onSubmit)} className={classes?.container}>
+        
         <TextInput {...register('email', {
             label: 'Email',
             placeholder: 'Where should we contact you?',
@@ -100,25 +101,19 @@ export function ContactUs(props: ContactUsProps) {
             readonly: isDisabled,
         })} />
 
-        <Box mt="sm" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '1em' }}>
+        <Flex mt='sm' direction='column' align='center' gap='xs'>
+
             <Button type='submit' className={classes?.submit}
                 loading={isLoading} disabled={isDisabled}
                 leftIcon={isSuccess ? <IconCheck /> : null}>
-                Submit
+                {isSuccess ? 'Message Sent' : 'Submit'}
             </Button>
 
-            {isSuccess ? (
-                <Text c="green">
-                    Message sent!
-                </Text>
-            ) : ((isError) ? (
-                <Text c="red">
-                    {mutation.error?.message || `An error occured!`}
-                </Text>
-            ) : null)}
-        </Box>
+            {isError && <Text c="red">
+                {mutation.error?.message || `An error occured!`}
+            </Text>}
 
-
+        </Flex>
 
     </form>
 }

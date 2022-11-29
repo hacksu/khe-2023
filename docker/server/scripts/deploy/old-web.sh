@@ -8,7 +8,7 @@ PROJECT=web
 echo "building $PROJECT"
 BUILD_DIR=.next-build npm run build -- --only --filter=@kenthackenough/$PROJECT
 
-cd $REPO/repos/templates/web
+cd $REPO/projects/$PROJECT
 
 # Move old dist folder
 mv .next .next-old
