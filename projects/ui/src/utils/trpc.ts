@@ -14,6 +14,7 @@ const API_HOST = typeof window !== 'undefined'
     ? location.host.split('.').filter(o => o != 'staff').join('.')
     : 'localhost:5001'
 
+console.log({ API_HOST })
     
 function getEndingLink(ctx?: NextPageContext | undefined) {
     const http = typeof window === 'undefined'
@@ -25,7 +26,7 @@ function getEndingLink(ctx?: NextPageContext | undefined) {
     }
 
     const client = location.host.includes('localhost')
-        ? createWSClient({ url: `ws://localhost:5000` })
+        ? createWSClient({ url: `ws://localhost:5001` })
         : createWSClient({ url: `wss://${API_HOST}/api` })
 
     const ws = wsLink<Router>({
