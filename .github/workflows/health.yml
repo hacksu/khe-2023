@@ -10,12 +10,10 @@ on:
       user:
         required: false
         type: string
-        default: 'root'
         description: 'User to SSH into the host with'
       port:
         required: false
         type: string
-        default: '22'
         description: 'Port that SSH is running on'
       key:
         required: false
@@ -45,8 +43,8 @@ jobs:
         uses: garygrossgarten/github-action-ssh@release
         with:
           host: ${{ secrets.host || inputs.host || secrets.KHE_DEV_HOST }}
-          port: ${{ secrets.port || inputs.port }}
-          username: ${{ secrets.user || inputs.user }}
+          port: ${{ secrets.port || inputs.port || secrets.KHE_DEV_PORT }}
+          username: ${{ secrets.user || inputs.user || secrets.KHE_DEV_USER }}
           privateKey: ${{ secrets.key || inputs.key || secrets.KHE_DEV_KEY }}
           command: |
             export TERM=xterm-256color
