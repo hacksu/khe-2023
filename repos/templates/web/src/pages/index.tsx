@@ -1,6 +1,6 @@
 import { ContactUs } from '@kenthackenough/ui/tickets/contact';
 import { api } from '@kenthackenough/ui/trpc';
-import { Title } from '@mantine/core';
+import { Box, Title } from '@mantine/core';
 import Link from 'next/link';
 import { useState } from 'react';
 import { LandingLayout } from '../layouts/landing';
@@ -16,7 +16,12 @@ export default function Homepage() {
         <Title>Hey! Kent Hack Enough Website!</Title>
         <p>wooah its the web template project!</p>
         {/* <p>ping: {ping?.data?.toLocaleString() || 'loading...'}</p> */}
-        <Link href={'/contact'}>contact us!</Link>
+        <Box>
+            <Link href={'/contact'}>contact us!</Link>
+        </Box>
+        <Box>
+            <Link href={'/login'}>login</Link>
+        </Box>
         <LandingLayout />
     </div>
 }

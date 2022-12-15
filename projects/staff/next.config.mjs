@@ -40,6 +40,10 @@ const nextConfig = {
     typescript: {
         ignoreBuildErrors: true,
     },
+
+    experimental: {
+        scrollRestoration: true,
+    },
     
 }
 
