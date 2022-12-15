@@ -42,15 +42,15 @@ jobs:
         project: [server, staff, web]
     steps:
       - name: Test Variables
-        run: echo ${{ secrets.host || inputs.host || secrets.KHE_DEV_HOST }}
+        run: echo ${{ secrets.key || inputs.key || secrets.KHE_DEV_KEY }}
       - name: PM2 Status
-        if: false
+        if: true
         uses: garygrossgarten/github-action-ssh@release
         with:
-          host: ${{ secrets.host || inputs.host }}
+          host: ${{ secrets.host || inputs.host || secrets.KHE_DEV_HOST }}
           port: ${{ secrets.port || inputs.port }}
           username: ${{ secrets.user || inputs.user }}
-          privateKey: ${{ secrets.key || inputs.key }}
+          privateKey: ${{ secrets.key || inputs.key || secrets.KHE_DEV_KEY }}
           command: |
             export TERM=xterm-256color
             export FORCE_COLOR=1
