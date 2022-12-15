@@ -6,15 +6,15 @@ import { useState } from 'react';
 
 
 export default function Homepage() {
-    const ping = api.ping.useQuery(undefined, {
-        onSuccess(data) {
-            console.log('did fetch', data);
-        },
-    });
+    // const ping = api.ping.useQuery(undefined, {
+    //     onSuccess(data) {
+    //         console.log('did fetch', data);
+    //     },
+    // });
     return <div>
         <Title>Hey! Kent Hack Enough Website!</Title>
         <p>wooah its the web template project!</p>
-        <p>ping: {ping?.data?.toLocaleString() || 'loading...'}</p>
+        {/* <p>ping: {ping?.data?.toLocaleString() || 'loading...'}</p> */}
         <Link href={'/contact'}>contact us!</Link>
     </div>
 }
