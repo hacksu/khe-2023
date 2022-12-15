@@ -1,4 +1,5 @@
-[![CI/CD](https://github.com/hacksu/khe-2023/actions/workflows/pipeline.yml/badge.svg)](https://github.com/hacksu/khe-2023/actions/workflows/pipeline.yml)
+[![Build](https://github.com/hacksu/khe-2023/actions/workflows/pipeline.yml/badge.svg)](https://github.com/hacksu/khe-2023/actions/workflows/pipeline.yml)
+[![Production](https://github.com/hacksu/khe-2023/actions/workflows/health.yml/badge.svg)](https://github.com/hacksu/khe-2023/actions/workflows/health.yml)
 
 # Kent Hack Enough
 

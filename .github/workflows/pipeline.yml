@@ -46,3 +46,5 @@ jobs:
     secrets:
       key: ${{ secrets.KHE_DEV_KEY }}
       host: ${{ secrets.KHE_DEV_HOST }}
+      port: ${{ secrets.KHE_DEV_PORT }}
+      user: ${{ secrets.KHE_DEV_USER }}
