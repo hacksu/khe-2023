@@ -3,6 +3,7 @@ import { api } from '@kenthackenough/ui/trpc';
 import { Title } from '@mantine/core';
 import Link from 'next/link';
 import { useState } from 'react';
+import { LandingLayout } from '../layouts/landing';
 
 
 export default function Homepage() {
@@ -16,6 +17,7 @@ export default function Homepage() {
         <p>wooah its the web template project!</p>
         {/* <p>ping: {ping?.data?.toLocaleString() || 'loading...'}</p> */}
         <Link href={'/contact'}>contact us!</Link>
+        <LandingLayout />
     </div>
 }
 

@@ -40,6 +40,9 @@
     },
     "./hooks/useMediaQuery": {
       "default": "./src/hooks/useMediaQuery.ts"
+    },
+    "./utils/types": {
+      "default": "./src/utils/types.ts"
     }
   }
 }
