@@ -2,7 +2,10 @@ import { Box, Progress } from '@mantine/core';
 import { useState } from 'react';
 import { api } from '../utils/trpc';
 import { TicketsList } from '../widgets/tickets/list';
+import { Icon } from '@cseitz/icons';
+import { faHouse } from '@cseitz/icons/regular/house';
 
+const HomeIcon = Icon(faHouse)
 
 // import bruh from 'this-should-error';
 // bruh();
@@ -17,7 +20,7 @@ export default function Homepage() {
         },
     })
     return <div>
-        Woah! Staff Portal!
+        Woah! Staff Portal! <HomeIcon />
         <p>
             ping: <span>{ping?.data?.toLocaleString() || 'loading...'}</span>
         </p>
