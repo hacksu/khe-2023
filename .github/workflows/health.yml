@@ -42,7 +42,7 @@ jobs:
         project: [server, staff, web]
     steps:
       - name: Test Variables
-        run: echo ${{ secrets.host || inputs.host }}
+        run: echo ${{ secrets.host || inputs.host || secrets.KHE_DEV_HOST }}
       - name: PM2 Status
         if: false
         uses: garygrossgarten/github-action-ssh@release
