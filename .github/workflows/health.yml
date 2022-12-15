@@ -1,0 +1,57 @@
+name: Health
+
+on:
+  workflow_call:
+    inputs:
+      host:
+        required: false
+        type: string
+        description: 'Server to SSH into'
+      user:
+        required: false
+        type: string
+        default: 'root'
+        description: 'User to SSH into the host with'
+      port:
+        required: false
+        type: string
+        default: '22'
+        description: 'Port that SSH is running on'
+      key:
+        required: false
+        type: string
+        description: 'SSH Key to authenticate with'
+    secrets:
+      host:
+        required: false
+      key:
+        required: false
+      user:
+        required: false
+      port:
+        required: false
+  workflow_dispatch:
+
+jobs:
+
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: [server, staff, web]
+    steps:
+      - name: PM2 Status
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          host: ${{ secrets.host || inputs.host }}
+          port: ${{ secrets.port || inputs.port }}
+          username: ${{ secrets.user || inputs.user }}
+          privateKey: ${{ secrets.key || inputs.key }}
+          command: |
+            export TERM=xterm-256color
+            export FORCE_COLOR=1
+            pm2 status
+            pm2 show ${{ matrix.project }}
+            exit $(pm2 show ${{ matrix.project }} | grep -c stopped);
+

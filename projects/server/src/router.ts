@@ -34,6 +34,17 @@ api.use(createRestHandler({
     createContext,
 }))
 
+api.get('/session', (req, res) => {
+    if (!req.session.bruh) {
+        req.session.bruh = Math.random().toString(16);
+        req.session.save();
+    }
+    res.json({
+        session: req.session,
+        sessionId: req.sessionID,
+    });
+})
+
 api.get('/', (req, res) => {
     res.send('hi')
 });

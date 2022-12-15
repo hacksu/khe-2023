@@ -7,6 +7,10 @@ import dotenv from 'dotenv';
 
 
 dotenv.config();
+dotenv.config({
+    override: true,
+    path: process.cwd() + '/.env.local',
+});
 
 const HELP = process.argv.find(o => o.endsWith('help')) !== undefined;
 

@@ -8,7 +8,7 @@ export function TicketsList() {
     const stuff = query.data?.tickets;
     return <Box>
         <Title order={3}>Tickets 1234</Title>
-        <Box style={{ display: 'flex', gap: 10 }}>
+        <Box style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
             {query.data?.tickets.map(ticket => (
                 <Paper key={ticket._id.toString()} style={{ width: 300, padding: 10 }} withBorder>
                     <Text c="dimmed">Ticket {ticket._id}</Text>

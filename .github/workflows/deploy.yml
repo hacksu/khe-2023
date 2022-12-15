@@ -1,22 +1,120 @@
 name: Deploy
 
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
+  workflow_call:
+    inputs:
+      host:
+        required: false
+        type: string
+        description: 'Server to SSH into'
+      user:
+        required: false
+        type: string
+        default: 'root'
+        description: 'User to SSH into the host with'
+      port:
+        required: false
+        type: string
+        default: '22'
+        description: 'Port that SSH is running on'
+      key:
+        required: false
+        type: string
+        description: 'SSH Key to authenticate with'
+      directory:
+        required: true
+        type: string
+        description: 'Directory to execute commands within'
+    secrets:
+      host:
+        required: false
+      key:
+        required: false
+      user:
+        required: false
+      port:
+        required: false
+  # workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main
 
 jobs:
-  publish:
-    name: Deploy
-    if: github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '@deploy'))
+
+  install:
+    name: Install
     runs-on: ubuntu-latest
-    concurrency:
-      group: deploy
-      cancel-in-progress: true
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call' || contains(github.event.head_commit.message, '@deploy'))
+    # Run commands to git fetch & install dependencies on the server
+    steps:
+      - name: Debug
+        run: echo "Run commands to git fetch & install dependencies on the server"
+      - name: Fetch
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          host: ${{ secrets.host || inputs.host }}
+          port: ${{ secrets.port || inputs.port }}
+          username: ${{ secrets.user || inputs.user }}
+          privateKey: ${{ secrets.key || inputs.key }}
+          command: |
+            cd ${{ inputs.directory }}
+            git stash
+            git fetch
+            git pull
+      - name: Install
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          host: ${{ secrets.host || inputs.host }}
+          port: ${{ secrets.port || inputs.port }}
+          username: ${{ secrets.user || inputs.user }}
+          privateKey: ${{ secrets.key || inputs.key }}
+          command: |
+            cd ${{ inputs.directory }}
+            npm install --no-audit --no-fund
+
+
+  build:
+    name: Build
+    needs: install
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: [server, staff, web]
     steps:
       - uses: actions/checkout@v3
-      - name: Get Version
-        id: get-version
-        run: echo "PACKAGE_VERSION=$(node .github/scripts/github/get-version)" >> $GITHUB_OUTPUT
-        
+      - name: Calculating Hash
+        run: |
+          echo "TURBO_VERSION=$( npm show turbo version )" >> $GITHUB_ENV
+          echo "NPM_GLOBAL_MODULES=$( npm root -g )" >> $GITHUB_ENV
+          echo "TURBO_HASH=$( npx --yes turbo run build --dry --only --filter=@kenthackenough/${{ matrix.package }} | grep = | grep Hash | tail -1 | cut -f2- -d= | xargs )" >> $GITHUB_ENV
+      - uses: actions/cache@v3
+        name: Cache - Turbo
+        id: turbo-cache
+        with:
+          path: |
+            .turbo
+            ${{ github.workspace }}/projects/*/.next/cache
+          key: cache-turbo-build-${{ matrix.project }}-${{ hashFiles('package-lock.json') }}-${{ env.TURBO_HASH }}
+          restore-keys: |
+            cache-turbo-build-${{ matrix.project }}-${{ hashFiles('package-lock.json') }}-
+      - name: Sync - Turbo Cache
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          host: ${{ secrets.host || inputs.host }}
+          port: ${{ secrets.port || inputs.port }}
+          username: ${{ secrets.user || inputs.user }}
+          privateKey: ${{ secrets.key || inputs.key }}
+          local: .turbo
+          remote: ${{ inputs.directory }}/node_modules/.cache
+      - name: Deploy
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          host: ${{ secrets.host || inputs.host }}
+          port: ${{ secrets.port || inputs.port }}
+          username: ${{ secrets.user || inputs.user }}
+          privateKey: ${{ secrets.key || inputs.key }}
+          command: |
+            cd ${{ inputs.directory }}
+            export TERM=xterm-256color
+            export FORCE_COLOR=1
+            bash docker/server/scripts/deploy/${{ matrix.project }}.sh

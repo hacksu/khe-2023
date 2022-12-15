@@ -1,7 +1,11 @@
+import { Box, Progress } from '@mantine/core';
 import { useState } from 'react';
 import { api } from '../utils/trpc';
 import { TicketsList } from '../widgets/tickets/list';
 
+
+// import bruh from 'this-should-error';
+// bruh();
 
 export default function Homepage() {
     const ping = api.ping.useQuery();
@@ -14,10 +18,17 @@ export default function Homepage() {
     })
     return <div>
         Woah! Staff Portal!
-        <p>ping: {ping?.data?.toLocaleString() || 'loading...'}</p>
-        <p>subscription date: {date?.toLocaleString() || 'loading...'}</p>
+        <p>
+            ping: <span>{ping?.data?.toLocaleString() || 'loading...'}</span>
+        </p>
+        <p>
+            subscription date: <span>{date?.toLocaleString() || 'loading...'}</span>
+        </p>
         <div>{JSON.stringify(users?.data || {})}</div>
         <TicketsList />
+        <Box sx={{ width: 500, maxWidth: '60vw', marginTop: 10 }}>
+            <Progress value={100} animate />
+        </Box>
     </div>
 }
 

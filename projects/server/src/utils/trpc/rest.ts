@@ -62,7 +62,7 @@ export function createRestHandler<TRouter extends TRPCRouter<any>>(opts: Handler
 
     routes.forEach(({ name, procedure }, _path) => {
         const [method, path] = _path.split(' /', 2);
-        console.log(method.toLowerCase(), path, { method, path, name });
+        // console.log(method.toLowerCase(), path, { method, path, name });
         const pre = ['/' + path] as any[];
         if (method === 'POST' || method === 'PATCH' || method === 'PUT') {
             pre.push(express.json());

@@ -24,7 +24,7 @@ let version;
 function updatePackage(path) {
     const data = JSON5.parse(readFileSync(path, 'utf8'));
     let doSave = false;
-    if (!path.includes('templates') && !path.includes('workbench')) {
+    if (path.includes('web') || !path.includes('templates') && !path.includes('repos')) {
         if (data.version != version) {
             data.version = version;
             doSave = true;

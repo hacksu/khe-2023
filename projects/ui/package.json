@@ -1,0 +1,68 @@
+{
+  "name": "@kenthackenough/ui",
+  "version": "1.0.36",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev --port 5003",
+    "start": "next start --port 5003",
+    "build": "tsc --noEmit --incremental false && next build",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@kenthackenough/server": "^1.0.36",
+    "@kenthackenough/tsconfig": "^1.0.36",
+    "@kenthackenough/react": "^1.0.36",
+    "@emotion/react": "^11.10.4",
+    "@emotion/server": "^11.10.0",
+    "@hookform/resolvers": "^2.9.10",
+    "@mantine/core": "^5.5.4",
+    "@mantine/dates": "^5.5.4",
+    "@mantine/form": "^5.5.4",
+    "@mantine/hooks": "^5.5.4",
+    "@mantine/modals": "^5.5.4",
+    "@mantine/next": "^5.5.4",
+    "@mantine/notifications": "^5.5.4",
+    "@mantine/nprogress": "^5.5.4",
+    "@mantine/spotlight": "^5.5.4",
+    "@tabler/icons": "^1.110.0",
+    "@tanstack/react-query": "^4.3.4",
+    "@trpc/client": "^10.0.0-rc.2",
+    "@trpc/next": "^10.0.0-rc.2",
+    "@trpc/react-query": "^10.0.0-rc.2",
+    "@trpc/server": "^10.0.0-rc.2",
+    "cookies-next": "^2.1.1",
+    "lodash": "^4.17.21",
+    "next": "^13.0.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.37.0"
+  },
+  "devDependencies": {
+    "@next/bundle-analyzer": "^12.3.1",
+    "@types/lodash": "^4.14.186",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "eslint": "^8.26.0",
+    "eslint-config-next": "^13.0.1",
+    "next-transpile-modules": "^10.0.0",
+    "typescript": "^4.8.4"
+  },
+  "exports": {
+    "./document": {
+      "default": "./src/pages/_document.tsx"
+    },
+    "./trpc": {
+      "default": "./src/utils/trpc.ts"
+    },
+    "./app": {
+      "default": "./src/widgets/app.tsx"
+    },
+    "./authentication/login": {
+      "default": "./src/widgets/authentication/login.tsx"
+    },
+    "./tickets/contact": {
+      "default": "./src/widgets/tickets/contact.tsx"
+    }
+  }
+}

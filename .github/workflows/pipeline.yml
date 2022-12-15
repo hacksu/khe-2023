@@ -7,22 +7,39 @@ on:
 jobs:
   lint:
     name: Lint
-    uses: hacksu/khe-2023/.github/workflows/lint.yml@actions-improvements
+    uses: hacksu/khe-2023/.github/workflows/lint.yml@main
 
   build:
     name: Build
     needs: [lint]
-    uses: hacksu/khe-2023/.github/workflows/build.yml@actions-improvements
-
-  prepublish:
-    name: Publish
-    needs: [lint]
-    uses: hacksu/khe-2023/.github/workflows/prepublish.yml@actions-improvements
+    uses: hacksu/khe-2023/.github/workflows/build.yml@main
 
   publish:
     name: Publish
-    if: github.ref == 'refs/heads/main' && needs.prepublish.outputs.publish == 'true'
-    needs: [build, prepublish]
-    uses: hacksu/khe-2023/.github/workflows/publish.yml@actions-improvements
+    if: github.ref == 'refs/heads/main' && needs.build.outputs.publish == 'true'
+    needs: [build]
+    uses: hacksu/khe-2023/.github/workflows/publish.yml@main
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  deploy:
+    name: Deploy
+    if: github.ref == 'refs/heads/main' && (true || github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '@deploy'))
+    needs: [build]
+    uses: hacksu/khe-2023/.github/workflows/deploy.yml@main
+    secrets:
+      key: ${{ secrets.KHE_DEV_KEY }}
+      host: ${{ secrets.KHE_DEV_HOST }}
+    with:
+      directory: /opt/khe/khe-2023
+      
+      
+
+  health:
+    name: Health
+    needs: [build, publish, deploy]
+    if: ${{ always() }}
+    uses: hacksu/khe-2023/.github/workflows/health.yml@main
+    secrets:
+      key: ${{ secrets.KHE_DEV_KEY }}
+      host: ${{ secrets.KHE_DEV_HOST }}

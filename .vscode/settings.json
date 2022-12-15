@@ -14,9 +14,12 @@
         { "icon": "github", "extensions": ["github"] },
         { "icon": "node", "extensions": ["npm"] },
         { "icon": "electron", "extensions": ["react"] },
+        { "icon": "log", "extensions": [".github/workflows"] },
+        { "icon": "route", "extensions": ["tools/proxy"] },
+        { "icon": "git", "extensions": ["repos"] },
     ],
     "vsicons.associations.files": [
-        { "icon": "nginx", "extensions": ["template"] },
+        { "icon": "nginx", "extensions": ["docker/server/nginx/*"] },
         { "icon": "tsconfig", "extensions": [
             "tsconfig/tsconfig.base.json",
             "tsconfig/tsconfig.next.json",
@@ -27,11 +30,13 @@
             "icon": "tsconfig",
             "extensions": ["src/config.ts"],
             "filename": true
-        }
+        },
     ],
     "files.associations": {
         "**/nginx/**/*.template": "nginx",
-        "**/.env.local": "env",
+        "**/nginx/includes/**": "nginx",
+        "**/nginx/sites-enabled/**": "nginx",
+        "**/.env.local": "properties",
     },
     "typescript.preferences.importModuleSpecifierEnding": "minimal",
     "files.exclude": {

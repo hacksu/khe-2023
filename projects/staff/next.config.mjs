@@ -4,6 +4,11 @@ import { fileURLToPath } from 'url';
 import { readFileSync } from 'fs';
 import path from 'path';
 
+import * as dotenv from 'dotenv'
+dotenv.config()
+
+console.log('host', process.env.API_HOST);
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
@@ -16,7 +21,8 @@ const serverRuntimeConfig = {
 
 /** @type {import('./config').PublicRuntimeConfig} */
 const publicRuntimeConfig = {
-    
+    api: process.env.API_HOST || 'localhost:5001',
+    websocket: true,
 }
 
 /** @type {import('next').NextConfig} */
@@ -29,8 +35,14 @@ const nextConfig = {
     reactStrictMode: true,
     swcMinify: true,
 
+    distDir: process.env.BUILD_DIR || undefined,
+
     typescript: {
         ignoreBuildErrors: true,
+    },
+
+    experimental: {
+        scrollRestoration: true,
     },
     
 }

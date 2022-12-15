@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        package: [tsconfig, react, server, staff, web]
+        package: [tsconfig, react, server, staff, ui]
     concurrency:
       group: ${{ github.workflow }} - ${{ matrix.package }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}
       cancel-in-progress: true

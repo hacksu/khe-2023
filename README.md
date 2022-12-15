@@ -24,11 +24,11 @@ This should implement all functionality needed by event organizers.
 
 Because of this being a monorepo, the API calls are tighly coupled to the Server API code; allowing full TypeScript intellisense and validation.
 
-### The Website *(library)*
+### The UI *(library)*
 
 Because of the need for us to have a different website each year due to our theming practices; the App project within this monorepo is intended to act as a baseline for all our websites. It shall implement all logical functionality and provide useful component exports that can be consumed by other projects.
 
-With this, one will be able to import `@kenthackenough/web` as a dependency in any other NextJS project and it will be able to use these components.
+With this, one will be able to import `@kenthackenough/ui` as a dependency in any other NextJS project and it will be able to use these components.
 
 For example, the Registration Form is usually very complicated and requires numerous validation steps to ensure a proper user experience. Because of this, this is offloaded here in the monorepo where one can have excellent TypeScript intellisense and validation as part of having the API in the same project. Thus, one would define the Registration Form here (but void of any major styling), allowing the form to be imported into the annual website as a simple `<RegistrationForm />` component.
 

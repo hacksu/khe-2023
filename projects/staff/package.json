@@ -1,18 +1,19 @@
 {
   "name": "@kenthackenough/staff",
-  "version": "1.0.34",
+  "version": "1.0.36",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "next dev --port 5001",
-    "start": "next start --port 5001",
+    "dev": "next dev --port 5002",
+    "start": "next start --port 5002",
     "build": "tsc --noEmit --incremental false && next build",
     "lint": "next lint"
   },
   "dependencies": {
-    "@kenthackenough/tsconfig": "^1.0.34",
-    "@kenthackenough/server": "^1.0.34",
-    "@kenthackenough/react": "^1.0.34",
+    "@kenthackenough/tsconfig": "^1.0.36",
+    "@kenthackenough/server": "^1.0.36",
+    "@kenthackenough/react": "^1.0.36",
+    "@kenthackenough/ui": "^1.0.36",
     "@emotion/react": "^11.10.4",
     "@emotion/server": "^11.10.0",
     "@hookform/resolvers": "^2.9.10",

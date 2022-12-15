@@ -1,0 +1,9 @@
+#location ~ {
+#    root /var/www/nginx;
+#}
+
+error_page 502 /offline.html;
+location /offline.html {
+    root /var/www/nginx;
+    internal;
+}
