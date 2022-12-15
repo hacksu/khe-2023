@@ -2,6 +2,10 @@ name: CI/CD
 
 on:
   workflow_dispatch:
+    inputs:
+      deploy:
+        type: boolean
+        description: Deploy?
   push:
 
 jobs:
@@ -24,7 +28,7 @@ jobs:
 
   deploy:
     name: Deploy
-    if: github.ref == 'refs/heads/main' && (true || github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '@deploy'))
+    if: github.ref == 'refs/heads/main'
     needs: [build]
     uses: hacksu/khe-2023/.github/workflows/deploy.yml@main
     secrets:
@@ -32,8 +36,7 @@ jobs:
       host: ${{ secrets.KHE_DEV_HOST }}
     with:
       directory: /opt/khe/khe-2023
-      
-      
+      force: ${{ github.event.inputs.deploy }}
 
   health:
     name: Health
