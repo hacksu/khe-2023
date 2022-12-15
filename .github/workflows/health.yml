@@ -6,6 +6,7 @@ on:
       host:
         required: false
         type: string
+        default: ${{ secrets.KHE_DEV_HOST }}
         description: 'Server to SSH into'
       user:
         required: false
@@ -20,6 +21,7 @@ on:
       key:
         required: false
         type: string
+        default: ${{ secrets.KHE_DEV_KEY }}
         description: 'SSH Key to authenticate with'
     secrets:
       host:
@@ -44,10 +46,10 @@ jobs:
       - name: PM2 Status
         uses: garygrossgarten/github-action-ssh@release
         with:
-          host: ${{ secrets.host || inputs.host || secrets.KHE_DEV_HOST }}
+          host: ${{ secrets.host || inputs.host }}
           port: ${{ secrets.port || inputs.port }}
           username: ${{ secrets.user || inputs.user }}
-          privateKey: ${{ secrets.key || inputs.key || secrets.KHE_DEV_KEY }}
+          privateKey: ${{ secrets.key || inputs.key }}
           command: |
             export TERM=xterm-256color
             export FORCE_COLOR=1
