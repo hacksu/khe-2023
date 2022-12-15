@@ -6,7 +6,6 @@ on:
       host:
         required: false
         type: string
-        default: ${{ secrets.KHE_DEV_HOST }}
         description: 'Server to SSH into'
       user:
         required: false
@@ -21,7 +20,6 @@ on:
       key:
         required: false
         type: string
-        default: ${{ secrets.KHE_DEV_KEY }}
         description: 'SSH Key to authenticate with'
     secrets:
       host:
@@ -43,7 +41,10 @@ jobs:
       matrix:
         project: [server, staff, web]
     steps:
+      - name: Test Variables
+        run: echo ${{ secrets.host || inputs.host }}
       - name: PM2 Status
+        if: false
         uses: garygrossgarten/github-action-ssh@release
         with:
           host: ${{ secrets.host || inputs.host }}
