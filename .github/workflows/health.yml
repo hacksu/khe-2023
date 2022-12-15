@@ -1,6 +1,9 @@
 name: Health
 
 on:
+  schedule:
+    # This runs twice a day: https://crontab.guru/#0_0,12_*_*_*
+    - cron: '0 0,12 * * *'
   workflow_call:
     inputs:
       host:
