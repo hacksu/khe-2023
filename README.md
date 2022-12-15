@@ -1,4 +1,7 @@
+[![CI/CD](https://github.com/hacksu/khe-2023/actions/workflows/pipeline.yml/badge.svg)](https://github.com/hacksu/khe-2023/actions/workflows/pipeline.yml)
+
 # Kent Hack Enough
+
 
 This is a monorepo that contains all the necessary components to run our annual event.
 
