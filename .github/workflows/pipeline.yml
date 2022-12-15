@@ -5,7 +5,7 @@ on:
     inputs:
       deploy:
         type: boolean
-        description: Deploy?
+        description: Deploy to Production
   push:
 
 jobs:
@@ -36,7 +36,7 @@ jobs:
       host: ${{ secrets.KHE_DEV_HOST }}
     with:
       directory: /opt/khe/khe-2023
-      force: ${{ github.event.inputs.deploy || false }}
+      force: ${{ !!(github.event.inputs.deploy || false) }}
 
   health:
     name: Health
