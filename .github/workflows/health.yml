@@ -41,10 +41,7 @@ jobs:
       matrix:
         project: [server, staff, web]
     steps:
-      - name: Test Variables
-        run: echo ${{ secrets.key || inputs.key || secrets.KHE_DEV_KEY }}
       - name: PM2 Status
-        if: true
         uses: garygrossgarten/github-action-ssh@release
         with:
           host: ${{ secrets.host || inputs.host || secrets.KHE_DEV_HOST }}
