@@ -1,5 +1,6 @@
-import { HydratedDocumentFromSchema, model, Schema } from 'mongoose';
+import mongoose, { HydratedDocumentFromSchema, model, Schema } from 'mongoose';
 import { TicketData, TicketStatus } from '../../data/models/tickets';
+import { exportModel } from '../../utils/mongo/export';
 
 
 export namespace TicketPermissions {
@@ -8,10 +9,9 @@ export namespace TicketPermissions {
     export const Delete = { tickets: { delete: true } } as const;
 }
 
-
-export namespace Ticket {
+namespace defineTicket {
     export const ModelName = 'Ticket';
-    
+
     export type Data = TicketData & {};
     export type Document = HydratedDocumentFromSchema<Schema>;
     export type Schema = typeof schema;
@@ -77,6 +77,15 @@ export namespace Ticket {
     });
 
     export const Model = model(ModelName, schema);
-    
+
+}
+
+export const Ticket = exportModel(defineTicket);
+
+// Redefine fields for exporting
+export declare namespace Ticket {
+    export type Data = defineTicket.Data;
+    export type Document = defineTicket.Document;
+    export type Schema = defineTicket.Schema;
 }
 

@@ -1,6 +1,7 @@
 import { HydratedDocumentFromSchema, model, Schema } from 'mongoose';
 import { UserData, UserRole } from '../../data/models/users';
 import { hashSync } from 'bcrypt';
+import { exportModel } from '../../utils/mongo/export';
 
 
 export namespace UserPermissions {
@@ -10,7 +11,14 @@ export namespace UserPermissions {
 }
 
 
-export namespace User {
+// Redefine fields for exporting
+export declare namespace User {
+    export type Data = defineUser.Data;
+    export type Document = defineUser.Document;
+    export type Schema = defineUser.Schema;
+}
+
+namespace defineUser {
     export const ModelName = 'User';
     
     export type Data = UserData & {};
@@ -87,3 +95,4 @@ export namespace User {
     
 }
 
+export const User = exportModel(defineUser);

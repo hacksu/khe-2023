@@ -12,7 +12,7 @@ export const ticketProcedures = t.router({
         .use(access({ tickets: { read: true } }))
         .input(ticketData.shape._id)
         .query(async ({ input }) => {
-            const ticket = await Ticket.Model.findById(input).lean<TicketData>();
+            const ticket = await Ticket.findById(input).lean<TicketData>();
             return { ticket }
         }),
 
@@ -28,7 +28,7 @@ export const ticketProcedures = t.router({
             assignee: true,
         }).partial().optional())
         .query(async ({ input }) => {
-            const tickets = await Ticket.Model.find(input || {}).lean<TicketData[]>();
+            const tickets = await Ticket.find(input || {}).lean<TicketData[]>();
             return { tickets }
         }),
 
@@ -43,7 +43,8 @@ export const ticketProcedures = t.router({
         }))
         .mutation(async ({ input }) => {
             // if (true) throw new Error('oof, failed');
-            const doc = new Ticket.Model(input);
+            // const doc = new Ticket.Model(input);
+            const doc = new Ticket(input);
             await doc.save();
             const ticket = doc.toObject<TicketData>();
             return { ticket }
