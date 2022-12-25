@@ -1,6 +1,6 @@
 import NextAuth, { type NextAuthOptions } from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
-
+import CredentialsProvider from 'next-auth/providers/credentials';
 
 // TODO: pull the user and add their role and permissions to the token
 // TODO: client library to facilitate auth
@@ -22,14 +22,28 @@ declare module "next-auth" {
     }
 }
 
+
+export type AuthProviders = typeof authProviders;
+export const authProviders = {
+    github: GithubProvider({
+        clientId: process.env.GITHUB_ID!,
+        clientSecret: process.env.GITHUB_SECRET!,
+        checks: 'none',
+    }),
+    credentials: CredentialsProvider({
+        credentials: {
+            email: { type: 'text' },
+            password: { type: 'password' }
+        },
+        authorize(credentials, req) {
+            // perform user lookup and password check
+            return null;
+        },
+    }),
+} as const;
+
 export const authOptions: NextAuthOptions = {
-    providers: [
-        GithubProvider({
-            clientId: process.env.GITHUB_ID!,
-            clientSecret: process.env.GITHUB_SECRET!,
-            checks: 'none'
-        }),
-    ],
+    providers: Object.values(authProviders),
     // debug: true,
     session: {
         strategy: 'jwt'
@@ -51,4 +65,15 @@ export const authOptions: NextAuthOptions = {
             return session;
         }
     }
+}
+
+
+
+
+
+
+const INCORRECTLY_NAMED = Object.entries(authProviders).find(o => o[0] !== o[1].id);
+if (INCORRECTLY_NAMED) {
+    // This check exists because we are using the names for typechecking and next-auth doesn't properly define the providers' names as const
+    throw new Error(`authentication.config: INCORRECTLY NAMED PROVIDER '${INCORRECTLY_NAMED[0]}'; should be '${INCORRECTLY_NAMED[1].id}'`)
 }
