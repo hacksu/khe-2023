@@ -69,3 +69,5 @@ process.on('SIGTERM', () => {
 server.listen(port, () => {
     console.timeEnd('server ready');
 });
+
+import './services/authentication';

@@ -1,6 +1,7 @@
 import { createExpressMiddleware } from '@trpc/server/adapters/express';
 import { createRestHandler } from './utils/trpc/rest';
 import { createContext } from './utils/trpc/context';
+import { nextAuth } from './services/authentication';
 import { router } from './utils/trpc/router';
 import express from 'express';
 import cors from 'cors';
@@ -44,6 +45,8 @@ api.get('/session', (req, res) => {
         sessionId: req.sessionID,
     });
 })
+
+api.use('/auth', nextAuth);
 
 api.get('/', (req, res) => {
     res.send('hi')

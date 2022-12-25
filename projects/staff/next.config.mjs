@@ -55,7 +55,6 @@ const withDependencies = Object.entries({ ...dependencies, ...devDependencies })
 
 const withModules = [
     ...withDependencies,
-
 ];
 
 
