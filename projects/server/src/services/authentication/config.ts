@@ -1,6 +1,7 @@
 import NextAuth, { type NextAuthOptions } from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { log } from '../../utils/logging';
 
 // TODO: pull the user and add their role and permissions to the token
 // TODO: client library to facilitate auth
@@ -72,8 +73,9 @@ export const authOptions: NextAuthOptions = {
 
 
 
+// This check exists because we are using the names for typechecking and next-auth doesn't properly define the providers' names as const
 const INCORRECTLY_NAMED = Object.entries(authProviders).find(o => o[0] !== o[1].id);
-if (INCORRECTLY_NAMED) {
-    // This check exists because we are using the names for typechecking and next-auth doesn't properly define the providers' names as const
-    throw new Error(`authentication.config: INCORRECTLY NAMED PROVIDER '${INCORRECTLY_NAMED[0]}'; should be '${INCORRECTLY_NAMED[1].id}'`)
+if (INCORRECTLY_NAMED ) {
+    log.error(`INCORRECTLY NAMED PROVIDER; rename authProviders['${INCORRECTLY_NAMED[0]}'] to authProviders['${INCORRECTLY_NAMED[1].id}']`);
+    process.exit(1);
 }

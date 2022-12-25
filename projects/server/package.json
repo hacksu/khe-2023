@@ -51,6 +51,9 @@
     "./data/users": {
       "default": "./src/data/models/users.ts"
     },
+    "./auth": {
+      "default": "./src/services/authentication/client.ts"
+    },
     "./trpc/router": {
       "default": "./src/utils/trpc/router.ts"
     }

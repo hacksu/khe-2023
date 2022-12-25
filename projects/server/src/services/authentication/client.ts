@@ -18,6 +18,7 @@ import { useQuery } from '@tanstack/react-query';
 //     return session;
 // }
 
+export type AuthProviderId = keyof AuthProviders;
 
 type LoginProps = {
     [P in keyof AuthProviders]: {
@@ -29,6 +30,8 @@ type LoginProps = {
 type CredentialLoginProps<T> = T extends CredentialsConfig ? {
     [P in keyof T['credentials']]: T['credentials'][P]['type']
 } : {};
+
+
 
 export function login(props: LoginProps) {
     const { strategy, ...rest } = props;
