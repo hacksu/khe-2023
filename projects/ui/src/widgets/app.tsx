@@ -9,6 +9,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AppProps } from 'next/app';
 import { trpc } from '../utils/trpc';
 import { useQueryClient } from '@tanstack/react-query';
+import { useAuthProviders } from './authentication';
 
 
 type InitialProps = AppProps;
@@ -56,7 +57,7 @@ export function App(...args) {
                     _trpc.invalidate();
                 }
             }
-        }, [typeof window])
+        }, [typeof window]);
 
         return <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
             <MantineProvider withGlobalStyles withNormalizeCSS theme={theme}>

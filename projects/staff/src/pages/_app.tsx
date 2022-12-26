@@ -5,6 +5,7 @@ import { AppContext, AppProps } from 'next/app';
 import { ThemeProvider } from '../utils/mantine';
 import { trpc } from '../utils/trpc';
 import { Navigation } from '../widgets/navigation';
+import { useAuthProviders } from '@kenthackenough/ui/authentication';
 
 
 function App(props: InitialProps) {
@@ -14,6 +15,9 @@ function App(props: InitialProps) {
     const theme: MantineThemeOverride = {
 
     }
+
+    const bruh = useAuthProviders();
+    // console.log('auth providers', bruh);
 
     return <ThemeProvider {...{ theme, colorScheme, firstVisit }}>
         <NotificationsProvider>

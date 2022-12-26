@@ -37,6 +37,7 @@ export function login(props: LoginProps) {
     const { strategy, ...rest } = props;
     signIn(strategy, {
         callbackUrl: location.href,
+        redirect: true,
         ...rest,
     })
 }
@@ -44,5 +45,7 @@ export function login(props: LoginProps) {
 export function logout() {
 
 }
+
+
 
 // login({ strategy: 'credentials', email: '', password: '' })

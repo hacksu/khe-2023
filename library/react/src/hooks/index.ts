@@ -1,10 +1,12 @@
 import { useMediaQuery } from './useMediaQuery';
+import { useProps } from './useProps';
 import { useForm } from './useForm';
 
 /** @export 'hooks' */
 
 export {
     useForm,
+    useProps,
     useMediaQuery
 }
 

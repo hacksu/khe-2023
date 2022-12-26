@@ -58,6 +58,9 @@
     "./app": {
       "default": "./src/widgets/app.tsx"
     },
+    "./authentication": {
+      "default": "./src/widgets/authentication/index.ts"
+    },
     "./authentication/login": {
       "default": "./src/widgets/authentication/login.tsx"
     },

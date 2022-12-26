@@ -15,6 +15,9 @@ nextAuth.use((req, res, next) => {
     if (!req.originalUrl.startsWith(baseUrl)) {
         return next();
     }
+    if (req.method === 'GET' && req.originalUrl.endsWith('signin')) {
+        return res.send('do redirect')
+    }
     prepare(req, res);
     auth(req, res);
 })
@@ -101,3 +104,9 @@ function replace(this: express.Response, data: any, ...rest) {
     // @ts-ignore
     return res._end(data, ...rest);
 }
+
+// import { session } from 'next-auth/core'
+
+// export function getSession(req: express.Request, res: express.Response) {
+
+// }

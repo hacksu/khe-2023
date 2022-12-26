@@ -13,11 +13,26 @@ const WS_ENABLED = getConfig().publicRuntimeConfig.websocket || false;
 const API_HOST = typeof window !== 'undefined'
     ? location.host.split('.').filter(o => o != 'staff').join('.')
     : 'localhost:5001'
-    
+
 function getEndingLink(ctx?: NextPageContext | undefined) {
+
+    const headers = () => {
+        if (ctx?.req) {
+            const {
+                connection: _connection,
+                ...headers
+            } = ctx.req.headers;
+            return {
+                ...headers,
+                'x-ssr': '1',
+            };
+        }
+        return {}
+    }
+
     const http = typeof window === 'undefined'
-        ? httpLink({ url: `http://${API_HOST}/api/trpc` })
-        : httpLink({ url: `/api/trpc` })
+        ? httpLink({ url: `http://${API_HOST}/api/trpc`, headers })
+        : httpLink({ url: `/api/trpc`, headers  })
 
     if (typeof window === 'undefined' || !WS_ENABLED) {
         return http;

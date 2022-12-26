@@ -4,6 +4,7 @@ import { t } from '.';
 import { ticketProcedures } from '../../models/tickets/procedures';
 import { userProcedures } from '../../models/users/procedures';
 import '../../session';
+import { authProcedures } from '../../services/authentication';
 
 
 /** @export 'trpc/router' */
@@ -16,14 +17,18 @@ const models = t.router({
     tickets: ticketProcedures,
 });
 
+const services = t.router({
+    auth: authProcedures,
+});
+
 /** Define one-off routes here */
 const routes = t.router({
     ping: t.procedure.query(({ ctx }) => {
         console.log('got pinged');
         const newId = randomUUID();
-        console.log('bruh', [ctx.session.bruh, newId]);
-        ctx.session.bruh = newId;
-        ctx.session.save();
+        // console.log('bruh', [ctx.session.bruh, newId]);
+        // ctx.session.bruh = newId;
+        // ctx.session.save();
         return new Date();
     }),
     onDate: t.procedure.subscription(() => {
@@ -45,5 +50,6 @@ const routes = t.router({
 /** Merge in any routers where other routes are defined */
 export const router = t.mergeRouters(
     routes,
-    models
+    models,
+    services
 );

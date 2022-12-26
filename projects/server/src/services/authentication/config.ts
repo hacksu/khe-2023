@@ -1,7 +1,8 @@
+import { log } from '../../utils/logging';
 import NextAuth, { type NextAuthOptions } from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
+import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { log } from '../../utils/logging';
 
 // TODO: pull the user and add their role and permissions to the token
 // TODO: client library to facilitate auth
@@ -31,6 +32,10 @@ export const authProviders = {
         clientSecret: process.env.GITHUB_SECRET!,
         checks: 'none',
     }),
+    google: GoogleProvider({
+        clientId: '',
+        clientSecret: '',
+    }),
     credentials: CredentialsProvider({
         credentials: {
             email: { type: 'text' },
@@ -45,13 +50,16 @@ export const authProviders = {
 
 export const authOptions: NextAuthOptions = {
     providers: Object.values(authProviders),
+    pages: {
+        // signIn: '/login'
+    },
     // debug: true,
     session: {
-        strategy: 'jwt'
+        // strategy: 'jwt'
     },
     callbacks: {
         jwt({ account, token, profile, user, isNewUser }) {
-            console.log('callback.jwt', { account, token, profile, user, isNewUser })
+            // console.log('callback.jwt', { account, token, profile, user, isNewUser })
             // token.user.random = Math.random();
             // if (user) {
             //     user.random = Math.random();
@@ -60,7 +68,7 @@ export const authOptions: NextAuthOptions = {
             return token;
         },
         session({ session, token, user }) {
-            console.log('callback.session', { session, token, user })
+            // console.log('callback.session', { session, token, user })
             // session.user.random = user.random;
             session.user.random = token.random as any;
             return session;
