@@ -158,7 +158,7 @@ function LoginFrame() {
                                 <Box sx={{ maxWidth: width }} p={10}>
                                     <Stack spacing={'xs'}>
                                         <Button size='md' leftIcon={<EmailIcon />} onClick={() => { setStep('email') }} color='teal'>Sign in with Email</Button>
-                                        <Button size='md' leftIcon={<KeyIcon />} onClick={() => { setStep('password') }} color='blue'>Sign in with Password</Button>
+                                        <Button size='md' leftIcon={<KeyIcon />} onClick={() => { setStep('password') }} color='gray'>Sign in with Password</Button>
                                         <Divider />
                                         {Object.keys(providers || {}).filter(o => o != 'credentials').map(id => (
                                             <SignInWith strategy={id as any} key={id} size='md' />
