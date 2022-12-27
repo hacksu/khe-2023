@@ -34,7 +34,7 @@ type IntegratedProps = Omit<BoxProps, 'className' | 'classNames'> & {
 
 
 
-export type UseProps = Partial<IntegratedProps>;
+export type UseProps = Partial<IntegratedProps> & HTMLProps<HTMLElement>;
 
 export function useProps<
     T extends object = HTMLProps<HTMLElement>,

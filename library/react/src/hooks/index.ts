@@ -10,6 +10,7 @@ export {
     useMediaQuery
 }
 
+export type { UseProps } from './useProps';
 
 export function mappedActions<Actions extends Record<string, (...args: any[]) => any>>(actions: Actions) {
     return function <

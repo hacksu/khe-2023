@@ -2,6 +2,7 @@ import { log } from '../../utils/logging';
 import NextAuth, { type NextAuthOptions } from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
+import DiscordProvider from 'next-auth/providers/discord';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 // TODO: pull the user and add their role and permissions to the token
@@ -33,8 +34,12 @@ export const authProviders = {
         checks: 'none',
     }),
     google: GoogleProvider({
-        clientId: '',
-        clientSecret: '',
+        clientId: process.env.GOOGLE_ID!,
+        clientSecret: process.env.GOOGLE_SECRET!,
+    }),
+    discord: DiscordProvider({
+        clientId: process.env.DISCORD_ID!,
+        clientSecret: process.env.DISCORD_SECRET!,
     }),
     credentials: CredentialsProvider({
         credentials: {
@@ -72,7 +77,42 @@ export const authOptions: NextAuthOptions = {
             // session.user.random = user.random;
             session.user.random = token.random as any;
             return session;
-        }
+        },
+        signIn(params) {
+            return true;
+        },
+    },
+    events: {
+        signIn(message) {
+            // When logging in or creating user
+            console.log('event.signIn', message);
+            // TODO: create iron-session
+        },
+        createUser(message) {
+            // Create user (APPARENTLY NOT ACTUALL TRIGGERED????)
+            console.log('event.createUser', message);
+            // TODO: create the user ?????? MAYBE NOT???
+        },
+        session(message) {
+            // When the session endpoint is visited or the session is updated
+            console.log('event.session', message);
+            // TODO: [NOT USED]
+        },
+        signOut(message) {
+            // When logging out
+            console.log('event.signOut', message);
+            // TODO: destroy iron-session (DO NOT USE NEXT-AUTH TO LOG OUT)
+        },
+        linkAccount(message) {
+            // When a new email is linked
+            console.log('event.linkAccount', message)
+            // TODO: add auth strategy to account
+        },
+        updateUser(message) {
+            // When user is updated
+            console.log('event.updateUser', message);
+            // TODO: update user with new data
+        },
     }
 }
 

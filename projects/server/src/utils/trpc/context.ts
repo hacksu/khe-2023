@@ -13,7 +13,7 @@ import { getToken } from 'next-auth/jwt';
  */
 export type Context = inferAsyncReturnType<typeof createContext>;
 export async function createContext(options: CreateExpressContextOptions) {
-    if (options.req.originalUrl) console.log(options.req.originalUrl, options.req.headers['cookie']);
+    // if (options.req.originalUrl) console.log(options.req.originalUrl, options.req.headers['cookie']);
     // const session = options.req.originalUrl
     //     ? await unstable_getServerSession(options.req, options.res, authOptions)
     //     : null;
