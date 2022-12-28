@@ -1,43 +1,37 @@
-import ExpressSession from 'express-session';
-import type { CreateExpressContextOptions } from '@trpc/server/adapters/express';
-import type { Request } from 'express';
-import { randomBytes, randomUUID } from 'crypto';
+import { ironSession } from 'iron-session/express';
 import { config } from './config';
-import mongoStore from 'connect-mongo';
-import mongoose from 'mongoose';
-import { ServerState } from './services/mongo/state';
-import express from 'express';
+import type { Request } from 'express';
+import { IronSession } from 'iron-session';
 
 
-declare module 'express-session' {
-    interface SessionData {
+declare module 'iron-session' {
+    interface IronSessionData {
         bruh: string
     }
 }
 
-const sessionServerState = new ServerState('session', {
-    secret: randomBytes(48).toString('hex'),
+
+export const session = ironSession({
+    cookieName: 'iron-session',
+    password: config.secret,
+    cookieOptions: {
+        secure: config.mode === 'production',
+    }
 })
 
-const sessionHandler = (async () => {
-    const secret = await sessionServerState.get('secret');
-    return ExpressSession({
-        secret,
-        saveUninitialized: true,
-        resave: true,
-        store: mongoStore.create({
-            mongoUrl: config.mongo,
-            collectionName: 'sessions',
-        })
-    })
-})()
+type uuh = Request['session']
 
-export const session: express.RequestHandler = (req, res, next) => {
-    sessionHandler.then(handler => handler(req, res, next));
-}
-
-
-export function getSession<R extends Request>(req: R) {
+export function getSession(req: Request) {
     return req.session;
 }
 
+
+// export function getSession(session: IronSession): IronSession
+// export function getSession(req: Request): IronSession
+// export function getSession(input) {
+//     if ('session' in input)
+//         return getSession(input.session);
+//     return input;
+// }
+
+// getSession()

@@ -8,7 +8,7 @@ console.time('server ready');
 console.log('starting...');
 
 import './config';
-import './utils/mongo';
+import './services/mongo';
 import './services/permissions';
 import { applyWSSHandler } from '@trpc/server/adapters/ws';
 import { createContext } from './services/trpc/context';

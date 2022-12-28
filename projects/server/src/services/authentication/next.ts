@@ -85,7 +85,6 @@ function replace(this: express.Response, data: any, ...rest) {
     }
 
     const headers = res.getHeaders();
-    // console.log('res.getHeaders', headers);
 
     const cookies = headers['set-cookie'];
     if (cookies && Array.isArray(cookies) && typeof cookies !== 'string') {
@@ -99,14 +98,6 @@ function replace(this: express.Response, data: any, ...rest) {
         headers['location'] = location.replaceAll(HARDCODED_HOST, DYNAMIC_HOST);
     }
 
-    // console.log('post headers', res.getHeaders());
-
     // @ts-ignore
     return res._end(data, ...rest);
 }
-
-// import { session } from 'next-auth/core'
-
-// export function getSession(req: express.Request, res: express.Response) {
-
-// }

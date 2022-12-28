@@ -35,16 +35,16 @@ api.use(createRestHandler({
     createContext,
 }))
 
-api.get('/session', (req, res) => {
-    if (!req.session.bruh) {
-        req.session.bruh = Math.random().toString(16);
-        req.session.save();
-    }
-    res.json({
-        session: req.session,
-        sessionId: req.sessionID,
-    });
-})
+// api.get('/session', async (req, res) => {
+//     if (!req.session.bruh) {
+//         req.session.bruh = Math.random().toString(16);
+//         await req.session.save();
+//     }
+//     res.json({
+//         session: req.session,
+//         sessionId: req.sessionID,
+//     });
+// })
 
 api.use('/auth', nextAuth);
 
