@@ -1,7 +1,7 @@
 import { TicketData, ticketData } from '../../data/models/tickets';
 import { access } from '../../services/permissions/middleware';
+import { t } from '../../services/trpc';
 import { Ticket } from './model';
-import { t } from '../../utils/trpc';
 
 
 

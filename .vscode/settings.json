@@ -17,6 +17,7 @@
         { "icon": "log", "extensions": [".github/workflows"] },
         { "icon": "route", "extensions": ["tools/proxy"] },
         { "icon": "git", "extensions": ["repos"] },
+        { "icon": "certificate", "extensions": ["permissions"] },
     ],
     "vsicons.associations.files": [
         { "icon": "nginx", "extensions": ["docker/server/nginx/*"] },

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { config } from '../../config';
-import { log } from '../logging';
+import { log } from '../../utils/logging';
 import chalk from 'chalk';
 
 mongoose.connect(config.mongo).then(() => {

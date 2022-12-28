@@ -1,8 +1,8 @@
 import { createExpressMiddleware } from '@trpc/server/adapters/express';
-import { createRestHandler } from './utils/trpc/rest';
-import { createContext } from './utils/trpc/context';
+import { createRestHandler } from './services/trpc/rest';
+import { createContext } from './services/trpc/context';
 import { nextAuth } from './services/authentication';
-import { router } from './utils/trpc/router';
+import { router } from './services/trpc/router';
 import express from 'express';
 import cors from 'cors';
 

@@ -1,7 +1,7 @@
 import { inferAsyncReturnType } from '@trpc/server';
 import { CreateExpressContextOptions } from '@trpc/server/adapters/express';
 import { unstable_getServerSession } from 'next-auth';
-import { authOptions } from '../../services/authentication/config';
+import { authOptions } from '../authentication/config';
 
 import { AuthHandler } from 'next-auth/core'
 import { getToken } from 'next-auth/jwt';

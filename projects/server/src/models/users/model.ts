@@ -1,7 +1,7 @@
 import { HydratedDocumentFromSchema, model, Schema } from 'mongoose';
 import { UserData, UserRole } from '../../data/models/users';
 import { hashSync } from 'bcrypt';
-import { exportModel } from '../../utils/mongo/export';
+import { exportModel } from '../../services/mongo/export';
 
 
 export namespace UserPermissions {

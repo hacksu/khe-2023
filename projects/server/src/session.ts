@@ -5,8 +5,9 @@ import { randomBytes, randomUUID } from 'crypto';
 import { config } from './config';
 import mongoStore from 'connect-mongo';
 import mongoose from 'mongoose';
-import { ServerState } from './utils/mongo/state';
+import { ServerState } from './services/mongo/state';
 import express from 'express';
+
 
 declare module 'express-session' {
     interface SessionData {

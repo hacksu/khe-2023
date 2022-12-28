@@ -1,4 +1,4 @@
-import { t } from '../../utils/trpc';
+import { t } from '../../services/trpc';
 import { User } from './model';
 
 

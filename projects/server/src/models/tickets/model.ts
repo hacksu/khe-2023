@@ -1,6 +1,6 @@
 import mongoose, { HydratedDocumentFromSchema, model, Schema } from 'mongoose';
 import { TicketData, TicketStatus } from '../../data/models/tickets';
-import { exportModel } from '../../utils/mongo/export';
+import { exportModel } from '../../services/mongo/export';
 
 
 export namespace TicketPermissions {

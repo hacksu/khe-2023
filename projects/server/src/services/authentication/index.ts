@@ -1,5 +1,5 @@
 import type { OAuthChecks, OAuthConfig, OAuthProvider } from 'next-auth/providers/oauth';
-import { t } from '../../utils/trpc';
+import { t } from '../../services/trpc';
 
 export { nextAuth } from './next';
 import { authProviders } from './config';
