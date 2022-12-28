@@ -18,7 +18,7 @@ type PopulateConfig<T> = {
     [P in keyof T]?: Partial<T[P]> | any
 }
 
-const log = logger.getChildLogger({ name: 'config' });
+const log = logger.getSubLogger({ name: 'config' });
 export function populateConfig<T extends z.AnyZodObject>(schema: T, ...configs: (() => PopulateConfig<z.infer<T>>)[]): z.infer<T> {
     const config = merge({}, ...configs.map(o => o()));
     const parsed = schema.safeParse(config);
