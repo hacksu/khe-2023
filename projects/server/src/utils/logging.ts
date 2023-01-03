@@ -13,3 +13,6 @@ export const logger = new Logger({
 });
 export const log = logger;
 
+import('./test.js').then(o => {
+    console.log('imported test', o)
+})

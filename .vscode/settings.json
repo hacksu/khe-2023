@@ -55,6 +55,6 @@
         "**/next-env.d.ts": true,
         "**/.turbo": true,
         "**/build": true,
-        "**/dist": true,
+        // "**/dist": true,
     },
 }

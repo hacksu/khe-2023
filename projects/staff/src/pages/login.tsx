@@ -9,6 +9,8 @@ import { faArrowLeft } from '@cseitz/icons/regular/arrow-left';
 import { faRightToBracket } from '@cseitz/icons/regular/right-to-bracket'
 import { faEnvelope } from '@cseitz/icons/regular/envelope';
 import { faLockHashtag } from '@cseitz/icons/regular/lock-hashtag';
+import { faClipboard } from '@cseitz/icons/regular/clipboard';
+import { faUserPlus } from '@cseitz/icons/regular/user-plus';
 import { faKey } from '@cseitz/icons/regular/key';
 import { Icon } from '@cseitz/icons';
 import { Text } from '@mantine/core';
@@ -22,6 +24,7 @@ const RightToBracketIcon = Icon(faRightToBracket)
 const EmailIcon = Icon(faEnvelope);
 const KeyIcon = Icon(faKey);
 const PinLockIcon = Icon(faLockHashtag);
+const RegisterIcon = Icon(faUserPlus);
 
 export default function LoginPage() {
     const github = () => {
@@ -89,7 +92,7 @@ function useSteps<C extends {
                 }
             }
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [config?.router?.query]);
 
     useEffect(() => {
@@ -107,7 +110,7 @@ function useSteps<C extends {
                 })
             }
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [step]);
 
     return {
@@ -142,21 +145,31 @@ function LoginFrame() {
                 setReady(true)
             }, 200)
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [step, router.isPreview])
     const duration = ready ? 200 : 0;
     const providers = useAuthProviders();
     const width = 300;
     const [code, setCode] = useState<number | undefined>(undefined);
     return <Box sx={{ opacity: Number(ready), transition: 'opacity 0.15s' }}>
-        <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '95vw', height: '50vh', overflowX: 'hidden' }}>
+        <Box sx={{ position: 'absolute', top: '55vh', left: '50%', transform: 'translate(-50%, -50%)', width: '95vw', height: '70vh', overflow: 'hidden' }}>
             <Box sx={{ width, maxWidth: '90vw', textAlign: 'center', margin: 'auto' }}>
-                <Box sx={{ height: 100 }}>
+                <Box sx={{ height: 100, /*marginTop: 110*/ }}>
+                    {/* <Box sx={{ position: 'absolute', width, height: 100, marginTop: -110 }}>
+                        <Paper withBorder p='sm'>
+                            <Text>Don&#39;t have an account yet?</Text>
+                            <Stack pt={'sm'} spacing={'xs'}>
+                                <Button leftIcon={<RegisterIcon />}>Register Account</Button>
+                            </Stack>
+                        </Paper>
+                    </Box> */}
                     <Box sx={{ position: 'absolute', width }}>
                         <Transition mounted={step === null} transition='slide-right' duration={duration} timingFunction='ease'>
                             {(styles) => (<Paper withBorder style={styles} p='sm'>
                                 <Box sx={{ maxWidth: width }} p={10}>
                                     <Stack spacing={'xs'}>
+                                        <Button size='md' leftIcon={<RegisterIcon />} color='indigo'>Register Account</Button>
+                                        <Divider />
                                         <Button size='md' leftIcon={<EmailIcon />} onClick={() => { setStep('email') }} color='teal'>Sign in with Email</Button>
                                         <Button size='md' leftIcon={<KeyIcon />} onClick={() => { setStep('password') }} color='gray'>Sign in with Password</Button>
                                         <Divider />
