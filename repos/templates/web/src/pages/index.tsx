@@ -3,7 +3,7 @@ import { api } from '@kenthackenough/ui/trpc';
 import { Box, Title } from '@mantine/core';
 import Link from 'next/link';
 import { useState } from 'react';
-import { LandingLayout } from '../layouts/landing';
+import { LandingLayout } from '../ui/layouts/landing';
 
 
 export default function Homepage() {
