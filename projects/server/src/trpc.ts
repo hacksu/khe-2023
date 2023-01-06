@@ -1,6 +1,6 @@
 import { ticketProcedures } from './models/tickets/procedures';
 import { userProcedures } from './models/users/procedures';
-import { authProcedures } from './services/authentication';
+import { authProcedures } from './services/auth';
 import { observable } from '@trpc/server/observable';
 import { randomUUID } from 'crypto';
 import { t } from './services/trpc';

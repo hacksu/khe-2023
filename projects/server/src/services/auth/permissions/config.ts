@@ -1,6 +1,6 @@
 import { registerPermisions, Permission, derivePermissions, ALL_PERMISSIONS, DISABLE_PERMISSIONS } from './rbac';
-import { config } from '../../config';
-import { UserRole } from '../../data/models/users';
+import { config } from '../../../config';
+import { UserRole } from '../../../data/models/users';
 const register = registerPermisions;
 
 

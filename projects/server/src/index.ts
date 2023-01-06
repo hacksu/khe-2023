@@ -9,7 +9,6 @@ console.log('starting...');
 
 import './config';
 import './services/mongo';
-import './services/permissions';
 import { applyWSSHandler } from '@trpc/server/adapters/ws';
 import { createContext } from './services/trpc/context';
 import { router } from './services/trpc/router';
@@ -69,5 +68,3 @@ process.on('SIGTERM', () => {
 server.listen(port, () => {
     console.timeEnd('server ready');
 });
-
-import './services/authentication';

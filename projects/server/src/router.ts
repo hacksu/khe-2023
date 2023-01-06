@@ -1,7 +1,7 @@
 import { createExpressMiddleware } from '@trpc/server/adapters/express';
 import { createRestHandler } from './services/trpc/rest';
 import { createContext } from './services/trpc/context';
-import { nextAuth } from './services/authentication';
+import { nextAuth } from './services/auth';
 import { router } from './services/trpc/router';
 import express from 'express';
 import cors from 'cors';
@@ -51,3 +51,6 @@ api.use('/auth', nextAuth);
 api.get('/', (req, res) => {
     res.send('hi')
 });
+
+import { campusMap } from './services/map';
+campusMap.getLocation('library');

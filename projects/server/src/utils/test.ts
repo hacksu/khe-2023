@@ -2,10 +2,10 @@
 let compile;
 import('@mdx-js/mdx').then((mdx) => {
     compile = mdx.compile;
-    console.log('import mdx', mdx)
+    // console.log('import mdx', mdx)
 })
 
-console.log({ compile });
+// console.log({ compile });
 
 export function testModule() {
     return 'hi there';

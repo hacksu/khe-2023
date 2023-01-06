@@ -1,7 +1,8 @@
 import * as rbac from './rbac';
 import './config';
-import { log } from '../../utils/logging';
+import { log } from '../../../utils/logging';
 import chalk from 'chalk';
+
 /** Role-Based Permission System
  * 
  * Facilitates authorization for a variety of permissions
