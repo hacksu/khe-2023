@@ -1,7 +1,6 @@
 import { ironSession } from 'iron-session/express';
 import { config } from './config';
 import type { Request } from 'express';
-import { IronSession } from 'iron-session';
 
 
 declare module 'iron-session' {

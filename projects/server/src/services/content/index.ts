@@ -1,12 +1,10 @@
 import { ServerState } from '../mongo/state';
-import { t } from '../trpc';
+import { t } from '../../services/trpc';
 
-export namespace ContentPermissions {
-    export const Update = { content: { update: true } } as const;
-    export const Delete = { content: { delete: true } } as const;
-}
 
+
+import faqProcedures from './types/faq';
 
 export const contentProcedures = t.router({
-
+    faq: faqProcedures,
 })

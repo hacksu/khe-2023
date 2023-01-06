@@ -1,6 +1,13 @@
-import { api } from '@kenthackenough/ui/trpc';
 import { Accordion, AccordionProps } from '@mantine/core';
+import { api } from '../utils/trpc';
 
+/** @export 'faq' */
+
+export function useFAQ() {
+    const query = api.content.faq.list.useQuery();
+    const questions = query.data?.questions || [];
+    
+}
 
 export function FrequentlyAskedQuestions(props: Omit<AccordionProps, 'children'>) {
     const query = api.content.faq.list.useQuery();

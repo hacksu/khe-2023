@@ -20,3 +20,5 @@ export const t = initTRPC
     .create({
         transformer: superjson,
     })
+
+export { access } from '../permissions/middleware';

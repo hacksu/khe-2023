@@ -2,11 +2,11 @@
 /** RBAC Permissions system */
 import { DeepPartial } from 'react-hook-form';
 import { merge, get } from 'lodash';
-import { UserPermissions } from '../../../models/users/model';
-import { config } from '../../../config';
-import { TicketPermissions } from '../../../models/tickets/model';
-import { UserData } from '../../../data/models/users';
-import { ContentPermissions } from '../../content';
+import { UserPermissions } from '../../models/users/model';
+import { config } from '../../config';
+import { TicketPermissions } from '../../models/tickets/model';
+import { UserData } from '../../data/models/users';
+import { ContentPermissions } from '../content/temp_permissions';
 
 export const DISABLE_PERMISSIONS = config.disablePermissions;
 
@@ -20,7 +20,6 @@ export namespace Permission {
     export const Content = all(ContentPermissions);
 
 }
-
 
 /** All permissions */
 export const ALL_PERMISSIONS = Object.fromEntries(

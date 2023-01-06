@@ -2,6 +2,7 @@ import { ticketProcedures } from './models/tickets/procedures';
 import { userProcedures } from './models/users/procedures';
 import { authProcedures } from './services/auth';
 import { observable } from '@trpc/server/observable';
+import { contentProcedures } from './services/content';
 import { randomUUID } from 'crypto';
 import { t } from './services/trpc';
 
@@ -10,6 +11,7 @@ import { t } from './services/trpc';
 const models = t.router({
     users: userProcedures,
     tickets: ticketProcedures,
+    content: contentProcedures,
 });
 
 

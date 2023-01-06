@@ -1,6 +1,6 @@
 import type { OAuthChecks, OAuthConfig, OAuthProvider } from 'next-auth/providers/oauth';
 import { t } from '../../services/trpc';
-import './permissions'
+// import './permissions'
 
 export { nextAuth } from './next';
 import { publicAuthProviders } from './utils';

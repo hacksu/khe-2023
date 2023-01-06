@@ -1,7 +1,5 @@
 import { defineConfig, populateConfig } from './utils/config';
 import { z } from 'zod';
-import { log } from './utils/logging';
-import chalk from 'chalk';
 
 
 /** Define configuration */

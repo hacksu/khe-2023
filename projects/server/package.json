@@ -49,6 +49,9 @@
     "typescript": "^4.8.4"
   },
   "exports": {
+    "./data": {
+      "default": "./src/data/index.ts"
+    },
     "./data/tickets": {
       "default": "./src/data/models/tickets.ts"
     },
@@ -56,10 +59,10 @@
       "default": "./src/data/models/users.ts"
     },
     "./auth": {
-      "default": "./src/services/authentication/client.ts"
+      "default": "./src/services/auth/client.ts"
     },
     "./trpc/router": {
-      "default": "./src/utils/trpc/router.ts"
+      "default": "./src/services/trpc/router.ts"
     }
   }
 }

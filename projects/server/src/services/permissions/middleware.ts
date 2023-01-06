@@ -3,9 +3,7 @@ import { hasPermission, Permissions } from './rbac';
 import { TRPCError } from '@trpc/server';
 import { merge } from 'lodash';
 import { DISABLE_PERMISSIONS } from './rbac';
-import { t } from '../../trpc';
-
-
+import { t } from '../trpc';
 
 export function access<T extends Permissions>(permission: T) {
     return t.middleware(async ({ ctx, next }) => {
@@ -26,9 +24,9 @@ export function access<T extends Permissions>(permission: T) {
 }
 
 
-export const tr = merge(t, {
-    access<T extends Permissions>(permission: T) {
-        return t.procedure.use(access(permission));
-    }
-});
+// export const tr = merge(t, {
+//     access<T extends Permissions>(permission: T) {
+//         return t.procedure.use(access(permission));
+//     }
+// });
 
