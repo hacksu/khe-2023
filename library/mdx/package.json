@@ -1,0 +1,32 @@
+{
+  "name": "@kenthackenough/mdx",
+  "version": "1.0.36",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/server": "^11.10.0",
+    "@hookform/resolvers": "^2.9.10",
+    "@mdx-js/mdx": "^2.2.1",
+    "@mdx-js/react": "^2.2.1",
+    "sanitize-html": "^2.8.1",
+    "cheerio": "^1.0.0-rc.12",
+    "lodash": "^4.17.21",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.37.0",
+    "@kenthackenough/tsconfig": "^1.0.36"
+  },
+  "devDependencies": {
+    "@types/sanitize-html": "^2.8.0",
+    "@types/lodash": "^4.14.186",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "eslint": "^8.26.0",
+    "eslint-config-next": "^13.0.1",
+    "typescript": "^4.8.4"
+  },
+  "exports": {
+    ".": "./src/index.tsx"
+  }
+}
