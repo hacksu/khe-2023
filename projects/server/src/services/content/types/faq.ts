@@ -10,11 +10,12 @@ import { v4 as uuidv4 } from 'uuid';
 const state = new ServerState<{
     questions: FrequentlyAskedQuestion[]
 }>('content:faq', {
+    /** Initial data; do not edit! */
     questions: [
         {
             id: uuidv4(),
             question: `What is a hackathon?`,
-            answer: '[answer]'
+            answer: `<Button color="grape">Testing!</Button>`
         },
         {
             id: uuidv4(),

@@ -27,6 +27,11 @@
     "typescript": "^4.8.4"
   },
   "exports": {
-    ".": "./src/index.tsx"
+    "./compile": {
+      "default": "./src/compile.tsx"
+    },
+    "./render": {
+      "default": "./src/render.tsx"
+    }
   }
 }
