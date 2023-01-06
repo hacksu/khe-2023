@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@kenthackenough/ui": "^1.0.36",
+    "@kenthackenough/mdx": "^1.0.36",
     "@kenthackenough/react": "^1.0.36",
     "@kenthackenough/server": "^1.0.36",
     "@kenthackenough/tsconfig": "^1.0.36",

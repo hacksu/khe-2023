@@ -65,6 +65,9 @@
     "./authentication/login": {
       "default": "./src/widgets/authentication/login.tsx"
     },
+    "./faq": {
+      "default": "./src/widgets/faq.tsx"
+    },
     "./tickets/contact": {
       "default": "./src/widgets/tickets/contact.tsx"
     }
