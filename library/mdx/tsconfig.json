@@ -1,5 +1,9 @@
 {
    "extends": "@kenthackenough/tsconfig/tsconfig.react.json",
+   "compilerOptions": {
+      "target": "es2020",
+      "module": "NodeNext"
+   },
    "include": [
       "next-env.d.ts",
       "**/*.ts",

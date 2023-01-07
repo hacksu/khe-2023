@@ -4,8 +4,6 @@ import sanitizeHtml from 'sanitize-html';
 import { compile, run } from '@mdx-js/mdx';
 
 
-/** @export 'compile' */
-
 export class ReactMarkdownCompiler {
     constructor(public config: {
         components: Record<string, (...args: any) => JSX.Element | 'string'>,

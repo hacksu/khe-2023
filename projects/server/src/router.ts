@@ -58,7 +58,7 @@ api.get('/', (req, res) => {
 // campusMap.getLocation('library');
 
 api.get('/email/send/:email', (req, res) => {
-    sendTestEmail('req.params.email').then(o => {
+    sendTestEmail(req.params.email).then(o => {
         res.send('ok');
     })
 })

@@ -3,7 +3,6 @@ import * as runtime from 'react/jsx-runtime';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { ReactMarkdownCompiler } from './compile';
 
-/** @export 'render' */
 
 export class ReactMarkdownRenderer extends ReactMarkdownCompiler {
     public styleRules: [string, string][];
