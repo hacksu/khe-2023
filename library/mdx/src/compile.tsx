@@ -7,14 +7,10 @@ import { compile, run } from '@mdx-js/mdx';
 /** @export 'compile' */
 
 export class ReactMarkdownCompiler {
-    public styleRules: [string, string][];
     constructor(public config: {
         components: Record<string, (...args: any) => JSX.Element | 'string'>,
-        styles: string[],
         runtime: any,
-    }) {
-        this.styleRules = this.cssRules(this.config.styles);
-    }
+    }) {}
 
     async compile(markdown: string): Promise<JSX.Element>
     async compile(element: JSX.Element): Promise<JSX.Element>
@@ -31,22 +27,6 @@ export class ReactMarkdownCompiler {
             }))
         }
         return input;
-    }
-
-    cssRules(css: string | string[]): [string, string][] {
-        if (typeof css === 'string')
-            return this.cssRules([css]);
-        // @ts-ignore
-        const rules = [...Array.from(css.join(' ').matchAll(/(.+){([^}]+)}/g)).map(o => {
-            return [
-                o[1].trim(), o[2].split(/\r?\n/)
-                    .join('').split(';')
-                    .map(o => o.trim()).join(';'),
-                Math.max(1, Array.from(o[1].trim().matchAll(/[:.>#\s]/g)).length),
-            ];
-        }).values()] as [string, string, number][];
-        rules.sort((a: any, b: any) => a[2] >= b[2] ? 1 : -1);
-        return rules.map(o => o.slice(0, 2)) as [string, string][];
     }
 
     /** Sanitizes the HTML */

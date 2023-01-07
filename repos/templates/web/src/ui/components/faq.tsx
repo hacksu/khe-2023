@@ -1,15 +1,13 @@
 import { ReactMarkdownCompiler } from '@kenthackenough/mdx/compile';
-import { api } from '@kenthackenough/ui/trpc';
 import { Accordion, AccordionProps, Button } from '@mantine/core';
 import { useFAQ } from '@kenthackenough/ui/faq';
 import * as runtime from 'react/jsx-runtime';
 
 const mdx = new ReactMarkdownCompiler({
+    runtime,
     components: {
         Button,
     },
-    styles: [],
-    runtime,
 })
 
 export function FrequentlyAskedQuestions(props: Omit<AccordionProps, 'children'>) {

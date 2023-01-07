@@ -66,7 +66,7 @@ export function ContactUs(props: ContactUsProps) {
     const isLoading = state === 'loading';
     const isSuccess = state === 'success';
     const isDisabled = state === 'loading' || state === 'success';
-    const isError = true; //state === 'error';
+    const isError = state === 'error';
 
     const onSubmit = data => {
         console.log('submit', data);

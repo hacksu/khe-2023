@@ -21,7 +21,12 @@ async function compileQuestions(mdx: ReactMarkdownCompiler, questions: Frequentl
 }
 
 export function useFAQ(mdx: ReactMarkdownCompiler) {
-    const query = api.content.faq.list.useQuery();
+    const query = api.content.faq.list.useQuery(undefined, {
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        staleTime: Infinity,
+    });
     const questions = query.data?.questions || [];
     const [compiled, setCompiled] = useState<(FrequentlyAskedQuestion & {
         component?: JSX.Element | string

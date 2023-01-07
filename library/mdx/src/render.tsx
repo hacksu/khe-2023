@@ -6,6 +6,14 @@ import { ReactMarkdownCompiler } from './compile';
 /** @export 'render' */
 
 export class ReactMarkdownRenderer extends ReactMarkdownCompiler {
+    public styleRules: [string, string][];
+    constructor(config: {
+        styles?: string[]
+    } & ReactMarkdownCompiler['config']) {
+        super(config);
+        this.styleRules = this.cssRules((this.config as any)?.styles || []);
+        console.log(this.styleRules)
+    }
 
     async render(markdown: string): Promise<string>
     async render(element: JSX.Element): Promise<string>
@@ -16,7 +24,27 @@ export class ReactMarkdownRenderer extends ReactMarkdownCompiler {
         return styled;
     }
 
-    
+    // /(.+){([^}]+)}/g
+    // /(.+){([^}]+)}/g
+    // /([^\r\n,{}]+)(,(?=[^}]*{)|\s*)(\{[\s\S][^}]*})/g
+
+    cssRules(css: string | string[]): [string, string][] {
+        if (typeof css === 'string')
+            return this.cssRules([css]);
+        // @ts-ignore
+        // const rules = [...Array.from(css.join(' ').split('}').join('}\r\n').matchAll(/(.+){([^}]+)}/g)).map(o => {
+        const rules = [...Array.from(css.join(' ').matchAll(/([^\r\n,{}]+)(,(?=[^}]*{)|\s*)(\{[\s\S][^}]*})/g)).map(o => {
+            return [
+                o[1].trim(), o[3].trim().slice(1).slice(0, -1).trim().split(/\r?\n/)
+                    .join('').split(';')
+                    .map(o => o.trim()).join(';'),
+                Math.max(1, Array.from(o[1].trim().matchAll(/[:.>#\s]/g)).length),
+            ];
+        }).values()] as [string, string, number][];
+        rules.sort((a: any, b: any) => a[2] >= b[2] ? 1 : -1);
+        return rules.map(o => o.slice(0, 2)) as [string, string][];
+    }
+
     /** Converts classes to inline styles */
     inlineStyles(html: string, rules: [string, string][]) {
         const $ = load(html);
