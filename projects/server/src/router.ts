@@ -5,8 +5,8 @@ import { nextAuth } from './services/auth';
 import { router } from './services/trpc/router';
 import express from 'express';
 import cors from 'cors';
-import { sendMail } from './services/mail';
-import { sendTestEmail } from './services/mail/test';
+import { emailProviders, sendMail } from './services/mail';
+import { sendTestEmail } from './services/mail/test2';
 
 
 export const api = express();
@@ -61,4 +61,25 @@ api.get('/email/send/:email', (req, res) => {
     sendTestEmail(req.params.email).then(o => {
         res.send('ok');
     })
+})
+
+
+api.get('/email/unsubscribe/:email', async (req, res) => {
+    const request = await emailProviders.sendgrid.unsubscribe('add', req.params.email);
+    res.json(request || {})
+})
+
+api.get('/email/resubscribe/:email', async (req, res) => {
+    const request = await emailProviders.sendgrid.unsubscribe('remove', req.params.email);
+    res.json(request || {})
+})
+
+api.get('/email/unsubscribes', async (req, res) => {
+    const request = await emailProviders.sendgrid.unsubscribe('list');
+    res.json(request || {})
+})
+
+api.get('/email/unsubscribed/:email', async (req, res) => {
+    const request = await emailProviders.sendgrid.unsubscribe('get', req.params.email);
+    res.json(request)
 })

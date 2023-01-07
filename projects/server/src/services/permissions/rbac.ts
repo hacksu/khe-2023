@@ -2,24 +2,14 @@
 /** RBAC Permissions system */
 import { DeepPartial } from 'react-hook-form';
 import { merge, get } from 'lodash';
-import { UserPermissions } from '../../models/users/model';
 import { config } from '../../config';
-import { TicketPermissions } from '../../models/tickets/model';
 import { UserData } from '../../data/models/users';
-import { ContentPermissions } from '../../data/types/content';
+import { Permission } from './permissions';
+
 
 export const DISABLE_PERMISSIONS = config.disablePermissions;
+export { Permission }
 
-/** Define permission imports */
-export namespace Permission {
-    const all = AddPermissionsAll;
-
-    // Export the imported permissions
-    export const Users = all(UserPermissions);
-    export const Tickets = all(TicketPermissions);
-    export const Content = all(ContentPermissions);
-
-}
 
 /** All permissions */
 export const ALL_PERMISSIONS = Object.fromEntries(
@@ -37,20 +27,6 @@ const PermissionDerivations: ((input: PermissibleUser) => Permissions)[] = [];
 export function derivePermissions(user: PermissibleUser): Permissions {
     const derivations = PermissionDerivations.map(o => o(user));
     return merge({}, ...[...derivations, user.permissions || {}]);
-}
-
-/** @internal */
-export function AddPermissionsAll<T extends Record<string, { [key: string]: any }>>(perms: T): T & {
-    All: Intersect<T[keyof T]>
-} {
-    const all: any = {};
-    for (const key in perms) {
-        const value = perms[key];
-        merge(all, value);
-    }
-    // @ts-ignore
-    perms['All'] = all;
-    return perms as any;
 }
 
 // ---- internals ----

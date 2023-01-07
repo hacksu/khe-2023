@@ -11,6 +11,17 @@ export enum MailStatus {
 }
 
 
+const mailProviders = z.union([
+    z.object({
+        name: z.literal('sendgrid'),
+        sendgridMessageId: z.string(),
+    }),
+    z.object({
+        name: z.literal('unknown')
+    })
+])
+
+
 
 /** Infer schema & populatable types
  * - One can use `Populate` from `utils/zod` to coerce that a field is populated with other documents
@@ -52,5 +63,7 @@ export const mailData = z.object({
     status: z.nativeEnum(MailStatus).default(MailStatus.Pending),
     /** Was the email opened? */
     opened: z.boolean(),
+    /** The mail provider used to deliver this email */
+    provider: mailProviders,
 }).merge(mailRelations).merge(timestampData);
 

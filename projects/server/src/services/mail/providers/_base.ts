@@ -1,3 +1,5 @@
+import { MailData } from '../../../data/models/emails';
+import { Mail } from '../../../models/emails/model';
 
 
 type MailProviderConfig = {
@@ -14,5 +16,6 @@ export class MailProvider<C extends object = {}> {
     send(input: any) {
         throw new Error(`Not Implemented`);
     }
+    
 }
 

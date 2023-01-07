@@ -1,27 +1,12 @@
-import { HydratedDocumentFromSchema, model, Schema } from 'mongoose';
-import { UserData, UserRole } from '../../data/models/users';
-import { hashSync } from 'bcrypt';
+import mongoose, { HydratedDocumentFromSchema, model, Schema } from 'mongoose';
+import { MailData, MailStatus } from '../../data/models/emails';
 import { exportModel } from '../../services/mongo/export';
 
 
-export namespace UserPermissions {
-    export const Read = { users: { read: true } } as const;
-    export const Write = { users: { write: true, read: true } } as const;
-    export const Delete = { users: { delete: true } } as const;
-}
+namespace defineMail {
+    export const ModelName = 'Mail';
 
-
-// Redefine fields for exporting
-export declare namespace User {
-    export type Data = defineUser.Data;
-    export type Document = defineUser.Document;
-    export type Schema = defineUser.Schema;
-}
-
-namespace defineUser {
-    export const ModelName = 'User';
-    
-    export type Data = UserData & {};
+    export type Data = MailData & {};
     export type Document = HydratedDocumentFromSchema<Schema>;
     export type Schema = typeof schema;
 
@@ -32,20 +17,15 @@ namespace defineUser {
      * @see https://mongoosejs.com/docs/schematypes.html
      */
     const fields = new Schema<Data>({
-        role: {
+        status: {
             type: String,
-            enum: UserRole,
-            default: UserRole.Pending,
+            enum: MailStatus,
+            default: MailStatus.Pending,
         },
-        password: {
-            type: String,
-            // Hash the password with bcrypt
-            set: v => hashSync(v, 10),
-        },
-        emails: [{
+        user: {
             type: Schema.Types.ObjectId,
-            ref: 'Mail'
-        }],
+            ref: 'User'
+        },
     });
 
     /** Define the schema
@@ -53,9 +33,9 @@ namespace defineUser {
      */
     const schema = new Schema(fields.obj, {
         strict: false,
+        collection: 'emails',
         toJSON: {
             transform(doc, ret, options) {
-                delete ret['password'];
                 return ret;
             },
         },
@@ -96,7 +76,15 @@ namespace defineUser {
     });
 
     export const Model = model(ModelName, schema);
-    
+
 }
 
-export const User = exportModel(defineUser);
+export const Mail = exportModel(defineMail);
+
+// Redefine fields for exporting
+export declare namespace Mail {
+    export type Data = defineMail.Data;
+    export type Document = defineMail.Document;
+    export type Schema = defineMail.Schema;
+}
+

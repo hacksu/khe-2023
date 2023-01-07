@@ -20,3 +20,5 @@ export async function sendMail<P extends Provider>(provider: P, ...args: Paramet
     console.log('sendMail', result);
 }
 
+export const emailProviders = providers;
+

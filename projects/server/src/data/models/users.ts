@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { timestampData } from '../includes/timestamped';
 import { Infer, Populate } from '../../utils/zod';
 import { TicketData } from './tickets';
+import { MailData } from './emails';
 
 /** @export 'data/users' */
 
@@ -24,7 +25,7 @@ export enum UserRole {
  *  - Populate<TicketData, 'assignee'>['assignee'] -> UserData
  */
 export type UserData = Infer<typeof userData, {
-
+    emails: MailData[]
 }>;
 
 /** [Relations](https://mongoosejs.com/docs/populate.html)
@@ -33,7 +34,11 @@ export type UserData = Infer<typeof userData, {
  * - Define the correct type in the `UserData` infer above
  */
 const userRelations = z.object({
-
+    /** Emails sent to this user
+     * - {@link mailData.shape.id mail.id} or {@link mailData}
+     * - See {@link https://mongoosejs.com/docs/populate.html Mongoose.populate}
+     */
+    emails: z.array(z.string()),
 })
 
 

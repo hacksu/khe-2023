@@ -4,7 +4,8 @@
       "moduleResolution": "nodenext",
       "rootDir": "./src",
       "outDir": "./dist",
-      "inlineSourceMap": true
+      "inlineSourceMap": true,
+      "jsx": "react"
    },
    "include": [
       "next-env.d.ts",

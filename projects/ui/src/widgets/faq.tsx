@@ -8,8 +8,11 @@ import type { FrequentlyAskedQuestion } from '@kenthackenough/server/data';
 /** @export 'faq' */
 
 
-async function compileQuestions(mdx: ReactMarkdownCompiler, questions: FrequentlyAskedQuestion[]) {
-    const renders = await Promise.all(questions.map(o => {
+async function compileQuestions(mdx: ReactMarkdownCompiler | null, questions: FrequentlyAskedQuestion[]) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const renders = !mdx ? questions.map(o => {
+        return 'loading...'
+    }) : await Promise.all(questions.map(o => {
         return mdx.compile(o.answer)
     }));
     console.log({ renders })
@@ -20,7 +23,19 @@ async function compileQuestions(mdx: ReactMarkdownCompiler, questions: Frequentl
     });
 }
 
-export function useFAQ(mdx: ReactMarkdownCompiler) {
+// async function compileQuestions(mdx: ReactMarkdownCompiler, questions: FrequentlyAskedQuestion[]) {
+//     const renders = await Promise.all(questions.map(o => {
+//         return mdx.compile(o.answer)
+//     }));
+//     console.log({ renders })
+//     return questions.map((o, i) => {
+//         return Object.assign({ ...o, }, {
+//             component: renders[i]
+//         })
+//     });
+// }
+
+export function useFAQ(mdx: ReactMarkdownCompiler | null) {
     const query = api.content.faq.list.useQuery(undefined, {
         refetchOnWindowFocus: false,
         refetchOnMount: false,
@@ -36,7 +51,7 @@ export function useFAQ(mdx: ReactMarkdownCompiler) {
             // console.log('yaaay compile', o);
             setCompiled(o);
         });
-    }, [questions, mdx]);
+    }, [questions, mdx !== null]);
     // console.log({ compiled })
     return compiled;
 }
