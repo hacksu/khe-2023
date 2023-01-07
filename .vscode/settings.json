@@ -18,7 +18,9 @@
         { "icon": "route", "extensions": ["tools/proxy"] },
         { "icon": "git", "extensions": ["repos"] },
         { "icon": "certificate", "extensions": ["permissions"] },
-        { "icon": "docs", "extensions": ["mdx"] },
+        { "icon": "docs", "extensions": ["mdx", "mail"] },
+        { "icon": "template", "extensions": ["content"] },
+        { "icon": "controller", "extensions": ["providers"] },
     ],
     "vsicons.associations.files": [
         { "icon": "nginx", "extensions": ["docker/server/nginx/*"] },

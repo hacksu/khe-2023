@@ -5,6 +5,8 @@ import { nextAuth } from './services/auth';
 import { router } from './services/trpc/router';
 import express from 'express';
 import cors from 'cors';
+import { sendMail } from './services/mail';
+import { sendTestEmail } from './services/mail/test';
 
 
 export const api = express();
@@ -52,5 +54,11 @@ api.get('/', (req, res) => {
     res.send('hi')
 });
 
-import { campusMap } from './services/map';
-campusMap.getLocation('library');
+// import { campusMap } from './services/map';
+// campusMap.getLocation('library');
+
+api.get('/email/send/:email', (req, res) => {
+    sendTestEmail('req.params.email').then(o => {
+        res.send('ok');
+    })
+})

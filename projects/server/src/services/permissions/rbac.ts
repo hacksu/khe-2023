@@ -6,7 +6,7 @@ import { UserPermissions } from '../../models/users/model';
 import { config } from '../../config';
 import { TicketPermissions } from '../../models/tickets/model';
 import { UserData } from '../../data/models/users';
-import { ContentPermissions } from '../content/temp_permissions';
+import { ContentPermissions } from '../../data/types/content';
 
 export const DISABLE_PERMISSIONS = config.disablePermissions;
 
