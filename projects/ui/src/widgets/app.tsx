@@ -10,6 +10,8 @@ import { AppProps } from 'next/app';
 import { trpc } from '../utils/trpc';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAuthProviders } from './authentication';
+import { ModalsProvider } from '@mantine/modals';
+import { RouteParameters } from '@kenthackenough/react/hooks';
 
 
 type InitialProps = AppProps;
@@ -61,9 +63,12 @@ export function App(...args) {
 
         return <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
             <MantineProvider withGlobalStyles withNormalizeCSS theme={theme}>
-                <NotificationsProvider>
-                    <Component {...props} />
-                </NotificationsProvider>
+                <ModalsProvider>
+                    <NotificationsProvider>
+                        <RouteParameters />
+                        <Component {...props} />
+                    </NotificationsProvider>
+                </ModalsProvider>
             </MantineProvider>
         </ColorSchemeProvider>
     }

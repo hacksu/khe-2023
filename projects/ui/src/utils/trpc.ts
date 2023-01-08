@@ -1,4 +1,4 @@
-import { createWSClient, httpLink, splitLink, wsLink, createTRPCProxyClient, TRPCLink } from '@trpc/client';
+import { createWSClient, httpLink, splitLink, wsLink, httpBatchLink, createTRPCProxyClient, TRPCLink } from '@trpc/client';
 import { createTRPCNext } from '@trpc/next';
 import { createFlatProxy, createRecursiveProxy } from '@trpc/server/shared';
 import { get, merge } from 'lodash';
@@ -10,6 +10,7 @@ import superjson from 'superjson';
 /** @export 'trpc' */
 
 const WS_ENABLED = getConfig().publicRuntimeConfig.websocket || false;
+const BATCH_ENABLED = getConfig().publicRuntimeConfig.batched || false;
 const API_HOST = typeof window !== 'undefined'
     ? location.host.split('.').filter(o => o != 'staff').join('.')
     : 'localhost:5001'
@@ -30,9 +31,11 @@ function getEndingLink(ctx?: NextPageContext | undefined) {
         return {}
     }
 
+    const link = BATCH_ENABLED ? httpBatchLink : httpLink;
+
     const http = typeof window === 'undefined'
-        ? httpLink({ url: `http://${API_HOST}/api/trpc`, headers })
-        : httpLink({ url: `/api/trpc`, headers  })
+        ? link({ url: `http://${API_HOST}/api/trpc`, headers })
+        : link({ url: `/api/trpc`, headers  })
 
     if (typeof window === 'undefined' || !WS_ENABLED) {
         return http;

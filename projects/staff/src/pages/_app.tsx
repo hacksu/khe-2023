@@ -6,6 +6,7 @@ import { ThemeProvider } from '../utils/mantine';
 import { trpc } from '../utils/trpc';
 import { Navigation } from '../widgets/navigation';
 import { useAuthProviders } from '@kenthackenough/ui/authentication';
+import { RouteParameters } from '@kenthackenough/react/hooks';
 
 
 function App(props: InitialProps) {
@@ -22,6 +23,7 @@ function App(props: InitialProps) {
     return <ThemeProvider {...{ theme, colorScheme, firstVisit }}>
         <NotificationsProvider>
             {/* <Navigation /> */}
+            <RouteParameters />
             <Component {...pageProps} />
         </NotificationsProvider>
     </ThemeProvider>

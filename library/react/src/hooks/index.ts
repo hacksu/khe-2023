@@ -7,8 +7,10 @@ import { useForm } from './useForm';
 export {
     useForm,
     useProps,
-    useMediaQuery
+    useMediaQuery,
 }
+
+export * from './useRouteParameter';
 
 export type { UseProps } from './useProps';
 
