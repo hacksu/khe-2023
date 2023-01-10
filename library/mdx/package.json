@@ -4,6 +4,7 @@
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
+    "lint": "node build.mjs",
     "build": "node build.mjs"
   },
   "dependencies": {
