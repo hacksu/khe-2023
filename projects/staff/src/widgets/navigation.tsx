@@ -39,7 +39,7 @@ export function Navigation() {
         }
     }, [isMobile]);
 
-    console.log({ isMobile })
+    // console.log({ isMobile })
 
     return <Navbar p="md" hiddenBreakpoint="sm" hidden={!isOpen} width={{ base: 240  }}>
         <Box>yeya</Box>

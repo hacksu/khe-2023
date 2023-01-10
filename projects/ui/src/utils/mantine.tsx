@@ -59,6 +59,8 @@ export function withMantine(App: (props: any) => JSX.Element, options: WithManti
             }
         }, [colorProps.colorScheme, providerProps.theme])
 
+        console.log(colorProps)
+
         return <ColorSchemeProvider {...colorProps}>
             <MantineProvider {...providerProps} theme={theme}>
                 <App {...props} />

@@ -15,7 +15,7 @@ export function AppLayout(props: {
     const navigationWidth = isMobile ? 0 : 240;
     const headerHeight = isMobile ? 60 : 0;
 
-    console.log('app', { isMobile })
+    // console.log('app', { isMobile })
 
     return <Box>
         <Box sx={{ position: 'fixed' }}>

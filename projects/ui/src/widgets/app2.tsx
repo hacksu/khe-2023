@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
 
-/** @export 'app' */
+/** @export 'old-app' */
 
 import { ColorScheme, ColorSchemeProvider, MantineProvider, MantineThemeOverride } from '@mantine/core'
 import { NotificationsProvider } from '@mantine/notifications'
@@ -12,7 +12,6 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useAuthProviders } from './authentication';
 import { ModalsProvider } from '@mantine/modals';
 import { RouteParameters } from '@kenthackenough/react/hooks';
-import { withMantine } from '../utils/mantine';
 
 
 type InitialProps = AppProps;
@@ -23,7 +22,8 @@ type AppConfig = {
 }
 
 const baseAppConfig = {
-
+    colorScheme: 'light',
+    theme: {},
 } as const;
 
 
@@ -37,34 +37,44 @@ export function App(...args) {
             return [baseAppConfig, ...args].slice(-2) as any;
         }, args);
 
+        const [colorScheme, setColorScheme] = useState<ColorScheme>(config.colorScheme || baseAppConfig.colorScheme);
+
+        const toggleColorScheme = useCallback(((color) => color
+            ? setColorScheme(color)
+            : setColorScheme(colorScheme == 'dark' ? 'light' : 'dark')
+        ), [colorScheme]);
+
+        const theme = {
+            colorScheme,
+            __proto__: config.theme || baseAppConfig.theme,
+        };
+
         const _trpc = trpc.useContext();
         const queryClient = useQueryClient();
         useEffect(() => {
             if (typeof window !== 'undefined') {
+                // console.log('query cache2', queryClient.getQueryCache())
                 if (Object.keys(((queryClient.getQueryCache() as any).queriesMap as Map<string, any>)).length === 0) {
+                    // console.log('invalidate queries');
                     _trpc.invalidate();
                 }
             }
         }, [typeof window]);
 
-        return <>
-            <ModalsProvider>
-                <NotificationsProvider>
-                    <RouteParameters />
-                    <Component {...props} />
-                </NotificationsProvider>
-            </ModalsProvider>
-        </>
+        return <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+            <MantineProvider withGlobalStyles withNormalizeCSS theme={theme}>
+                <ModalsProvider>
+                    <NotificationsProvider>
+                        <RouteParameters />
+                        <Component {...props} />
+                    </NotificationsProvider>
+                </ModalsProvider>
+            </MantineProvider>
+        </ColorSchemeProvider>
     }
 
 
 
-    const config: AppConfig = { ...baseAppConfig, ...(args.length === 2 ? args[0] : {}) };
-    return trpc.withTRPC(
-        withMantine(app, {
-            colorScheme: config?.colorScheme,
-            theme: config?.theme,
-        })
-    );
+    return trpc.withTRPC(app);
 }
 
