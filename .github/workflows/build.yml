@@ -54,6 +54,7 @@ jobs:
             ${{ github.workspace }}/package.json
             ${{ github.workspace }}/github/scripts/*/node_modules
             ${{ github.workspace }}/*/*/node_modules
+            ${{ github.workspace }}/*/*/dist
           key: cache-npm-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             cache-npm-
