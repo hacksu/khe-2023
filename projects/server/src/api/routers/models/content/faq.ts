@@ -1,9 +1,8 @@
-import { z } from 'zod';
-import { access } from '../../permissions/middleware';
-import { ServerState } from '../../mongo/state'
-import { t } from '../../trpc';
-import { FrequentlyAskedQuestion, frequentlyAskedQuestion } from '../../../data/types/content/faq';
+import { FrequentlyAskedQuestion, frequentlyAskedQuestion } from '../../../../data';
+import { createTRPCRouter, procedure } from '../../../trpc/base';
+import { ServerState } from '../../../../services/mongo/state';
 import { v4 as uuidv4 } from 'uuid';
+import { z } from 'zod';
 
 
 
@@ -46,16 +45,15 @@ const state = new ServerState<{
 })
 
 
-const procedures = t.router({
-    list: t.procedure
+export const faqRouter = createTRPCRouter({
+    list: procedure.public
         .query(async () => {
             const questions = await state.get('questions');
             return { questions }
         }),
-    
+
     /** Inserts a FAQ entry */
-    insert: t.procedure
-        .use(access({ content: { update: true } }))
+    insert: procedure.protected({ content: { update: true } })
         .input((
             z.object({
                 /** The position to insert into. Defaults to the end of the list. */
@@ -77,10 +75,9 @@ const procedures = t.router({
             state.set('questions', questions);
             return { questions }
         }),
-    
+
     /** Updates a FAQ entry */
-    update: t.procedure
-        // .use(access({ content: { update: true } }))
+    update: procedure.protected({ content: { update: true } })
         .input((
             z.object({
                 id: z.string(),
@@ -93,8 +90,7 @@ const procedures = t.router({
         }),
 
     /** Arranges the FAQs according to the specified order */
-    arrange: t.procedure
-        // .use(access({ content: { update: true } }))
+    arrange: procedure.protected({ content: { update: true } })
         .input(z.object({
             /** A list of IDs in the desired order */
             order: z.array(z.string())
@@ -104,14 +100,10 @@ const procedures = t.router({
         }),
 
     /** Deletes a FAQ entry */
-    remove: t.procedure
-        // .use(access({ content: { update: true } }))
+    remove: procedure.protected({ content: { delete: true } })
         .input(z.object({ id: z.string() }))
         .mutation(async ({ input }) => {
 
         }),
 })
 
-export default procedures;
-
-// procedures.createCaller({} as any).arrange({ order: ['123', '456'] })

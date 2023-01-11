@@ -5,7 +5,7 @@ import { Router } from 'next/router';
 import { AppProps } from 'next/app';
 import { RouteParameters } from '@kenthackenough/react/hooks';
 import { AppLayout } from '../ui/layouts/app';
-import { withMantine } from '@kenthackenough/ui/utils/mantine';
+import { withMantine } from '../utils/mantine';
 import Head from 'next/head';
 
 

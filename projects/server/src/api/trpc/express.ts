@@ -10,7 +10,7 @@ type RequestMethods =
     | 'PATCH'
     | 'DELETE'
 
-export type RestMeta = {
+export type TRPCExpressMeta = {
     /** 
      * @deprecated Mounts a route as a normal REST endpoint at `/api/...`
      * - **USAGE NOT RECOMMENDED**
@@ -47,7 +47,7 @@ const STATUS_CODES = {
 
 
 /** Handles TRPC requests via REST */
-export function createRestHandler<TRouter extends TRPCRouter<any>>(opts: HandlerOptions<TRouter>) {
+export function createTRPCExpressRestHandler<TRouter extends TRPCRouter<any>>(opts: HandlerOptions<TRouter>) {
     const router = express.Router();
     const procedures = opts.router._def.procedures;
     const routes = new Map<string, { procedure: any, name: string }>();
@@ -94,28 +94,4 @@ export function createRestHandler<TRouter extends TRPCRouter<any>>(opts: Handler
 
     return router;
 }
-
-
-
-
-// export function createRestHandler<TRouter extends TRPCRouter<any>>(opts: HandlerOptions<TRouter>) {
-//     return function<C extends ReturnType<TRouter['createCaller']>>(
-//         run: (handle: C, req: express.Request) => any,
-//         serialize?: (data: any) => string
-//     ): express.RequestHandler {
-//         return async function (req, res) {
-//             const trpc = opts.router.createCaller(
-//                 opts.createContext({ req, res })
-//             );
-//             // @ts-ignore
-//             const result = await run(trpc, req);
-//             if (serialize) {
-//                 res.json(await serialize(result))
-//             } else {
-//                 res.json(result);
-//             }
-//         }
-//     }
-// }
-
 

@@ -1,5 +1,5 @@
 import mongoose, { HydratedDocumentFromSchema, model, Schema } from 'mongoose';
-import { TicketData, TicketStatus } from '../../data/models/tickets';
+import { TicketData, TicketStatus, ticketData } from '../../data/models/tickets';
 import { exportModel } from '../../services/mongo/export';
 
 
@@ -11,6 +11,7 @@ export namespace TicketPermissions {
 
 namespace defineTicket {
     export const ModelName = 'Ticket';
+    export const data = ticketData;
 
     export type Data = TicketData & {};
     export type Document = HydratedDocumentFromSchema<Schema>;

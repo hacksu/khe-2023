@@ -10,13 +10,17 @@ console.log('starting...');
 import './config';
 import './services/mongo';
 import { applyWSSHandler } from '@trpc/server/adapters/ws';
-import { createContext } from './services/trpc/context';
-import { router } from './services/trpc/router';
+// import { createContext } from './services/trpc/context';
+// import { router } from './services/trpc/router';
 import { WebSocketServer } from 'ws';
 import { createServer } from 'http';
-import { session } from './session';
-import { api } from './router';
+// import { session } from './session';
+// import { api } from './router';
+import { api } from './api/root';
 import express from 'express';
+import { createTRPCContext } from './api/trpc/base';
+import { apiRouter } from './api/trpc';
+import { session } from './api/utils/session';
 
 const port = 5001;
 
@@ -24,7 +28,8 @@ const port = 5001;
 
 /** Express app */
 export const app = express();
-app.use('/api', session, api);
+app.use('/api', api);
+// app.use('/api', session, api);
 
 
 /** Node HTTP Server */
@@ -41,8 +46,8 @@ export const wss = new WebSocketServer({
 
 /** Apply TRPC Websockets */
 const wssHandle = applyWSSHandler({
-    createContext: createContext as any,
-    router,
+    createContext: createTRPCContext as any,
+    router: apiRouter,
     wss,
 })
 

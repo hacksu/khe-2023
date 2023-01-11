@@ -1,5 +1,5 @@
 import { HydratedDocumentFromSchema, model, Schema } from 'mongoose';
-import { UserData, UserRole } from '../../data/models/users';
+import { UserData, UserRole, userData } from '../../data/models/users';
 import { hashSync } from 'bcrypt';
 import { exportModel } from '../../services/mongo/export';
 
@@ -20,6 +20,7 @@ export declare namespace User {
 
 namespace defineUser {
     export const ModelName = 'User';
+    export const data = userData;
     
     export type Data = UserData & {};
     export type Document = HydratedDocumentFromSchema<Schema>;

@@ -60,6 +60,7 @@ export function App(...args) {
 
 
     const config: AppConfig = { ...baseAppConfig, ...(args.length === 2 ? args[0] : {}) };
+    console.log(config)
     return trpc.withTRPC(
         withMantine(app, {
             colorScheme: config?.colorScheme,
