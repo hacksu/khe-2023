@@ -1,12 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { MantineProviderProps, ColorSchemeProvider, ColorScheme, MantineProvider, MantineThemeOverride, MantineTheme } from '@mantine/core';
+import { MantineProviderProps, ColorSchemeProvider, ColorScheme, MantineProvider, MantineThemeOverride, MantineTheme, createEmotionCache, useMantineTheme, useEmotionCache, defaultMantineEmotionCache } from '@mantine/core';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getCookie, setCookie } from 'cookies-next';
 import { useMediaQuery } from '@mantine/hooks';
 import { AppContext } from 'next/app';
+import { createStylesServer } from '@mantine/next';
 
 
 /** @export 'mantine' */
+
+
+export class MantineGlobals {
+    // static emotionCache = createEmotionCache({
+    //     key: 'mantine',
+    // });
+    static emotionCache = defaultMantineEmotionCache;
+    // static stylesServer = createStylesServer(this.emotionCache);
+    static theme: MantineThemeOverride;
+}
+
 
 declare global {
     interface AppInitialPageProps {
@@ -27,12 +39,30 @@ type MantineInitialProps = {
     savedColorScheme?: ColorScheme
 }
 
+
+export function useTheme() {
+    const theme = useMantineTheme();
+    const cache = useEmotionCache();
+    Object.assign(theme, MantineGlobals.theme || {});
+    return useMemo(() => {
+        Object.assign(cache, MantineGlobals.emotionCache);
+        return theme;
+    }, [MantineGlobals.theme]);
+    // return theme;
+}
+
 export function withMantine(App: (props: any) => JSX.Element, options: WithMantineProps) {
     const {
         colorScheme: forcedColorScheme,
         cookie = 'color-scheme',
         ...providerProps
     } = options;
+
+    // function GlobalsProvider() {
+    //     const theme = useMantineTheme();
+    //     MantineGlobals.theme = theme;
+    //     return <></>;
+    // }
 
     function Provider(props: any) {
 
@@ -57,8 +87,11 @@ export function withMantine(App: (props: any) => JSX.Element, options: WithManti
             }
         }, [colorProps.colorScheme, providerProps.theme])
 
+        MantineGlobals.theme = theme;
+
         return <ColorSchemeProvider {...colorProps}>
             <MantineProvider {...providerProps} theme={theme}>
+                {/* <GlobalsProvider /> */}
                 <App {...props} />
             </MantineProvider>
         </ColorSchemeProvider>

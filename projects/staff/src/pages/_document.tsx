@@ -2,6 +2,7 @@ import { ServerStyles, createStylesServer } from '@mantine/next';
 import Document, { DocumentContext } from 'next/document';
 import { createEmotionCache } from '@mantine/core';
 import { MantineGlobals } from '@kenthackenough/ui/globals';
+// import { MantineGlobals } from '@kenthackenough/react/mantine';
 
 
 export const emotionCache = MantineGlobals.emotionCache = MantineGlobals.emotionCache
@@ -11,6 +12,8 @@ export const emotionCache = MantineGlobals.emotionCache = MantineGlobals.emotion
 
 const stylesServer = MantineGlobals.stylesServer = MantineGlobals.stylesServer
     || createStylesServer(emotionCache);
+
+// const stylesServer = createStylesServer(MantineGlobals.emotionCache);
 
 export default class MantineDocument extends Document {
     static async getInitialProps(ctx: DocumentContext) {

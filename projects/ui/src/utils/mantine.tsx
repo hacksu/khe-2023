@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { MantineProviderProps, ColorSchemeProvider, ColorScheme, MantineProvider, MantineThemeOverride, MantineTheme } from '@mantine/core';
+import { MantineProviderProps, ColorSchemeProvider, ColorScheme, MantineProvider, MantineThemeOverride, MantineTheme, useMantineTheme, useEmotionCache } from '@mantine/core';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getCookie, setCookie } from 'cookies-next';
 import { useMediaQuery } from '@mantine/hooks';
 import { AppContext } from 'next/app';
+import { MantineGlobals } from './globals';
 
 
 /** @export 'mantine' */
@@ -25,6 +26,17 @@ type WithMantineProps = Omit<MantineProviderProps, 'children'> & {
 
 type MantineInitialProps = {
     savedColorScheme?: ColorScheme
+}
+
+export function useTheme() {
+    const theme = useMantineTheme();
+    const cache = useEmotionCache();
+    Object.assign(theme, MantineGlobals.theme || {});
+    return useMemo(() => {
+        Object.assign(cache, MantineGlobals.emotionCache);
+        return theme;
+    }, [MantineGlobals.theme]);
+    // return theme;
 }
 
 export function withMantine(App: (props: any) => JSX.Element, options: WithMantineProps) {

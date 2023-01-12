@@ -3,12 +3,13 @@ import { Navigation, NavigationBurger } from '../../widgets/navigation';
 import { useMediaQuery } from '@kenthackenough/react/hooks';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { MantineGlobals, useTheme } from '@kenthackenough/react/mantine';
 
 
 export function AppLayout(props: {
     children: any
 }) {
-    const theme = useMantineTheme();
+    const theme = useTheme();
     const { breakpoints } = theme;
     const isMobile = useMediaQuery(`(max-width: ${breakpoints.md}px)`);
 
