@@ -1,52 +1,44 @@
-import { NotificationsProvider } from '@mantine/notifications';
-import { trpc } from '../utils/trpc';
-import { createContext } from 'react';
-import { Router } from 'next/router';
-import { AppProps } from 'next/app';
-import { RouteParameters } from '@kenthackenough/react/hooks';
-import { AppLayout } from '../ui/layouts/app';
-// import { withMantine } from '@kenthackenough/ui/mantine';
-import Head from 'next/head';
-import { createEmotionCache } from '@mantine/core';
+import { trpc } from '@kenthackenough/ui/trpc';
+import { App } from '@kenthackenough/ui/app';
 import { withMantine } from '../utils/mantine';
 import { emotionCache } from './_document';
+import { createContext } from 'react';
+import { Router } from 'next/router';
+import Head from 'next/head';
+import { AppProps } from 'next/app';
+import { AppLayout } from '../ui/layouts/app';
 
-declare global {
-    export interface AppInitialProps extends AppProps {
-        pageProps: AppInitialPageProps
-    }
-    export interface AppInitialPageProps {
-
-    }
-}
 
 export const InitialRouter = createContext<Router>(null as any);
 
-
-
-function App(props: AppInitialProps) {
-    const { Component, pageProps } = props;
-
-    return <InitialRouter.Provider value={props.router}>
-        <NotificationsProvider>
-            <Head>
-                <title>Page title</title>
-                <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
-            </Head>
-            <AppLayout>
-                <Component {...pageProps} />
-            </AppLayout>
-            <RouteParameters />
-        </NotificationsProvider>
-    </InitialRouter.Provider>
+declare global {
+    interface AppInitialProps extends AppProps { }
 }
 
 
+
+const app = App((props) => {
+    const { Component, pageProps } = props;
+    return <>
+        <Head>
+            <title>Page title</title>
+            <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+        </Head>
+        <InitialRouter.Provider value={props.router}>
+            <AppLayout>
+                <Component {...pageProps} />
+            </AppLayout>
+        </InitialRouter.Provider>
+    </>
+})
+
+
 export default trpc.withTRPC(
-    withMantine(App, {
+    withMantine(app, {
         cookie: 'khe-staff-color-scheme',
         withGlobalStyles: true,
         withNormalizeCSS: true,
-        emotionCache,
+        emotionCache: emotionCache,
     })
 )
+

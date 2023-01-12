@@ -54,19 +54,13 @@
       "default": "./src/pages/_document.tsx"
     },
     "./mantine": {
-      "default": "./src/utils/mantine/index.tsx"
-    },
-    "./mantine/document": {
-      "default": "./src/utils/mantine/document.tsx"
+      "default": "./src/utils/mantine.tsx"
     },
     "./trpc": {
       "default": "./src/utils/trpc.ts"
     },
     "./app": {
       "default": "./src/widgets/app.tsx"
-    },
-    "./old-app": {
-      "default": "./src/widgets/app2.tsx"
     },
     "./authentication": {
       "default": "./src/widgets/authentication/index.ts"

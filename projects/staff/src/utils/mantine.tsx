@@ -1,11 +1,12 @@
-import { MantineProviderProps, ColorSchemeProvider, ColorScheme, MantineProvider, MantineThemeOverride, createEmotionCache } from '@mantine/core';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { MantineProviderProps, ColorSchemeProvider, ColorScheme, MantineProvider, MantineThemeOverride } from '@mantine/core';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getCookie, setCookie } from 'cookies-next';
 import { useMediaQuery } from '@mantine/hooks';
 import { AppContext } from 'next/app';
 
 
-/** @export 'utils/mantine' */
+/** @export 'mantine' */
 
 declare global {
     interface AppInitialPageProps {
@@ -26,12 +27,6 @@ type MantineInitialProps = {
     savedColorScheme?: ColorScheme
 }
 
-
-// export const emotionCache = createEmotionCache({
-//     key: 'mantine-ssr',
-// })
-
-
 export function withMantine(App: (props: any) => JSX.Element, options: WithMantineProps) {
     const {
         colorScheme: forcedColorScheme,
@@ -40,7 +35,6 @@ export function withMantine(App: (props: any) => JSX.Element, options: WithManti
     } = options;
 
     function Provider(props: any) {
-        // console.log('mantine provider', props);
 
         const colorProps = useDynamicColorScheme(props?.pageProps?.mantine, {
             forcedColorScheme,
@@ -63,9 +57,6 @@ export function withMantine(App: (props: any) => JSX.Element, options: WithManti
             }
         }, [colorProps.colorScheme, providerProps.theme])
 
-        // console.log(colorProps)
-
-        //  emotionCache={emotionCache}
         return <ColorSchemeProvider {...colorProps}>
             <MantineProvider {...providerProps} theme={theme}>
                 <App {...props} />
@@ -137,8 +128,6 @@ function useDynamicColorScheme(props: MantineInitialProps, config: {
         // @ts-ignore
         props.colorScheme = colorScheme;
     }
-
-    // console.log({ colorScheme, savedColorScheme })
 
     return {
         colorScheme,

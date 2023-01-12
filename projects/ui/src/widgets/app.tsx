@@ -1,3 +1,38 @@
+// import { useQueryClient } from '@tanstack/react-query';
+// import { trpc } from '../utils/trpc';
+// import { createContext, useEffect } from 'react';
+// import { AppProps } from 'next/app';
+// import { ModalsProvider } from '@mantine/modals';
+// import { NotificationsProvider } from '@mantine/notifications';
+// import { RouteParameters } from '@kenthackenough/react/hooks';
+// import { Router } from 'next/router';
+
+
+// export const InitialRouter = createContext<Router>(null as any);
+
+// export function BaseApp(props: AppProps) {
+//     const { Component } = props;
+
+//     const _trpc = trpc.useContext();
+//     const queryClient = useQueryClient();
+//     useEffect(() => {
+//         if (typeof window !== 'undefined') {
+//             if (Object.keys(((queryClient.getQueryCache() as any).queriesMap as Map<string, any>)).length === 0) {
+//                 _trpc.invalidate();
+//             }
+//         }
+//     }, [typeof window]);
+
+//     return <InitialRouter.Provider value={props.router}>
+//         <ModalsProvider>
+//             <NotificationsProvider>
+//                 <RouteParameters />
+//                 <Component {...props} />
+//             </NotificationsProvider>
+//         </ModalsProvider>
+//     </InitialRouter.Provider>
+// }
+
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
 
@@ -5,7 +40,7 @@
 
 import { ColorScheme, ColorSchemeProvider, EmotionCache, MantineProvider, MantineThemeOverride } from '@mantine/core'
 import { NotificationsProvider } from '@mantine/notifications'
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { createContext, useCallback, useEffect, useMemo, useState } from 'react';
 import { AppProps } from 'next/app';
 import { trpc } from '../utils/trpc';
 import { useQueryClient } from '@tanstack/react-query';
@@ -13,10 +48,11 @@ import { useAuthProviders } from './authentication';
 import { ModalsProvider } from '@mantine/modals';
 import { RouteParameters } from '@kenthackenough/react/hooks';
 import { withMantine } from '../utils/mantine';
+import { Router } from 'next/router';
 // import { MantineDocument } from '../utils/mantine/document';
 
 
-type InitialProps = AppProps;
+type InitialProps = AppInitialProps; //AppProps;
 
 type AppConfig = {
     colorScheme?: ColorScheme;
@@ -27,6 +63,16 @@ type AppConfig = {
 const baseAppConfig = {
 
 } as const;
+
+
+declare global {
+    export interface AppInitialProps {
+        pageProps: AppInitialPageProps
+    }
+    export interface AppInitialPageProps {
+
+    }
+}
 
 
 export function App<Config extends AppConfig, Component extends (props: InitialProps) => JSX.Element>(config: Config, component: Component)
@@ -51,12 +97,14 @@ export function App(...args) {
             }
         }, [typeof window]);
 
-        return <ModalsProvider>
-            <NotificationsProvider>
-                <RouteParameters />
-                <Component {...props} />
-            </NotificationsProvider>
-        </ModalsProvider>
+        return <>
+            <ModalsProvider>
+                <NotificationsProvider>
+                    <RouteParameters />
+                    <Component {...props} />
+                </NotificationsProvider>
+            </ModalsProvider>
+        </>
     }
 
     // const app = function (props: InitialProps) {
@@ -83,6 +131,7 @@ export function App(...args) {
     //     </ModalsProvider>
     // }
 
+    if (true) return app;
 
     return trpc.withTRPC(
         app
@@ -95,4 +144,7 @@ export function App(...args) {
         // })
     );
 }
+
+
+
 

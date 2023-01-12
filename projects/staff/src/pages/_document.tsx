@@ -1,20 +1,7 @@
-// import { DocumentContext } from 'next/document';
-// import { ReactFragment } from 'react';
-// import { MantineDocument } from '@kenthackenough/ui/mantine/document';
-
-// export default class _Document extends MantineDocument {
-//     static async getInitialProps(ctx: DocumentContext) {
-//         const initialProps = await super.getInitialProps(ctx);
-
-//         return {
-//             ...initialProps,
-//         }
-//     }
-// }
-
-import { createEmotionCache } from '@mantine/core';
 import { ServerStyles, createStylesServer } from '@mantine/next';
 import Document, { DocumentContext } from 'next/document';
+import { createEmotionCache } from '@mantine/core';
+
 
 export const emotionCache = createEmotionCache({
     key: 'mantine-ssr',
