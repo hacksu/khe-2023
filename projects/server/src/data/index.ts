@@ -11,5 +11,5 @@ export * from './models/users';
 export * from './includes/timestamped';
 
 /** Types */
-export * from './types/content/faq';
+export * from './models/content/faq';
 

@@ -1,7 +1,7 @@
 import { merge } from 'lodash';
 import { UserPermissions } from '../../models/users/model';
 import { TicketPermissions } from '../../models/tickets/model';
-import { ContentPermissions } from '../../data/types/content';
+import { ContentPermissions } from '../../data/models/content';
 
 
 /** Define permission imports */

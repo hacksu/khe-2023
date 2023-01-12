@@ -1,9 +1,11 @@
-import { Permissions, hasPermission } from '../../services/permissions/rbac';
+import { Permissions, hasPermission } from '../../services/permissions';
 import { TRPCError, inferAsyncReturnType, initTRPC } from '@trpc/server';
 import { CreateExpressContextOptions } from '@trpc/server/adapters/express';
 import { IronSession } from 'iron-session';
 import SuperJSON from 'superjson';
 import { TRPCExpressMeta } from './express';
+import { config } from '../../config';
+import { Permission, rbac } from './permissions';
 
 
 
@@ -92,13 +94,14 @@ export const procedure = {
      *
      * @see https://trpc.io/docs/procedures
      */
-    protected: <T extends Permissions>(permission?: T) => {
+    protected: <T extends Permission>(permission?: T) => {
         return t.procedure.use(t.middleware(async ({ ctx, next }) => {
 
-            const user = null;
+            const user = ctx.session?.user;
 
-            if (user) {
-                if (!permission || hasPermission(user, permission)) {
+            if (user || config.disablePermissions) {
+                // @ts-ignore
+                if (!permission || permission && rbac.hasPermission(user, permission)) {
                     return next({
                         ctx: {
                             ...ctx,

@@ -31,11 +31,13 @@ export function App<Config extends AppConfig, Component extends (props: InitialP
 export function App<Component extends (props: InitialProps) => JSX.Element>(component: Component)
 export function App(...args) {
 
-    const app = function (props: InitialProps) {
+    const [_config, Component] = [{}, ...args].slice(-2);
+    const config: AppConfig = {
+        ...baseAppConfig,
+        ..._config,
+    }
 
-        const [config, Component] = useMemo<[AppConfig, (args: any) => JSX.Element]>(() => {
-            return [baseAppConfig, ...args].slice(-2) as any;
-        }, args);
+    const app = function (props: InitialProps) {
 
         const _trpc = trpc.useContext();
         const queryClient = useQueryClient();
@@ -47,24 +49,45 @@ export function App(...args) {
             }
         }, [typeof window]);
 
-        return <>
-            <ModalsProvider>
-                <NotificationsProvider>
-                    <RouteParameters />
-                    <Component {...props} />
-                </NotificationsProvider>
-            </ModalsProvider>
-        </>
+        return <ModalsProvider>
+            <NotificationsProvider>
+                <RouteParameters />
+                <Component {...props} />
+            </NotificationsProvider>
+        </ModalsProvider>
     }
 
+    // const app = function (props: InitialProps) {
+
+    //     const [config, Component] = useMemo<[AppConfig, (args: any) => JSX.Element]>(() => {
+    //         return [baseAppConfig, ...args].slice(-2) as any;
+    //     }, args);
+
+    // const _trpc = trpc.useContext();
+    // const queryClient = useQueryClient();
+    // useEffect(() => {
+    //     if (typeof window !== 'undefined') {
+    //         if (Object.keys(((queryClient.getQueryCache() as any).queriesMap as Map<string, any>)).length === 0) {
+    //             _trpc.invalidate();
+    //         }
+    //     }
+    // }, [typeof window]);
+
+    //     return <ModalsProvider>
+    //         <NotificationsProvider>
+    //             <RouteParameters />
+    //             <Component {...props} />
+    //         </NotificationsProvider>
+    //     </ModalsProvider>
+    // }
 
 
-    const config: AppConfig = { ...baseAppConfig, ...(args.length === 2 ? args[0] : {}) };
-    console.log(config)
     return trpc.withTRPC(
         withMantine(app, {
             colorScheme: config?.colorScheme,
             theme: config?.theme,
+            withGlobalStyles: true,
+            withNormalizeCSS: true,
         })
     );
 }

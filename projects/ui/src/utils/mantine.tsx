@@ -36,7 +36,6 @@ export function withMantine(App: (props: any) => JSX.Element, options: WithManti
     } = options;
 
     function Provider(props: any) {
-        // console.log('mantine provider', props);
 
         const colorProps = useDynamicColorScheme(props?.pageProps?.mantine, {
             forcedColorScheme,
@@ -58,8 +57,6 @@ export function withMantine(App: (props: any) => JSX.Element, options: WithManti
                 colorScheme: colorProps.colorScheme,
             }
         }, [colorProps.colorScheme, providerProps.theme])
-
-        console.log(colorProps)
 
         return <ColorSchemeProvider {...colorProps}>
             <MantineProvider {...providerProps} theme={theme}>

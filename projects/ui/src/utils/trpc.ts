@@ -3,7 +3,7 @@ import { createTRPCNext } from '@trpc/next';
 import { createFlatProxy, createRecursiveProxy } from '@trpc/server/shared';
 import { get, merge } from 'lodash';
 import { NextPageContext } from 'next';
-import type { Router } from '@kenthackenough/server/trpc/router';
+import type { ApiRouter } from '@kenthackenough/server/trpc';
 import getConfig from 'next/config';
 import superjson from 'superjson';
 
@@ -45,7 +45,7 @@ function getEndingLink(ctx?: NextPageContext | undefined) {
         ? createWSClient({ url: `ws://localhost:5001` })
         : createWSClient({ url: `wss://${API_HOST}/api` })
 
-    const ws = wsLink<Router>({
+    const ws = wsLink<ApiRouter>({
         client,
     });
 
@@ -61,7 +61,7 @@ function getEndingLink(ctx?: NextPageContext | undefined) {
     })
 }
 
-export const trpc = createTRPCNext<Router>({
+export const trpc = createTRPCNext<ApiRouter>({
     ssr: true,
     config({ ctx }) {
         return {

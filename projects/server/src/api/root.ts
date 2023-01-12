@@ -2,12 +2,12 @@ import { createExpressMiddleware } from '@trpc/server/adapters/express';
 import { createTRPCExpressRestHandler } from './trpc/express';
 import { createTRPCContext } from './trpc/base';
 import { apiRouter } from './trpc';
-import { session } from '../session';
 import { cors } from './utils/cors';
 import express from 'express';
 import { nextAuth } from '../services/auth';
 import { sendTestEmail } from '../services/mail/test';
 import { emailProviders } from '../services/mail';
+import { session } from './utils/session';
 
 
 export const api = express();

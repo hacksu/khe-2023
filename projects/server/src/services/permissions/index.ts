@@ -13,7 +13,10 @@ import chalk from 'chalk';
  */
 export const Permissions = rbac;
 export { Permission } from './permissions';
+export { hasPermission } from './rbac';
 
 if (rbac.DISABLE_PERMISSIONS) {
     log.warn(chalk.red('Permissions are disabled!'))
 }
+
+import './class/rbac';
