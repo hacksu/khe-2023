@@ -7,15 +7,16 @@ import { Router } from 'next/router';
 import Head from 'next/head';
 import { AppProps } from 'next/app';
 import { AppLayout } from '../ui/layouts/app';
+import { MantineGlobals } from '@kenthackenough/ui/globals';
 
 
 export const InitialRouter = createContext<Router>(null as any);
+MantineGlobals.emotionCache = emotionCache;
+
 
 declare global {
     interface AppInitialProps extends AppProps { }
 }
-
-
 
 const app = App((props) => {
     const { Component, pageProps } = props;

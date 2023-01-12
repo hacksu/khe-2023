@@ -7,6 +7,8 @@ import { api } from '../../utils/trpc';
 import { useAuthProviders } from '.';
 import { login } from '@kenthackenough/server/auth';
 
+
+
 export function SignInWith(props: {
     strategy: Exclude<AuthProviderId, 'credentials'>,
     theme?: ColorScheme
@@ -34,10 +36,10 @@ export function SignInWith(props: {
         // eslint-disable-next-line @next/next/no-img-element
         leftIcon: styles?.logo && <img src={styles?.logo} style={{ height: '1.5em', marginRight: 4 }} alt={provider?.name + ' Logo'} />,
         sx: {
-            backgroundColor: styles?.bg,
-            color: styles?.text,
+            backgroundColor: styles?.bg + '!important',
+            color: styles?.text + '!important',
             ":hover": {
-                backgroundColor: styles?.hover,
+                backgroundColor: styles?.hover + '!important',
             }
         },
     } as ButtonProps);

@@ -53,6 +53,9 @@
     "./mantine": {
       "default": "./src/utils/mantine.tsx"
     },
+    "./globals": {
+      "default": "./src/utils/globals.tsx"
+    },
     "./trpc": {
       "default": "./src/utils/trpc.ts"
     },

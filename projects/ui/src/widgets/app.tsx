@@ -38,7 +38,7 @@
 
 /** @export 'app' */
 
-import { ColorScheme, ColorSchemeProvider, EmotionCache, MantineProvider, MantineThemeOverride } from '@mantine/core'
+import { ColorScheme, ColorSchemeProvider, EmotionCache, MantineProvider, MantineThemeOverride, useMantineTheme } from '@mantine/core'
 import { NotificationsProvider } from '@mantine/notifications'
 import { createContext, useCallback, useEffect, useMemo, useState } from 'react';
 import { AppProps } from 'next/app';
@@ -49,6 +49,7 @@ import { ModalsProvider } from '@mantine/modals';
 import { RouteParameters } from '@kenthackenough/react/hooks';
 import { withMantine } from '../utils/mantine';
 import { Router } from 'next/router';
+import { MantineGlobals } from '../utils/globals';
 // import { MantineDocument } from '../utils/mantine/document';
 
 
@@ -86,6 +87,12 @@ export function App(...args) {
     }
 
     const app = function (props: InitialProps) {
+        const theme = useMantineTheme();
+        if (MantineGlobals.theme) {
+            Object.assign(theme, MantineGlobals.theme)
+        }
+
+        // console.log('theme', theme.colorScheme, MantineGlobals.theme.colorScheme);
 
         const _trpc = trpc.useContext();
         const queryClient = useQueryClient();
