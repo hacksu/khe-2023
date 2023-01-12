@@ -1,12 +1,11 @@
-import { Permissions, hasPermission } from '../../services/permissions';
 import { TRPCError, inferAsyncReturnType, initTRPC } from '@trpc/server';
 import { CreateExpressContextOptions } from '@trpc/server/adapters/express';
+import { Permission, rbac } from '../../services/auth/rbac';
 import { IronSession } from 'iron-session';
-import SuperJSON from 'superjson';
 import { TRPCExpressMeta } from './express';
 import { config } from '../../config';
-import { Permission, rbac } from './permissions';
-
+import SuperJSON from 'superjson';
+import '../utils/session';
 
 
 export type TRPCContext = inferAsyncReturnType<typeof createTRPCContext>;
@@ -109,25 +108,6 @@ export const procedure = {
                     },
                 })
             }
-
-            // if (user || config.disablePermissions) {
-            //     // @ts-ignore
-            //     if (!permission) {
-            //         return next({
-            //             ctx: {
-            //                 ...ctx,
-            //                 user,
-            //             },
-            //         })
-            //     } else if (user && permission && rbac.hasPermission(user, permission)) {
-            //         return next({
-            //             ctx: {
-            //                 ...ctx,
-            //                 user,
-            //             },
-            //         })
-            //     }
-            // }
 
             throw new TRPCError({ code: 'UNAUTHORIZED' });
         }))

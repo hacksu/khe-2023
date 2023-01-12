@@ -145,46 +145,43 @@ export class Permissions<T extends object = any> {
 }
 
 
-const thingy = new Permissions({
-    tickets: {
-        read: true,
-        write: true,
-        delete: true,
-    },
-    users: {
-        read: true,
-        /** hi */
-        write: true,
-        delete: true,
+
+export type AccessControlConfig = {
+    permissions: Permissions,
+}
+
+export type AccessControlPermission<T extends AccessControlConfig | any = any> = T extends AccessControlConfig
+    ? Permission<T['permissions']>
+    : Permission;
+
+declare const phantoma: unique symbol;
+type Authorized<T, P extends Permissions> = T & {
+    [phantoma]: P
+}
+
+export declare namespace AccessControl {
+    export type Permission<T> = AccessControlPermission<T>;
+    export type Config = AccessControlConfig;
+}
+export class AccessControl<C extends AccessControlConfig, T = AccessControlPermission<C>> {
+    // public Permission: Permission<C['permissions']>;
+    protected permissions: C['permissions'];
+
+    public Config: AccessControlConfig;
+    // public Permission: AccessControlPermission;
+
+    constructor(protected config: C) {
+        this.permissions = config.permissions;
     }
-})
 
+    // @ts-ignore
+    hasPermission<I extends T, P extends AccessControlPermission<C>>(subject: I, permission: P): subject is Authorized<T, P> {
+        const subjectPermissions = this.getPermissions(subject);
+        return this.permissions.authorize(subjectPermissions, permission).type === 'ok';
+    }
 
-const testy = {} as any;
-if (thingy.authorize(testy, ['tickets.delete', 'users.delete']).type === 'ok') {
-    const huh = testy;
+    getPermissions<I extends T>(subject: I): AccessControlPermission<C> | Permission {
+        return subject as any;
+    }
+
 }
-if (thingy.authorize(testy, 'tickets.read').type === 'ok') {
-    const huh = testy;
-}
-if (thingy.authorize(testy, { users: { read: true } }).type === 'ok') {
-    const huh = testy;
-}
-
-const wat = set({}, 'hi.there', 123);
-
-// const omg = thingy.uuh['tickets.all'];
-
-// console.log('perm.tickets', thingy.get())
-console.log('perm', 'tickets.read', thingy.get('tickets.read'))
-console.log('perm', ['tickets.read', 'users.read'], thingy.get(['tickets.read', 'users.read']))
-console.log('perm', 'users.all', thingy.get('users.all'))
-console.log('perm', 'all', thingy.get('all'))
-
-// thingy.permissions.
-
-// thingy.authorize({
-
-// }, {
-
-// })

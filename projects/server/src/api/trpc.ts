@@ -19,7 +19,7 @@ export const apiRouter = createTRPCRouter({
     }),
 
     ping: procedure.public.query(({ ctx }) => {
-        console.log('got pinged');
+        // console.log('got pinged');
         // console.log('bruh', [ctx.session.bruh, newId]);
         // ctx.session.bruh = newId;
         // ctx.session.save();

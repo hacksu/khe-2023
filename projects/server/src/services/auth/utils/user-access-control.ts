@@ -1,40 +1,20 @@
 import { merge } from 'lodash';
-import { UserData, UserRole } from '../../data';
-import { Permissions, InferPermission } from '../../services/permissions/class/2/a';
-import { AccessControl } from '../../services/permissions/class/2/b';
-import { config } from '../../config';
-
-
-export type Permission = InferPermission<typeof permissions>;
-// export type Permission = AccessControl.Permission<typeof rbac['config']>;
-
-export const permissions = new Permissions({
-    tickets: {
-        /** yeeee */
-        read: true,
-        write: true,
-        delete: true,
-    },
-    users: {
-        read: true,
-        write: true,
-        delete: true,
-    },
-    content: {
-        write: true,
-        delete: true,
-    }
-})
+import { config } from '../../../config';
+import { UserData } from '../../../data';
+import { AccessControl, Permission } from './permissions';
 
 
 
+type ExclusiveRecord<K extends string | number | symbol, V> = {
+    [P in K]?: V
+}
 
 type PermissibleUser<T = any> = UserData & {
     // permissions?: Permission,
     permissions?: AccessControl.Permission<T>
 }
 
-class UserAccessControl<
+export class UserAccessControl<
     C extends AccessControl.Config
 > extends AccessControl<C, PermissibleUser<C>> {
 
@@ -109,23 +89,3 @@ class UserAccessControl<
 
 }
 
-type ExclusiveRecord<K extends string | number | symbol, V> = {
-    [P in K]?: V
-}
-
-
-export const rbac = new UserAccessControl({
-    permissions,
-})
-
-rbac.registerPermisions(UserRole, user => user.role, {
-    Admin: permissions.get('all'),
-})
-
-/** Are permissions disabled? */
-if (config.disablePermissions) {
-    /** Grant all users all permissions; as if they were a superadmin */
-    rbac.registerPermisions(user => user.email, () => permissions.get('all'));
-}
-
-// rbac.hasPermission({ }, { tickets: { r}})
