@@ -6,11 +6,9 @@ import { createContext } from 'react';
 import { Router } from 'next/router';
 import Head from 'next/head';
 import { AppProps } from 'next/app';
-import { MantineGlobals } from '@kenthackenough/ui/globals';
 
 
 export const InitialRouter = createContext<Router>(null as any);
-MantineGlobals.emotionCache = emotionCache;
 
 
 declare global {
@@ -35,7 +33,7 @@ const app = App((props) => {
 
 export default trpc.withTRPC(
     withMantine(app, {
-        colorScheme: 'dark',
+        colorScheme: 'light',
         cookie: 'khe-color-scheme',
         withGlobalStyles: true,
         withNormalizeCSS: true,

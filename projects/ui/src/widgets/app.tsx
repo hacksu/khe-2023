@@ -114,42 +114,7 @@ export function App(...args) {
         </>
     }
 
-    // const app = function (props: InitialProps) {
-
-    //     const [config, Component] = useMemo<[AppConfig, (args: any) => JSX.Element]>(() => {
-    //         return [baseAppConfig, ...args].slice(-2) as any;
-    //     }, args);
-
-    // const _trpc = trpc.useContext();
-    // const queryClient = useQueryClient();
-    // useEffect(() => {
-    //     if (typeof window !== 'undefined') {
-    //         if (Object.keys(((queryClient.getQueryCache() as any).queriesMap as Map<string, any>)).length === 0) {
-    //             _trpc.invalidate();
-    //         }
-    //     }
-    // }, [typeof window]);
-
-    //     return <ModalsProvider>
-    //         <NotificationsProvider>
-    //             <RouteParameters />
-    //             <Component {...props} />
-    //         </NotificationsProvider>
-    //     </ModalsProvider>
-    // }
-
-    if (true) return app;
-
-    return trpc.withTRPC(
-        app
-        // withMantine(app, {
-        //     emotionCache: config?.emotionCache,
-        //     colorScheme: config?.colorScheme,
-        //     theme: config?.theme,
-        //     withGlobalStyles: true,
-        //     withNormalizeCSS: true,
-        // })
-    );
+    return app;
 }
 
 

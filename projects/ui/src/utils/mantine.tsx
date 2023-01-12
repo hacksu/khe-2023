@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { MantineProviderProps, ColorSchemeProvider, ColorScheme, MantineProvider, MantineThemeOverride, MantineTheme, useMantineTheme, useEmotionCache } from '@mantine/core';
+import { MantineProviderProps, ColorSchemeProvider, ColorScheme, MantineProvider, MantineThemeOverride, useMantineTheme, useEmotionCache } from '@mantine/core';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getCookie, setCookie } from 'cookies-next';
 import { useMediaQuery } from '@mantine/hooks';
