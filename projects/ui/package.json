@@ -50,9 +50,6 @@
     "typescript": "^4.8.4"
   },
   "exports": {
-    "./document": {
-      "default": "./src/pages/_document.tsx"
-    },
     "./mantine": {
       "default": "./src/utils/mantine.tsx"
     },
