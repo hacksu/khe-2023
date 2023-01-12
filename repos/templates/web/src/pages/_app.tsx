@@ -1,11 +1,22 @@
 import { App } from '@kenthackenough/ui/app';
-import { MantineDocument } from '@kenthackenough/ui/mantine/document';
 import { emotionCache } from './_document';
+import { withMantine } from '@kenthackenough/ui/mantine';
+
+// export default App({
+//     // colorScheme: 'light',
+//     emotionCache,
+// }, (props) => {
+//     const { Component, pageProps } = props;
+//     return <Component {...pageProps} />;
+// })
 
 export default App({
-    // colorScheme: 'light',
-    emotionCache,
-}, (props) => {
+
+}, withMantine((props) => {
     const { Component, pageProps } = props;
     return <Component {...pageProps} />;
-})
+}, {
+    withGlobalStyles: true,
+    withNormalizeCSS: true,
+    emotionCache,
+}))

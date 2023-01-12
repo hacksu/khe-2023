@@ -14,6 +14,7 @@
     "@kenthackenough/server": "^1.0.36",
     "@kenthackenough/react": "^1.0.36",
     "@kenthackenough/ui": "^1.0.36",
+    "@kenthackenough/mdx": "^1.0.36",
     "@cseitz/icons": "^1.0.3",
     "@cseitz/icons-regular": "^1.0.3",
     "@emotion/react": "^11.10.4",

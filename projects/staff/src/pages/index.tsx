@@ -4,6 +4,7 @@ import { api } from '../utils/trpc';
 import { TicketsList } from '../widgets/tickets/list';
 import { Icon } from '@cseitz/icons';
 import { faHouse } from '@cseitz/icons/regular/house';
+import { FrequentlyAskedQuestions } from '../ui/faq';
 
 const HomeIcon = Icon(faHouse)
 
@@ -28,6 +29,7 @@ export default function Homepage() {
             subscription date: <span>{date?.toLocaleString() || 'loading...'}</span>
         </p>
         <div>{JSON.stringify(users?.data || {})}</div>
+        <FrequentlyAskedQuestions />
         <TicketsList />
         <Box sx={{ width: 500, maxWidth: '60vw', marginTop: 10 }}>
             <Progress value={100} animate />

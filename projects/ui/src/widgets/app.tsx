@@ -13,7 +13,7 @@ import { useAuthProviders } from './authentication';
 import { ModalsProvider } from '@mantine/modals';
 import { RouteParameters } from '@kenthackenough/react/hooks';
 import { withMantine } from '../utils/mantine';
-import { MantineDocument } from '../utils/mantine/document';
+// import { MantineDocument } from '../utils/mantine/document';
 
 
 type InitialProps = AppProps;
@@ -85,13 +85,14 @@ export function App(...args) {
 
 
     return trpc.withTRPC(
-        withMantine(app, {
-            emotionCache: config?.emotionCache,
-            colorScheme: config?.colorScheme,
-            theme: config?.theme,
-            withGlobalStyles: true,
-            withNormalizeCSS: true,
-        })
+        app
+        // withMantine(app, {
+        //     emotionCache: config?.emotionCache,
+        //     colorScheme: config?.colorScheme,
+        //     theme: config?.theme,
+        //     withGlobalStyles: true,
+        //     withNormalizeCSS: true,
+        // })
     );
 }
 
