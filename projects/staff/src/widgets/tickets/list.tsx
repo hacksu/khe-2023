@@ -1,7 +1,7 @@
 import { TicketStatus } from '@kenthackenough/server/data/tickets';
 import { Box, Paper, Text, Textarea, TextInput, Title } from '@mantine/core';
-import { api } from '../../utils/trpc';
 import { TicketEntry, TicketModal } from './ticket';
+import { api } from '@kenthackenough/ui/trpc';
 
 
 export function TicketsList() {
