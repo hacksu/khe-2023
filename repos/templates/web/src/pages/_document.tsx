@@ -18,7 +18,6 @@ import Document, { DocumentContext } from 'next/document';
 
 export const emotionCache = createEmotionCache({
     key: 'mantine-ssr',
-    // prepend: true,
 })
 
 const stylesServer = createStylesServer(emotionCache);

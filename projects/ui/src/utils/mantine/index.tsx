@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getCookie, setCookie } from 'cookies-next';
 import { useMediaQuery } from '@mantine/hooks';
 import { AppContext } from 'next/app';
-import { MantineDocument } from './document';
+// import { MantineDocument } from './document';
 
 
 /** @export 'mantine' */
