@@ -53,7 +53,7 @@ type PermissionPath<T extends object, F extends FieldPath<T> = FieldPath<T>> = _
 
 // @ts-ignore
 type PopulatedPermissionValue<T extends object, K extends string> = FieldPathValue<T, PopulatedPermissionPath<K>>;
-type PopulatedPermission<T extends object, K extends string> = NestedAssign<{}, PopulatedPermissionPath<K>, PopulatedPermissionValue<T, K>>;
+type PopulatedPermission<T extends object, K extends string> = K extends 'all' ? T : NestedAssign<{}, PopulatedPermissionPath<K>, PopulatedPermissionValue<T, K>>;
 type PopulatedPermissionPath<K extends string> = K extends `${infer S}.all` ? S : K;
 
 type NestedAssign<T, K, V> = K extends `${infer A}.${infer B}`

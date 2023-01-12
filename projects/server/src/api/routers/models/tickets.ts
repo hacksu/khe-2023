@@ -42,7 +42,7 @@ namespace INPUT {
 
 export const ticketRouter = createTRPCRouter({
     /** Get a ticket */
-    get: procedure.protected({ tickets: { read: true } })
+    get: procedure.protected({ tickets: { read: true }})
         .meta({ api: 'GET /tickets/:input' })
         .input(INPUT.ID)
         .query(async ({ input }) => {

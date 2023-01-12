@@ -94,21 +94,40 @@ export const procedure = {
      *
      * @see https://trpc.io/docs/procedures
      */
-    protected: <T extends Permission>(permission?: T) => {
+    // protected: <T extends Permission>(permission?: T) => {
+    protected: <T extends Permission>(permission?: Permission & T) => {
         return t.procedure.use(t.middleware(async ({ ctx, next }) => {
 
-            const user = ctx.session?.user;
+            let user = ctx.session?.user;
+            if (!user && config.disablePermissions) user = {} as any;
 
-            if (user || config.disablePermissions) {
-                // @ts-ignore
-                if (!permission || permission && rbac.hasPermission(user, permission)) {
-                    return next({
-                        ctx: {
-                            ...ctx,
-                        }
-                    })
-                }
+            if (user && rbac.hasPermission(user, permission || {})) {
+                return next({
+                    ctx: {
+                        ...ctx,
+                        user,
+                    },
+                })
             }
+
+            // if (user || config.disablePermissions) {
+            //     // @ts-ignore
+            //     if (!permission) {
+            //         return next({
+            //             ctx: {
+            //                 ...ctx,
+            //                 user,
+            //             },
+            //         })
+            //     } else if (user && permission && rbac.hasPermission(user, permission)) {
+            //         return next({
+            //             ctx: {
+            //                 ...ctx,
+            //                 user,
+            //             },
+            //         })
+            //     }
+            // }
 
             throw new TRPCError({ code: 'UNAUTHORIZED' });
         }))
