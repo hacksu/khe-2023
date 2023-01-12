@@ -28,6 +28,7 @@ export class ModelController<Config extends ModelControllerConfig> {
         queryParam: createRouteParameter({
             name: this.config.name,
             type: String,
+            back: true,
         }),
         open(id) {
             set(state => {

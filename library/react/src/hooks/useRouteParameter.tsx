@@ -26,6 +26,7 @@ const store = zustand<RouteParameterStore>(set => ({
 export function createRouteParameter<T, N extends string>(config: {
     name: N,
     type: (...args: any[]) => T,
+    back?: boolean,
 }) {
     type P = RouteParameter<T> & { name: N };
     type Internals = {
@@ -66,8 +67,14 @@ export function createRouteParameter<T, N extends string>(config: {
                     const query = { ...router.query, [config.name]: value };
                     if (value === null || value === undefined) {
                         delete query[config.name];
+                        if (config.back) {
+                            router.back();
+                        } else {
+                            router.push({ query } as any);
+                        }
+                    } else {
+                        router.push({ query } as any);
                     }
-                    router.push({ query } as any);
                 }
             }
             prev.current = { value, qvalue };
