@@ -5,7 +5,7 @@ import { createRouteParameter } from '@kenthackenough/react/hooks';
 import { Box } from '@mantine/core';
 
 
-/** @export 'helpers/model */
+/** @export 'helpers/model' */
 
 type ModelControllerConfig = {
     name: string,
