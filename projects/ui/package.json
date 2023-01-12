@@ -53,8 +53,11 @@
     "./document": {
       "default": "./src/pages/_document.tsx"
     },
-    "./utils/mantine": {
-      "default": "./src/utils/mantine.tsx"
+    "./mantine": {
+      "default": "./src/utils/mantine/index.tsx"
+    },
+    "./mantine/document": {
+      "default": "./src/utils/mantine/document.tsx"
     },
     "./trpc": {
       "default": "./src/utils/trpc.ts"

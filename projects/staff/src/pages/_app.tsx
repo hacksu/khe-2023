@@ -5,9 +5,11 @@ import { Router } from 'next/router';
 import { AppProps } from 'next/app';
 import { RouteParameters } from '@kenthackenough/react/hooks';
 import { AppLayout } from '../ui/layouts/app';
-import { withMantine } from '../utils/mantine';
+// import { withMantine } from '@kenthackenough/ui/mantine';
 import Head from 'next/head';
-
+import { createEmotionCache } from '@mantine/core';
+import { withMantine } from '../utils/mantine';
+import { emotionCache } from './_document';
 
 declare global {
     export interface AppInitialProps extends AppProps {
@@ -19,6 +21,8 @@ declare global {
 }
 
 export const InitialRouter = createContext<Router>(null as any);
+
+
 
 function App(props: AppInitialProps) {
     const { Component, pageProps } = props;
@@ -43,5 +47,6 @@ export default trpc.withTRPC(
         cookie: 'khe-staff-color-scheme',
         withGlobalStyles: true,
         withNormalizeCSS: true,
+        emotionCache,
     })
 )

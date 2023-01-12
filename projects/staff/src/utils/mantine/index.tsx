@@ -1,4 +1,4 @@
-import { MantineProviderProps, ColorSchemeProvider, ColorScheme, MantineProvider, MantineThemeOverride } from '@mantine/core';
+import { MantineProviderProps, ColorSchemeProvider, ColorScheme, MantineProvider, MantineThemeOverride, createEmotionCache } from '@mantine/core';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getCookie, setCookie } from 'cookies-next';
 import { useMediaQuery } from '@mantine/hooks';
@@ -16,7 +16,6 @@ declare global {
 }
 
 
-
 type WithMantineProps = Omit<MantineProviderProps, 'children'> & {
     colorScheme?: ColorScheme,
     /** Cookie used to store the user's preferred color scheme */
@@ -26,6 +25,11 @@ type WithMantineProps = Omit<MantineProviderProps, 'children'> & {
 type MantineInitialProps = {
     savedColorScheme?: ColorScheme
 }
+
+
+// export const emotionCache = createEmotionCache({
+//     key: 'mantine-ssr',
+// })
 
 
 export function withMantine(App: (props: any) => JSX.Element, options: WithMantineProps) {
@@ -61,6 +65,7 @@ export function withMantine(App: (props: any) => JSX.Element, options: WithManti
 
         // console.log(colorProps)
 
+        //  emotionCache={emotionCache}
         return <ColorSchemeProvider {...colorProps}>
             <MantineProvider {...providerProps} theme={theme}>
                 <App {...props} />
@@ -141,4 +146,5 @@ function useDynamicColorScheme(props: MantineInitialProps, config: {
     }
 
 }
+
 

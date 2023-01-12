@@ -3,7 +3,7 @@
 
 /** @export 'app' */
 
-import { ColorScheme, ColorSchemeProvider, MantineProvider, MantineThemeOverride } from '@mantine/core'
+import { ColorScheme, ColorSchemeProvider, EmotionCache, MantineProvider, MantineThemeOverride } from '@mantine/core'
 import { NotificationsProvider } from '@mantine/notifications'
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AppProps } from 'next/app';
@@ -13,6 +13,7 @@ import { useAuthProviders } from './authentication';
 import { ModalsProvider } from '@mantine/modals';
 import { RouteParameters } from '@kenthackenough/react/hooks';
 import { withMantine } from '../utils/mantine';
+import { MantineDocument } from '../utils/mantine/document';
 
 
 type InitialProps = AppProps;
@@ -20,6 +21,7 @@ type InitialProps = AppProps;
 type AppConfig = {
     colorScheme?: ColorScheme;
     theme?: MantineThemeOverride;
+    emotionCache?: EmotionCache,
 }
 
 const baseAppConfig = {
@@ -84,6 +86,7 @@ export function App(...args) {
 
     return trpc.withTRPC(
         withMantine(app, {
+            emotionCache: config?.emotionCache,
             colorScheme: config?.colorScheme,
             theme: config?.theme,
             withGlobalStyles: true,
