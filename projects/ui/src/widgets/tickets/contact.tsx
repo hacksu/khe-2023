@@ -31,7 +31,7 @@ export type ContactUsProps =
 
 
 export function ContactUs(props: ContactUsProps) {
-    useTheme();
+    // useTheme();
     const { classes } = props;
     const { form, register } = useForm({
         schema: formSchema,

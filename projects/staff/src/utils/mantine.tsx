@@ -4,20 +4,10 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getCookie, setCookie } from 'cookies-next';
 import { useMediaQuery } from '@mantine/hooks';
 import { AppContext } from 'next/app';
-import type { EmotionCache } from '@mantine/core';
-import type { EmotionServer } from '@emotion/server/create-instance';
 import { MantineGlobals } from '@kenthackenough/ui/globals';
 
 
 /** @export 'mantine' */
-
-// import { MantineGlobals as UiMantineGlobals } from '@kenthackenough/ui/mantine';
-// function UiThemeProvider() {
-//     const theme = useMantineTheme();
-//     MantineGlobals.theme = theme;
-//     UiMantineGlobals.theme = theme;
-//     return <></>
-// }
 
 declare global {
     interface AppInitialPageProps {

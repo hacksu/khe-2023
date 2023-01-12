@@ -47,7 +47,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useAuthProviders } from './authentication';
 import { ModalsProvider } from '@mantine/modals';
 import { RouteParameters } from '@kenthackenough/react/hooks';
-import { withMantine } from '../utils/mantine';
+import { useTheme, withMantine } from '../utils/mantine';
 import { Router } from 'next/router';
 import { MantineGlobals } from '../utils/globals';
 // import { MantineDocument } from '../utils/mantine/document';
@@ -92,7 +92,7 @@ export function App(...args) {
             Object.assign(theme, MantineGlobals.theme)
         }
 
-        // console.log('theme', theme.colorScheme, MantineGlobals.theme.colorScheme);
+        useTheme();
 
         const _trpc = trpc.useContext();
         const queryClient = useQueryClient();

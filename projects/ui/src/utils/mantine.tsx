@@ -36,7 +36,6 @@ export function useTheme() {
         Object.assign(cache, MantineGlobals.emotionCache);
         return theme;
     }, [MantineGlobals.theme]);
-    // return theme;
 }
 
 export function withMantine(App: (props: any) => JSX.Element, options: WithMantineProps) {
