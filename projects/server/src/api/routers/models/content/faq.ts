@@ -53,7 +53,7 @@ export const faqRouter = createTRPCRouter({
         }),
 
     /** Inserts a FAQ entry */
-    insert: procedure.protected({ content: { update: true } })
+    insert: procedure.protected({ content: { write: true } })
         .input((
             z.object({
                 /** The position to insert into. Defaults to the end of the list. */
@@ -77,7 +77,7 @@ export const faqRouter = createTRPCRouter({
         }),
 
     /** Updates a FAQ entry */
-    update: procedure.protected({ content: { update: true } })
+    update: procedure.protected({ content: { write: true } })
         .input((
             z.object({
                 id: z.string(),
@@ -90,7 +90,7 @@ export const faqRouter = createTRPCRouter({
         }),
 
     /** Arranges the FAQs according to the specified order */
-    arrange: procedure.protected({ content: { update: true } })
+    arrange: procedure.protected({ content: { write: true } })
         .input(z.object({
             /** A list of IDs in the desired order */
             order: z.array(z.string())
