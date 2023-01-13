@@ -2,8 +2,9 @@ import { ContactUs } from '@kenthackenough/ui/tickets/contact';
 import { api } from '@kenthackenough/ui/trpc';
 import { Box, Title } from '@mantine/core';
 import Link from 'next/link';
-import { useState } from 'react';
-import { LandingLayout } from '../layouts/landing';
+import { useContext, useState } from 'react';
+import { LandingLayout } from '../ui/layouts/landing';
+import { InitialRouter } from './_app';
 
 
 export default function Homepage() {

@@ -13,18 +13,19 @@
     "@kenthackenough/server": "^1.0.36",
     "@kenthackenough/tsconfig": "^1.0.36",
     "@kenthackenough/react": "^1.0.36",
+    "@kenthackenough/mdx": "^1.0.36",
     "@emotion/react": "^11.10.4",
     "@emotion/server": "^11.10.0",
     "@hookform/resolvers": "^2.9.10",
-    "@mantine/core": "^5.5.4",
-    "@mantine/dates": "^5.5.4",
-    "@mantine/form": "^5.5.4",
-    "@mantine/hooks": "^5.5.4",
-    "@mantine/modals": "^5.5.4",
-    "@mantine/next": "^5.5.4",
-    "@mantine/notifications": "^5.5.4",
-    "@mantine/nprogress": "^5.5.4",
-    "@mantine/spotlight": "^5.5.4",
+    "@mantine/core": "^5.10.0",
+    "@mantine/dates": "^5.10.0",
+    "@mantine/form": "^5.10.0",
+    "@mantine/hooks": "^5.10.0",
+    "@mantine/modals": "^5.10.0",
+    "@mantine/next": "^5.10.0",
+    "@mantine/notifications": "^5.10.0",
+    "@mantine/nprogress": "^5.10.0",
+    "@mantine/spotlight": "^5.10.0",
     "@tabler/icons": "^1.110.0",
     "@tanstack/react-query": "^4.3.4",
     "@trpc/client": "^10.0.0-rc.2",
@@ -49,8 +50,17 @@
     "typescript": "^4.8.4"
   },
   "exports": {
-    "./document": {
-      "default": "./src/pages/_document.tsx"
+    "./auth/pages/login": {
+      "default": "./src/components/auth/pages/login.tsx"
+    },
+    "./auth/pages/logout": {
+      "default": "./src/components/auth/pages/logout.tsx"
+    },
+    "./globals": {
+      "default": "./src/utils/globals.tsx"
+    },
+    "./mantine": {
+      "default": "./src/utils/mantine.tsx"
     },
     "./trpc": {
       "default": "./src/utils/trpc.ts"
@@ -58,8 +68,14 @@
     "./app": {
       "default": "./src/widgets/app.tsx"
     },
+    "./authentication": {
+      "default": "./src/widgets/authentication/index.ts"
+    },
     "./authentication/login": {
       "default": "./src/widgets/authentication/login.tsx"
+    },
+    "./faq": {
+      "default": "./src/widgets/faq.tsx"
     },
     "./tickets/contact": {
       "default": "./src/widgets/tickets/contact.tsx"

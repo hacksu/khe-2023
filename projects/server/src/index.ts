@@ -8,16 +8,20 @@ console.time('server ready');
 console.log('starting...');
 
 import './config';
-import './utils/mongo';
-import './services/permissions';
+import './services/mongo';
+import './services/auth/session';
 import { applyWSSHandler } from '@trpc/server/adapters/ws';
-import { createContext } from './utils/trpc/context';
-import { router } from './utils/trpc/router';
+// import { createContext } from './services/trpc/context';
+// import { router } from './services/trpc/router';
 import { WebSocketServer } from 'ws';
 import { createServer } from 'http';
-import { session } from './session';
-import { api } from './router';
+// import { session } from './session';
+// import { api } from './router';
+import { api } from './api/root';
 import express from 'express';
+import { createTRPCContext } from './api/trpc/base';
+import { apiRouter } from './api/trpc';
+import { session } from './services/auth/session';
 
 const port = 5001;
 
@@ -42,15 +46,15 @@ export const wss = new WebSocketServer({
 
 /** Apply TRPC Websockets */
 const wssHandle = applyWSSHandler({
-    createContext: createContext as any,
-    router,
+    createContext: createTRPCContext as any,
+    router: apiRouter,
     wss,
 })
 
 /** Upgrade websockets to WSS for TRPC */
 server.on('upgrade', (req, socket, head) => {
     /** Handle Session logic */
-    session(req as any, {} as any, () => {});
+    // session(req as any, {} as any, () => {});
     wss.handleUpgrade(req, socket, head, ws => {
         wss.emit('connection', ws, req);
     })
@@ -69,3 +73,4 @@ process.on('SIGTERM', () => {
 server.listen(port, () => {
     console.timeEnd('server ready');
 });
+

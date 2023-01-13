@@ -54,6 +54,7 @@ jobs:
             ${{ github.workspace }}/package.json
             ${{ github.workspace }}/github/scripts/*/node_modules
             ${{ github.workspace }}/*/*/node_modules
+            ${{ github.workspace }}/*/*/dist
           key: cache-npm-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             cache-npm-
@@ -61,7 +62,7 @@ jobs:
         if: ${{ env.FULL_TURBO == 'no' }}
         run: npm install --no-audit --no-fund
       - name: Building
-        run: npm run build -- --cache-dir=.turbo --only --filter=@kenthackenough/${{ matrix.package }}
+        run: npm run build -- --cache-dir=.turbo --filter=@kenthackenough/${{ matrix.package }}...
   
 
   prepublish:

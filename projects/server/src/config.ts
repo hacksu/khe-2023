@@ -1,7 +1,5 @@
 import { defineConfig, populateConfig } from './utils/config';
 import { z } from 'zod';
-import { log } from './utils/logging';
-import chalk from 'chalk';
 
 
 /** Define configuration */
@@ -15,6 +13,11 @@ const configSchema = z.object({
     mongo: z.string().startsWith('mongodb://')
         .default(process.env.MONGO as any)
         .describe(`MONGO=(mongodb://) MongoDB connection URI for the database`),
+
+    /** The mode the project is running in */
+    secret: z.string()
+        .default(process.env.SECRET as any)
+        .describe(`SECRET=(CRYPTOGRAPHICALLY SECURE KEY) Used to encrypt sessions & more`),
 
     /** Should the server handle reverse proxying to the other projects? */
     proxy: z.boolean()

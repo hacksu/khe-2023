@@ -1,40 +1,44 @@
-import { MantineThemeOverride } from '@mantine/core';
-import { NotificationsProvider } from '@mantine/notifications';
-import { NextPageContext } from 'next';
-import { AppContext, AppProps } from 'next/app';
-import { ThemeProvider } from '../utils/mantine';
-import { trpc } from '../utils/trpc';
-import { Navigation } from '../widgets/navigation';
+import { trpc } from '@kenthackenough/ui/trpc';
+import { App } from '@kenthackenough/ui/app';
+import { createContext } from 'react';
+import { Router } from 'next/router';
+import Head from 'next/head';
+import { AppProps } from 'next/app';
+import { AppLayout } from '../ui/layouts/app';
+import { withMantine } from '../utils/mantine';
+import { MantineGlobals } from '@kenthackenough/ui/globals';
 
 
-function App(props: InitialProps) {
+export const InitialRouter = createContext<Router>(null as any);
+
+
+declare global {
+    interface AppInitialProps extends AppProps { }
+}
+
+const app = App((props) => {
     const { Component, pageProps } = props;
-    
-    const { colorScheme, firstVisit } = props;
-    const theme: MantineThemeOverride = {
+    // useTheme();
+    return <>
+        <Head>
+            <title>Page title</title>
+            <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+        </Head>
+        <InitialRouter.Provider value={props.router}>
+            <AppLayout>
+                <Component {...pageProps} />
+            </AppLayout>
+        </InitialRouter.Provider>
+    </>
+})
 
-    }
 
-    return <ThemeProvider {...{ theme, colorScheme, firstVisit }}>
-        <NotificationsProvider>
-            {/* <Navigation /> */}
-            <Component {...pageProps} />
-        </NotificationsProvider>
-    </ThemeProvider>
-}
+export default trpc.withTRPC(
+    withMantine(app, {
+        // cookie: 'khe-staff-color-scheme',
+        withGlobalStyles: true,
+        withNormalizeCSS: true,
+        emotionCache: MantineGlobals.emotionCache,
+    })
+)
 
-type InitialProps = AppProps & Awaited<ReturnType<typeof App.getInitialProps>>;
-App.getInitialProps = async function(ctx: AppContext) {
-    return {
-        ...ThemeProvider.getInitialProps(ctx),
-    }
-}
-
-const _App = trpc.withTRPC(App);
-const _getInitialProps: any = _App.getInitialProps || (() => ({}));
-_App.getInitialProps = async (ctx: NextPageContext) => ({
-    ...await App.getInitialProps(ctx as any as AppContext),
-    ...await _getInitialProps(ctx),
-});
-
-export default _App;

@@ -1,7 +1,7 @@
 import { HydratedDocumentFromSchema, model, Schema } from 'mongoose';
-import { UserData, UserRole } from '../../data/models/users';
+import { UserData, UserRole, userData } from '../../data/models/users';
 import { hashSync } from 'bcrypt';
-import { exportModel } from '../../utils/mongo/export';
+import { exportModel } from '../../services/mongo/export';
 
 
 export namespace UserPermissions {
@@ -20,6 +20,7 @@ export declare namespace User {
 
 namespace defineUser {
     export const ModelName = 'User';
+    export const data = userData;
     
     export type Data = UserData & {};
     export type Document = HydratedDocumentFromSchema<Schema>;
@@ -37,11 +38,15 @@ namespace defineUser {
             enum: UserRole,
             default: UserRole.Pending,
         },
-        password: {
-            type: String,
-            // Hash the password with bcrypt
-            set: v => hashSync(v, 10),
-        },
+        // password: {
+        //     type: String,
+        //     // Hash the password with bcrypt
+        //     set: v => hashSync(v, 10),
+        // },
+        emails: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Mail'
+        }],
     });
 
     /** Define the schema

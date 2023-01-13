@@ -1,5 +1,7 @@
 import { z } from 'zod';
 import { timestampData } from '../includes/timestamped';
+import { Infer, Populate } from '../../utils/zod';
+import { UserData } from './users';
 
 /** @export 'data/tickets' */
 
@@ -11,7 +13,30 @@ export enum TicketStatus {
 }
 
 
-export type TicketData = z.infer<typeof ticketData>;
+
+/** Infer schema & populatable types
+ * - One can use `Populate` from `utils/zod` to coerce that a field is populated with other documents
+ * @example 
+ *  - TicketData['assignee'] -> string | undefined
+ *  - Populate<TicketData, 'assignee'>['assignee'] -> UserData
+ */
+export type TicketData = Infer<typeof ticketData, {
+    assignee: UserData
+}>;
+
+/** [Relations](https://mongoosejs.com/docs/populate.html)
+ * - Mongodb relationships are stored as object ids `z.string()` but can use TypeScript to define what they'd populate into.
+ * - Define relations below; **be sure to only use** `z.string()` for the documents themselves
+ * - Define the correct type in the `TicketData` infer above
+ */
+const ticketRelations = z.object({
+    /** Ticket Assignee (who is handling this ticket)
+     * - {@link userData.shape.id user.id} or {@link userData}
+     * - See {@link https://mongoosejs.com/docs/populate.html Mongoose.populate}
+     */
+    assignee: z.string().optional(),
+})
+
 export const ticketData = z.object({
     /** Ticket ID */
     _id: z.string(),
@@ -37,11 +62,5 @@ export const ticketData = z.object({
      * - @see {@link TicketStatus} 
      */
     status: z.nativeEnum(TicketStatus).default(TicketStatus.Open),
-    /** Ticket Assignee (who is handling this ticket)
-     * - {@link userData.shape.id user.id} or {@link userData}
-     * - See {@link https://mongoosejs.com/docs/populate.html Mongoose.populate}
-     */
-    assignee: z.string().optional(),
-}).merge(timestampData);
-
+}).merge(ticketRelations).merge(timestampData);
 

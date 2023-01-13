@@ -6,26 +6,32 @@
   "scripts": {
     "dev": "tsx watch --clear-screen=false src",
     "build": "tsc --module commonjs",
-    "start": "node dist",
+    "start": "node --loader tsx --enable-source-maps dist",
     "lint": "eslint ."
   },
   "dependencies": {
     "@kenthackenough/tsconfig": "^1.0.36",
+    "@kenthackenough/mdx": "^1.0.36",
     "@trpc/client": "^10.0.0-rc.2",
     "@trpc/next": "^10.0.0-rc.2",
     "@trpc/server": "^10.0.0-rc.2",
+    "@sendgrid/mail": "^7.7.0",
+    "@sendgrid/client": "^7.7.0",
     "bcrypt": "^5.1.0",
     "chalk": "^4.0.0",
     "cors": "^2.8.5",
+    "uuid": "^9.0.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
     "express-session": "^1.17.3",
     "connect-mongo": "^4.6.0",
+    "iron-session": "^6.3.1",
     "http-proxy": "^1.18.1",
+    "next-auth": "^4.18.8",
     "lodash": "^4.17.21",
     "mongoose": "^6.7.1",
     "superjson": "^1.10.0",
-    "tslog": "^3.3.4",
+    "tslog": "4.7.1",
     "tsx": "^3.9.0",
     "ws": "^8.9.0",
     "zod": "^3.19.1"
@@ -37,6 +43,7 @@
     "@types/express-session": "^1.17.5",
     "@types/http-proxy": "^1.17.9",
     "@types/lodash": "^4.14.186",
+    "@types/uuid": "^9.0.0",
     "@types/ws": "^8.5.3",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
@@ -44,14 +51,23 @@
     "typescript": "^4.8.4"
   },
   "exports": {
+    "./trpc": {
+      "default": "./src/api/trpc.ts"
+    },
+    "./data": {
+      "default": "./src/data/index.ts"
+    },
+    "./data/session": {
+      "default": "./src/data/models/session.ts"
+    },
     "./data/tickets": {
       "default": "./src/data/models/tickets.ts"
     },
     "./data/users": {
       "default": "./src/data/models/users.ts"
     },
-    "./trpc/router": {
-      "default": "./src/utils/trpc/router.ts"
+    "./auth": {
+      "default": "./src/services/auth/client.ts"
     }
   }
 }

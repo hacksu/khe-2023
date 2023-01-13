@@ -23,6 +23,7 @@ const serverRuntimeConfig = {
 const publicRuntimeConfig = {
     api: process.env.API_HOST || 'localhost:5001',
     websocket: true,
+    batched: true,
 }
 
 /** @type {import('next').NextConfig} */
@@ -55,7 +56,6 @@ const withDependencies = Object.entries({ ...dependencies, ...devDependencies })
 
 const withModules = [
     ...withDependencies,
-
 ];
 
 

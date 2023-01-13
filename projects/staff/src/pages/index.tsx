@@ -1,9 +1,10 @@
 import { Box, Progress } from '@mantine/core';
 import { useState } from 'react';
-import { api } from '../utils/trpc';
 import { TicketsList } from '../widgets/tickets/list';
 import { Icon } from '@cseitz/icons';
 import { faHouse } from '@cseitz/icons/regular/house';
+import { api } from '@kenthackenough/ui/trpc';
+import { ContactUs } from '@kenthackenough/ui/tickets/contact';
 
 const HomeIcon = Icon(faHouse)
 
@@ -28,6 +29,7 @@ export default function Homepage() {
             subscription date: <span>{date?.toLocaleString() || 'loading...'}</span>
         </p>
         <div>{JSON.stringify(users?.data || {})}</div>
+        <ContactUs />
         <TicketsList />
         <Box sx={{ width: 500, maxWidth: '60vw', marginTop: 10 }}>
             <Progress value={100} animate />

@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from '@kenthackenough/react/hooks';
 import { z } from 'zod';
+import { useTheme } from '../../utils/mantine';
 
 
 type withClasses<Names extends string> = {
@@ -30,6 +31,7 @@ export type ContactUsProps =
 
 
 export function ContactUs(props: ContactUsProps) {
+    // useTheme();
     const { classes } = props;
     const { form, register } = useForm({
         schema: formSchema,
@@ -66,7 +68,7 @@ export function ContactUs(props: ContactUsProps) {
     const isLoading = state === 'loading';
     const isSuccess = state === 'success';
     const isDisabled = state === 'loading' || state === 'success';
-    const isError = true; //state === 'error';
+    const isError = state === 'error';
 
     const onSubmit = data => {
         console.log('submit', data);
