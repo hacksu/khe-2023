@@ -19,7 +19,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.37.0",
-    "@kenthackenough/tsconfig": "^1.0.39",
+    "@kenthackenough/tsconfig": "^1.0.36",
     "react-email": "^1.6.0",
     "@react-email/a": "^0.0.1",
     "@react-email/avatar": "^0.0.2",
