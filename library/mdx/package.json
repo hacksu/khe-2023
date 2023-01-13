@@ -1,6 +1,6 @@
 {
   "name": "@kenthackenough/mdx",
-  "version": "1.0.44",
+  "version": "1.0.45",
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
@@ -19,7 +19,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.37.0",
-    "@kenthackenough/tsconfig": "^1.0.42",
+    "@kenthackenough/tsconfig": "^1.0.44",
     "react-email": "^1.6.0",
     "@react-email/a": "^0.0.1",
     "@react-email/avatar": "^0.0.2",
