@@ -4,6 +4,12 @@ import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import DiscordProvider from 'next-auth/providers/discord';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { UserAuthData, UserData } from '../../data';
+import { Permission, rbac } from './rbac';
+import { User } from '../../models/users/model';
+import type { FieldArrayPath } from 'react-hook-form';
+import { NextAuthAdapter } from './db';
+import { pick } from 'lodash';
 
 // TODO: pull the user and add their role and permissions to the token
 // TODO: client library to facilitate auth
@@ -15,14 +21,15 @@ declare module "next-auth" {
      * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
      */
     interface Session {
-        user: {
-            random: number
+        date?: Date
+        user?: UserData & {
+            permissions: Permission
         }
     }
 
-    interface User {
-        random: number
-    }
+    // interface User extends UserData {
+    //     permissions: Permission
+    // }
 }
 
 
@@ -54,28 +61,29 @@ export const authProviders = {
 } as const;
 
 export const authOptions: NextAuthOptions = {
+    adapter: NextAuthAdapter(null, {
+        providers: authProviders,
+    }),
     providers: Object.values(authProviders),
-    pages: {
-        // signIn: '/login'
-    },
     // debug: true,
-    session: {
-        // strategy: 'jwt'
-    },
     callbacks: {
-        jwt({ account, token, profile, user, isNewUser }) {
-            // console.log('callback.jwt', { account, token, profile, user, isNewUser })
-            // token.user.random = Math.random();
-            // if (user) {
-            //     user.random = Math.random();
-            // }
-            token.random = Math.random();
-            return token;
-        },
-        session({ session, token, user }) {
-            // console.log('callback.session', { session, token, user })
-            // session.user.random = user.random;
-            session.user.random = token.random as any;
+        // jwt({ account, token, profile, user, isNewUser }) {
+        //     return token;
+        // },
+        session({ session, token, user: _user }) {
+            const user = _user as any as UserData;
+            // console.log('session', { user, session })
+            const serialized: (keyof UserData)[] = [
+                'email',
+                'role'
+            ]
+            session.user = {
+                // @ts-ignore
+                id: user._id.toString(),
+                ...pick(user, serialized),
+            }
+            // @ts-ignore
+            rbac.derivePermissions(session.user);
             return session;
         },
         signIn(params) {
@@ -85,32 +93,36 @@ export const authOptions: NextAuthOptions = {
     events: {
         signIn(message) {
             // When logging in or creating user
-            console.log('event.signIn', message);
-            // TODO: create iron-session
         },
         createUser(message) {
             // Create user (APPARENTLY NOT ACTUALL TRIGGERED????)
-            console.log('event.createUser', message);
+            // console.log('event.createUser', message);
             // TODO: create the user ?????? MAYBE NOT???
         },
-        session(message) {
+        async session(message) {
             // When the session endpoint is visited or the session is updated
-            console.log('event.session', message);
+            if (message.session.user) {
+                // message.session.user.permissions = rbac.derivePermissions(message.session.user)
+                // User.findOne({ email: message.session.user.email })
+                // rbac.derivePermissions(message.session.user)
+            }
+            // console.log('event.session', message);
+            
             // TODO: [NOT USED]
         },
         signOut(message) {
             // When logging out
-            console.log('event.signOut', message);
+            // console.log('event.signOut', message);
             // TODO: destroy iron-session (DO NOT USE NEXT-AUTH TO LOG OUT)
         },
         linkAccount(message) {
             // When a new email is linked
-            console.log('event.linkAccount', message)
+            // console.log('event.linkAccount', message)
             // TODO: add auth strategy to account
         },
         updateUser(message) {
             // When user is updated
-            console.log('event.updateUser', message);
+            // console.log('event.updateUser', message);
             // TODO: update user with new data
         },
     }

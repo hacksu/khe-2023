@@ -1,28 +1,13 @@
-import { HydratedDocumentFromSchema, model, Schema } from 'mongoose';
-import { UserData, UserRole, userData } from '../../data/models/users';
-import { hashSync } from 'bcrypt';
+import mongoose, { HydratedDocumentFromSchema, model, Schema } from 'mongoose';
 import { exportModel } from '../../services/mongo/export';
+import { SessionData, sessionData } from '../../data/models/session';
 
 
-export namespace UserPermissions {
-    export const Read = { users: { read: true } } as const;
-    export const Write = { users: { write: true, read: true } } as const;
-    export const Delete = { users: { delete: true } } as const;
-}
+namespace defineSession {
+    export const ModelName = 'Session';
+    export const data = sessionData;
 
-
-// Redefine fields for exporting
-export declare namespace User {
-    export type Data = defineUser.Data;
-    export type Document = defineUser.Document;
-    export type Schema = defineUser.Schema;
-}
-
-namespace defineUser {
-    export const ModelName = 'User';
-    export const data = userData;
-    
-    export type Data = UserData & {};
+    export type Data = SessionData & {};
     export type Document = HydratedDocumentFromSchema<Schema>;
     export type Schema = typeof schema;
 
@@ -33,20 +18,10 @@ namespace defineUser {
      * @see https://mongoosejs.com/docs/schematypes.html
      */
     const fields = new Schema<Data>({
-        role: {
-            type: String,
-            enum: UserRole,
-            default: UserRole.Pending,
-        },
-        // password: {
-        //     type: String,
-        //     // Hash the password with bcrypt
-        //     set: v => hashSync(v, 10),
-        // },
-        emails: [{
+        user: {
             type: Schema.Types.ObjectId,
-            ref: 'Mail'
-        }],
+            ref: 'User'
+        },
     });
 
     /** Define the schema
@@ -56,7 +31,6 @@ namespace defineUser {
         strict: false,
         toJSON: {
             transform(doc, ret, options) {
-                delete ret['password'];
                 return ret;
             },
         },
@@ -97,7 +71,15 @@ namespace defineUser {
     });
 
     export const Model = model(ModelName, schema);
-    
+
 }
 
-export const User = exportModel(defineUser);
+export const Session = exportModel(defineSession);
+
+// Redefine fields for exporting
+export declare namespace Session {
+    export type Data = defineSession.Data;
+    export type Document = defineSession.Document;
+    export type Schema = defineSession.Schema;
+}
+

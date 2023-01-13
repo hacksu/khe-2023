@@ -1,4 +1,4 @@
-import { authOptions } from './config';
+import { authOptions } from '../config';
 import NextAuth from 'next-auth';
 import express from 'express';
 import cookie from 'cookie';
@@ -16,9 +16,9 @@ nextAuth.use((req, res, next) => {
         return next();
     }
     if (req.method === 'GET' && req.originalUrl.endsWith('signin')) {
-        return res.send('do redirect')
+        // return res.send('do redirect')
     }
-    prepare(req, res);
+    prepare(req as any, res);
     auth(req, res);
 })
 
@@ -48,7 +48,7 @@ function prepare(req: express.Request, res: express.Response) {
         .filter(o => o); // eliminate empty values
 
     // Parse cookies
-    req.cookies = cookie.parse(req.get('cookie') || '');
+    req.cookies = req.cookies || cookie.parse(req.get('cookie') || '');
 
     // Assign forwarded headers to ensure NextAuth provides dynamic routing
     headers['x-forwarded-proto'] = protocol;

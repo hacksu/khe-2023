@@ -7,11 +7,10 @@ import express from 'express';
 import { nextAuth } from '../services/auth';
 import { sendTestEmail } from '../services/mail/test';
 import { emailProviders } from '../services/mail';
-import { session } from './utils/session';
 
 
 export const api = express();
-api.use(cors, session);
+api.use(cors);
 
 
 api.use('/trpc', createExpressMiddleware({

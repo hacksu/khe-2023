@@ -20,7 +20,7 @@ import { api } from './api/root';
 import express from 'express';
 import { createTRPCContext } from './api/trpc/base';
 import { apiRouter } from './api/trpc';
-import { session } from './api/utils/session';
+import { session } from './services/auth/session';
 
 const port = 5001;
 
@@ -28,8 +28,7 @@ const port = 5001;
 
 /** Express app */
 export const app = express();
-app.use('/api', api);
-// app.use('/api', session, api);
+app.use('/api', session, api);
 
 
 /** Node HTTP Server */
@@ -54,7 +53,7 @@ const wssHandle = applyWSSHandler({
 /** Upgrade websockets to WSS for TRPC */
 server.on('upgrade', (req, socket, head) => {
     /** Handle Session logic */
-    session(req as any, {} as any, () => {});
+    // session(req as any, {} as any, () => {});
     wss.handleUpgrade(req, socket, head, ws => {
         wss.emit('connection', ws, req);
     })

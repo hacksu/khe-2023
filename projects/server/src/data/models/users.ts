@@ -3,6 +3,7 @@ import { timestampData } from '../includes/timestamped';
 import { Infer, Populate } from '../../utils/zod';
 import { TicketData } from './tickets';
 import { MailData } from './emails';
+import { AuthProviders, authProviders } from '../../services/auth/config';
 
 /** @export 'data/users' */
 
@@ -16,7 +17,23 @@ export enum UserRole {
 }
 
 
-
+export type UserAuthData = z.infer<typeof userAuthData>;
+export const userAuthData = z.object({
+    credentials: z.object({
+        /** User's password
+         * - Hashed with `bcrypt` during assignment.
+         */
+        password: z.string(),
+    }).optional(),
+}).and(z.record(
+    z.string(),
+    z.object({
+        id: z.string(),
+        email: z.string().email().optional(),
+        name: z.string().optional(),
+        avatar: z.string().optional(),
+    })
+))
 
 /** Infer schema & populatable types
  * - One can use `Populate` from `utils/zod` to coerce that a field is populated with other documents
@@ -47,12 +64,10 @@ export const userData = z.object({
     _id: z.string(),
     /** User's email */
     email: z.string().email(),
-    /** User's password
-     * - Hashed with `bcrypt` during assignment.
-     */
-    password: z.string().optional(),
     /** User's role */
     role: z.nativeEnum(UserRole).default(UserRole.Pending),
+    /** Authentication configuration */
+    auth: userAuthData,
 }).merge(userRelations).merge(timestampData)
 
 

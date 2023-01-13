@@ -1,5 +1,5 @@
 import { OAuthConfig } from 'next-auth/providers/index';
-import { authProviders } from './config';
+import { authProviders } from '../config';
 import { get, set } from 'lodash';
 
 
@@ -13,15 +13,6 @@ type PublicAuthProvider<K extends keyof typeof authProviders, T = (typeof authPr
 export type PublicAuthProviders = {
     [P in keyof typeof authProviders]: PublicAuthProvider<P>
 }
-
-// export const publicAuthProviders: PublicAuthProviders = Object.fromEntries(
-//     Object.entries(authProviders).map(([id, provider]) => ([
-//         id,
-//         Object.fromEntries(
-//             Object.entries(provider).filter(o => PROVIDER_PUBLIC_FIELDS.includes(o[0] as any))
-//         )
-//     ]))
-// ) as any;
 
 export const publicAuthProviders: PublicAuthProviders = Object.fromEntries(
     Object.entries(authProviders).map(([id, provider]) => {

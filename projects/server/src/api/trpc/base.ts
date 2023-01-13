@@ -1,12 +1,13 @@
 import { TRPCError, inferAsyncReturnType, initTRPC } from '@trpc/server';
 import { CreateExpressContextOptions } from '@trpc/server/adapters/express';
 import { Permission, rbac } from '../../services/auth/rbac';
-import { IronSession } from 'iron-session';
 import { TRPCExpressMeta } from './express';
 import { config } from '../../config';
+import { Session } from 'next-auth';
 import SuperJSON from 'superjson';
-import '../utils/session';
+import '../../services/auth';
 
+export { observable } from '@trpc/server/observable';
 
 export type TRPCContext = inferAsyncReturnType<typeof createTRPCContext>;
 
@@ -15,7 +16,7 @@ export type TRPCMeta = TRPCExpressMeta & {
 }
 
 type CreateContextOptions = {
-    session: IronSession | null;
+    session?: Session
 }
 
 /**
@@ -43,9 +44,15 @@ export const createTRPCContext = async (opts: CreateExpressContextOptions) => {
 
     const session = req.session;
 
-    return createInternalTRPCContext({
-        session,
-    })
+    // return createInternalTRPCContext({
+    //     session,
+    // })
+
+    return {
+        ...createInternalTRPCContext({ session }),
+        req,
+        res,
+    }
 }
 
 
