@@ -10,10 +10,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@kenthackenough/server": "^1.0.37",
-    "@kenthackenough/tsconfig": "^1.0.37",
-    "@kenthackenough/react": "^1.0.37",
-    "@kenthackenough/mdx": "^1.0.37",
+    "@kenthackenough/server": "^1.0.38",
+    "@kenthackenough/tsconfig": "^1.0.38",
+    "@kenthackenough/react": "^1.0.38",
+    "@kenthackenough/mdx": "^1.0.38",
     "@emotion/react": "^11.10.4",
     "@emotion/server": "^11.10.0",
     "@hookform/resolvers": "^2.9.10",
