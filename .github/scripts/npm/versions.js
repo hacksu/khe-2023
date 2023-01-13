@@ -30,22 +30,24 @@ function updatePackage(path) {
             doSave = true;
         }
     }
-    const projectInstallVersion = '^' + version;
-    for (const key in data.dependencies || {}) {
-        if (key.startsWith('@kenthackenough/')) {
-            const v = data.dependencies[key];
-            if (v != projectInstallVersion) {
-                data.dependencies[key] = projectInstallVersion;
-                doSave = true;
+    if (false) {
+        const projectInstallVersion = '^' + version;
+        for (const key in data.dependencies || {}) {
+            if (key.startsWith('@kenthackenough/')) {
+                const v = data.dependencies[key];
+                if (v != projectInstallVersion) {
+                    data.dependencies[key] = projectInstallVersion;
+                    doSave = true;
+                }
             }
         }
-    }
-    for (const key in data.devDependencies || {}) {
-        if (key.startsWith('@kenthackenough/')) {
-            const v = data.devDependencies[key];
-            if (v != projectInstallVersion) {
-                data.devDependencies[key] = projectInstallVersion;
-                doSave = true;
+        for (const key in data.devDependencies || {}) {
+            if (key.startsWith('@kenthackenough/')) {
+                const v = data.devDependencies[key];
+                if (v != projectInstallVersion) {
+                    data.devDependencies[key] = projectInstallVersion;
+                    doSave = true;
+                }
             }
         }
     }
