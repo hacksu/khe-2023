@@ -1,14 +1,15 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { api } from '../../utils/trpc';
 
 
 export function useAuthProviders() {
+    const enabled = useRef(true);
     const query = api.auth.providers.useQuery(undefined, {
         refetchOnWindowFocus: false,
+        enabled: enabled.current,
+        staleTime: Infinity,
     });
-    useEffect(() => {
-        console.log('auth.providers updated at', query.dataUpdatedAt)
-    }, [query.dataUpdatedAt])
+    enabled.current = !query.data;
     return query?.data;
 }
 

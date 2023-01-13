@@ -11,6 +11,6 @@ export const LogoutPage = (props: LogoutPageProps) => () => <LogoutPageComponent
 
 function LogoutPageComponent(props: LogoutPageProps) {
     return <Box>
-    <Text>UI Logout Page</Text>
-</Box>
+        <Text>UI Logout Page</Text>
+    </Box>
 }

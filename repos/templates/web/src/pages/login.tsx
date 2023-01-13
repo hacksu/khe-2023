@@ -1,9 +1,5 @@
-import { LoginForm } from '@kenthackenough/ui/authentication/login';
-import { Box } from '@mantine/core';
+import { LoginPage } from '@kenthackenough/ui/auth/pages/login'
 
-
-export default function LoginPage() {
-    return <Box>
-        <LoginForm />
-    </Box>
-}
+export default LoginPage({
+    
+})

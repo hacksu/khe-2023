@@ -56,6 +56,9 @@
     "./auth/pages/logout": {
       "default": "./src/components/auth/pages/logout.tsx"
     },
+    "./globals": {
+      "default": "./src/utils/globals.tsx"
+    },
     "./mantine": {
       "default": "./src/utils/mantine.tsx"
     },

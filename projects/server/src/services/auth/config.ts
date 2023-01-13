@@ -65,6 +65,9 @@ export const authOptions: NextAuthOptions = {
         providers: authProviders,
     }),
     providers: Object.values(authProviders),
+    pages: {
+        signIn: '/login'
+    },
     // debug: true,
     callbacks: {
         // jwt({ account, token, profile, user, isNewUser }) {

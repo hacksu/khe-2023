@@ -1,4 +1,4 @@
-import { useMediaQuery } from '@kenthackenough/react/hooks';
+import { useMediaQuery } from '@mantine/hooks';
 import { Box, Burger, Drawer, NavLink, Navbar } from '@mantine/core';
 import { useEffect, useRef } from 'react';
 import zustand from 'zustand';
@@ -41,9 +41,9 @@ export function Navigation() {
 
     // console.log({ isMobile })
 
-    return <Navbar p="md" hiddenBreakpoint="sm" hidden={!isOpen} width={{ base: 240  }}>
-        <Box>yeya</Box>
-        {/* <NavigationBar /> */}
+    return <Navbar p="md" hiddenBreakpoint="sm" hidden={!isOpen} width={{ sm: 200, lg: 300  }}>
+        {/* <Box>yeya</Box> */}
+        <NavigationBar />
     </Navbar>
 
     // return <>
