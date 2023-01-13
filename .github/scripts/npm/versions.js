@@ -21,6 +21,8 @@ const tmt = setTimeout(() => {
 let version;
 
 
+const versionCache = new Map();
+
 function updatePackage(path) {
     const data = JSON5.parse(readFileSync(path, 'utf8'));
     let doSave = false;
@@ -30,24 +32,24 @@ function updatePackage(path) {
             doSave = true;
         }
     }
-    if (false) {
-        const projectInstallVersion = '^' + version;
-        for (const key in data.dependencies || {}) {
-            if (key.startsWith('@kenthackenough/')) {
-                const v = data.dependencies[key];
-                if (v != projectInstallVersion) {
-                    data.dependencies[key] = projectInstallVersion;
-                    doSave = true;
-                }
+    const projectInstallVersion = '^' + version;
+    for (const key in data.dependencies || {}) {
+        if (key.startsWith('@kenthackenough/')) {
+            const v = data.dependencies[key];
+            const latestVersion = versionCache.get(key);
+            if (v != latestVersion) {
+                data.dependencies[key] = latestVersion;
+                doSave = true;
             }
         }
-        for (const key in data.devDependencies || {}) {
-            if (key.startsWith('@kenthackenough/')) {
-                const v = data.devDependencies[key];
-                if (v != projectInstallVersion) {
-                    data.devDependencies[key] = projectInstallVersion;
-                    doSave = true;
-                }
+    }
+    for (const key in data.devDependencies || {}) {
+        if (key.startsWith('@kenthackenough/')) {
+            const v = data.devDependencies[key];
+            const latestVersion = versionCache.get(key);
+            if (v != latestVersion) {
+                data.devDependencies[key] = latestVersion;
+                doSave = true;
             }
         }
     }
@@ -71,6 +73,24 @@ glob(__cwd + '/**/package.json', {
 
     packages.forEach(o => versions.add(o.version));
 
+    // console.log({ packages })
+    await Promise.all(Object.values(packages).map(async o => {
+        const found = (await Promise.all(packages.map(o => {
+            return fetch(`https://registry.npmjs.org/${o.name}/latest`)
+                .then(res => res.json())
+                .then(data => data.version)
+        })))
+            .filter(o => typeof o === 'string')
+            // .forEach(o => versions.add(o));
+
+        const latest = [...found].sort((a, b) => {
+            return semver.gt(b, a) ? 1 : -1;
+        })[0];
+
+        console.log('registry', { [o.name]: latest })
+        versionCache.set(o.name, '^' + latest);
+    }));
+
     (await Promise.all(packages.map(o => {
         return fetch(`https://registry.npmjs.org/${o.name}/latest`)
             .then(res => res.json())
@@ -82,6 +102,8 @@ glob(__cwd + '/**/package.json', {
     const latest = [...versions.values()].sort((a, b) => {
         return semver.gt(b, a) ? 1 : -1;
     })[0];
+
+    // if (true) return;
 
     // console.log({ version, patch: semver.inc(version, 'patch') });
 
@@ -132,7 +154,7 @@ glob(__cwd + '/**/package.json', {
     // console.log({ latest, [increment]: increment ? semver.inc(latest, increment) : latest });
 
     if (process.env.npm_lifecycle_event === 'deploy' && !DRY) {
-    // if (process.argv.find(o => o.includes('postversion')) && !DRY) {
+        // if (process.argv.find(o => o.includes('postversion')) && !DRY) {
         execSync(`git commit --allow-empty -m '@deploy' && git push`);
     }
 
