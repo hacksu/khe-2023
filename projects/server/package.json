@@ -10,8 +10,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@kenthackenough/tsconfig": "^1.0.38",
-    "@kenthackenough/mdx": "^1.0.38",
+    "@kenthackenough/tsconfig": "^1.0.39",
+    "@kenthackenough/mdx": "^1.0.39",
     "@trpc/client": "^10.0.0-rc.2",
     "@trpc/next": "^10.0.0-rc.2",
     "@trpc/server": "^10.0.0-rc.2",

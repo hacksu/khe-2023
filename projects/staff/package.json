@@ -10,11 +10,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@kenthackenough/tsconfig": "^1.0.38",
-    "@kenthackenough/server": "^1.0.38",
-    "@kenthackenough/react": "^1.0.38",
-    "@kenthackenough/ui": "^1.0.38",
-    "@kenthackenough/mdx": "^1.0.38",
+    "@kenthackenough/tsconfig": "^1.0.39",
+    "@kenthackenough/server": "^1.0.39",
+    "@kenthackenough/react": "^1.0.39",
+    "@kenthackenough/ui": "^1.0.39",
+    "@kenthackenough/mdx": "^1.0.39",
     "@cseitz/icons": "^1.0.3",
     "@cseitz/icons-regular": "^1.0.3",
     "@emotion/react": "^11.10.4",
