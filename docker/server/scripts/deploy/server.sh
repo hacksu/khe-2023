@@ -29,39 +29,48 @@ if [ -d "dist-build" ]; then
         rm -rf dist-old
     else
         mv dist-old dist
-        echo "Undo dist move"
+        echo "undo dist move"
         exit 1
     fi
 
 fi
 
-if [ -d "/etc/nginx/old-nginx" ]; then
+
+cd /etc/nginx
+
+if [ ! -d "/etc/nginx/old-nginx" ]; then
+    echo "backing up nginx"
 
     mkdir -p /etc/nginx/includes
     mkdir -p /etc/nginx/www
-    cd /etc/nginx
-    mv /var/www/nginx /var/www/old-nginx
-    mv includes old-includes
-    mv sites-enabled old-sites-enabled
+    [ -d "/var/www/nginx"] && mv /var/www/nginx /var/www/old-nginx
+    [ -d "includes"] && mv includes old-includes
+    [ -d "sites-enabled"] && mv sites-enabled old-sites-enabled
 
+else
+    echo "?? nginx already backed up!"
 fi
 
+echo "copying nginx configuration from $REPO/docker/server/nginx to /var/www/nginx"
 cp -R $REPO/docker/server/nginx/www /var/www/nginx
 cp -R $REPO/docker/server/nginx/includes /etc/nginx/includes
 cp -R $REPO/docker/server/nginx/sites-enabled /etc/nginx/sites-enabled
 chmod 755 -R /var/www/nginx
+
+echo "testing nginx"
 if nginx -t; then
+    echo "reloading nginx"
     service nginx reload
-    rm -rf /var/www/old-nginx
-    rm -rf /etc/nginx/old-includes
-    rm -rf /etc/nginx/old-sites-enabled
+    [ -d "/var/www/old-nginx"] && rm -rf /var/www/old-nginx;
+    [ -d "/etc/nginx/old-includes"] && rm -rf /etc/nginx/old-includes;
+    [ -d "/etc/nginx/old-sites-enabled"] && rm -rf /etc/nginx/old-sites-enabled;
 else
     nginx -t
-    rm -rf /etc/nginx/www
-    rm -rf /etc/nginx/includes
-    rm -rf /etc/nginx/sites-enabled
-    mv /var/www/old-nginx /var/www/nginx
-    mv old-includes includes
-    mv old-sites-enabled sites-enabled
+    [ -d "/etc/nginx/www"] && rm -rf /etc/nginx/www;
+    [ -d "/etc/nginx/includes"] && rm -rf /etc/nginx/includes;
+    [ -d "/etc/nginx/sites-enabled"] && rm -rf /etc/nginx/sites-enabled;
+    [ -d "/var/www/old-nginx"] && mv /var/www/old-nginx /var/www/nginx;
+    [ -d "old-includes"] && mv old-includes includes;
+    [ -d "old-sites-enabled"] && mv old-sites-enabled sites-enabled;
     exit 1
 fi
