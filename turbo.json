@@ -1,18 +1,19 @@
 {
     "$schema": "https://turborepo.org/schema.json",
     "pipeline": {
+        "lint": {
+            "cache": true,
+            "inputs": ["src/**/*.tsx", "src/**/*.ts", "next.config.mjs"]
+        },
         "build": {
             "dependsOn": ["^build"],
             "outputs": [".next/**", "dist/**"],
+            "inputs": ["src/**/*.tsx", "src/**/*.ts", "next.config.mjs"],
             "cache": true
         },
         "dev": {
             "cache": false,
             "outputMode": "none"
-        },
-        "lint": {
-            "cache": true,
-            "inputs": ["src/**/*.tsx", "src/**/*.ts", "next.config.mjs"]
         },
         "start": {
             "dependsOn": ["build"]
