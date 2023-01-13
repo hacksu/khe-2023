@@ -9,7 +9,7 @@ const { execSync } = require('child_process');
 const fetch = require('node-fetch');
 const JSON5 = require('json5');
 const glob = require('glob');
-
+const semver = require('semver');
 
 const __cwd = execSync(`git rev-parse --show-toplevel`).toString('utf8').trim();
 
