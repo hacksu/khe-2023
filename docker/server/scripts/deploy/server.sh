@@ -43,9 +43,9 @@ if [ ! -d "/etc/nginx/old-nginx" ]; then
 
     mkdir -p /etc/nginx/includes
     mkdir -p /etc/nginx/www
-    if [ -d "/var/www/nginx"]; then mv /var/www/nginx /var/www/old-nginx; fi
-    if [ -d "includes"]; then mv includes old-includes; fi
-    if [ -d "sites-enabled"]; then mv sites-enabled old-sites-enabled; fi
+    if [ -d "/var/www/nginx" ]; then mv /var/www/nginx /var/www/old-nginx; fi
+    if [ -d "includes" ]; then mv includes old-includes; fi
+    if [ -d "sites-enabled" ]; then mv sites-enabled old-sites-enabled; fi
 
 else
     echo "?? nginx already backed up!"
@@ -61,17 +61,17 @@ echo "testing nginx"
 if nginx -t; then
     echo "reloading nginx"
     service nginx reload
-    if [ -d "/var/www/old-nginx"]; then rm -rf /var/www/old-nginx; fi
-    if [ -d "/etc/nginx/old-includes"]; then rm -rf /etc/nginx/old-includes; fi
-    if [ -d "/etc/nginx/old-sites-enabled"]; then rm -rf /etc/nginx/old-sites-enabled; fi
+    if [ -d "/var/www/old-nginx" ]; then rm -rf /var/www/old-nginx; fi
+    if [ -d "/etc/nginx/old-includes" ]; then rm -rf /etc/nginx/old-includes; fi
+    if [ -d "/etc/nginx/old-sites-enabled" ]; then rm -rf /etc/nginx/old-sites-enabled; fi
 else
     nginx -t
-    if [ -d "/etc/nginx/www"]; then rm -rf /etc/nginx/www; fi
-    if [ -d "/etc/nginx/includes"]; then rm -rf /etc/nginx/includes; fi
-    if [ -d "/etc/nginx/sites-enabled"]; then rm -rf /etc/nginx/sites-enabled; fi
-    if [ -d "/var/www/old-nginx"]; then mv /var/www/old-nginx /var/www/nginx; fi
-    if [ -d "old-includes"]; then mv old-includes includes; fi
-    if [ -d "old-sites-enabled"]; then mv old-sites-enabled sites-enabled; fi
+    if [ -d "/etc/nginx/www" ]; then rm -rf /etc/nginx/www; fi
+    if [ -d "/etc/nginx/includes" ]; then rm -rf /etc/nginx/includes; fi
+    if [ -d "/etc/nginx/sites-enabled" ]; then rm -rf /etc/nginx/sites-enabled; fi
+    if [ -d "/var/www/old-nginx" ]; then mv /var/www/old-nginx /var/www/nginx; fi
+    if [ -d "old-includes" ]; then mv old-includes includes; fi
+    if [ -d "old-sites-enabled" ]; then mv old-sites-enabled sites-enabled; fi
     exit 1
 fi
 
