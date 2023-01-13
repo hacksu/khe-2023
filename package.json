@@ -16,7 +16,7 @@
   "scripts": {
     "dev": "cross-env FORCE_COLOR=1 turbo run dev --parallel",
     "start": "cross-env FORCE_COLOR=1 turbo run start --parallel",
-    "build": "cross-env FORCE_COLOR=1 turbo run build --parallel",
+    "build": "cross-env FORCE_COLOR=1 turbo run build",
     "lint": "cross-env FORCE_COLOR=1 turbo run lint",
     "template": "cd templates && npm run",
     "postversion": "node .github/scripts/npm/versions.js --postversion",
