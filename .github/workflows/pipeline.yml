@@ -11,12 +11,12 @@ on:
 jobs:
   lint:
     name: Lint
-    uses: hacksu/khe-2023/.github/workflows/lint.yml@ticket-modals
+    uses: hacksu/khe-2023/.github/workflows/lint.yml@main
 
   build:
     name: Build
     needs: [lint]
-    uses: hacksu/khe-2023/.github/workflows/build.yml@ticket-modals
+    uses: hacksu/khe-2023/.github/workflows/build.yml@main
 
   publish:
     name: Publish
