@@ -27,14 +27,14 @@ export function AppLayout(props: {
         navbarOffsetBreakpoint="sm"
         asideOffsetBreakpoint="sm"
         navbar={!isAuth ? <Navigation /> : undefined}
-        header={<Header height={{ base: 50, md: 0 }}>
+        header={!isAuth ? <Header height={{ base: 50, md: 0 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', height: '100%' }} p='md'>
                 <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
                     <NavigationBurger />
                 </MediaQuery>
             </Box>
 
-        </Header>}
+        </Header> : undefined}
     >
         {props.children}
     </AppShell>

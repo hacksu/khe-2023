@@ -109,7 +109,7 @@ jobs:
           username: ${{ secrets.user || inputs.user }}
           privateKey: ${{ secrets.key || inputs.key }}
           local: .turbo
-          remote: ${{ inputs.directory }}/node_modules/.cache
+          remote: ${{ inputs.directory }}/node_modules/.cache/turbo
       - name: Deploy
         uses: garygrossgarten/github-action-ssh@release
         with:
