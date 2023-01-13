@@ -14,7 +14,7 @@ export default function Homepage() {
     //     },
     // });
     return <div>
-        <Title>Hey! Kent Hack Enough Website!</Title>
+        <Title>Kent Hack Enough Website!</Title>
         <p>wooah its the web template project!</p>
         {/* <p>ping: {ping?.data?.toLocaleString() || 'loading...'}</p> */}
         <Box>
