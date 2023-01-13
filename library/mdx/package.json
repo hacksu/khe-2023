@@ -1,6 +1,6 @@
 {
   "name": "@kenthackenough/mdx",
-  "version": "1.0.36",
+  "version": "1.0.42",
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {

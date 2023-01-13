@@ -1,7 +1,8 @@
 {
-    "name": "template",
-    "scripts": {
-        "web": "cd web && yarn",
-        "website": "cd web && yarn"
-    }
+  "name": "template",
+  "scripts": {
+    "web": "cd web && yarn",
+    "website": "cd web && yarn"
+  },
+  "version": "1.0.42"
 }
