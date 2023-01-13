@@ -3,7 +3,7 @@
     "pipeline": {
         "build": {
             "dependsOn": ["^build"],
-            "outputs": [".next/**", "dist/**", ".next-build/**", "dist-build/**"],
+            "outputs": [".next/**", ".next-build/**", "dist-build/**"],
             "cache": true,
             "inputs": ["src/**/*.tsx", "src/**/*.ts", "next.config.mjs"]
         },
@@ -16,6 +16,9 @@
             "inputs": ["src/**/*.tsx", "src/**/*.ts", "next.config.mjs"]
         },
         "start": {
+            "dependsOn": ["build"]
+        },
+        "deploy": {
             "dependsOn": ["build"]
         }
     }   
