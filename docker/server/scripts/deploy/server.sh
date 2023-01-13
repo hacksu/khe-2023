@@ -6,7 +6,7 @@ REPO=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && git rev-pars
 PROJECT=server
 
 echo "building $PROJECT"
-npm run build -- --only --filter=@kenthackenough/$PROJECT -- --outDir ./dist-build
+npm run build -- --only -vvv --filter=@kenthackenough/$PROJECT -- --outDir ./dist-build
 
 cd $REPO/projects/$PROJECT
 

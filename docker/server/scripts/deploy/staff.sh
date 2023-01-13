@@ -6,7 +6,7 @@ REPO=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && git rev-pars
 PROJECT=staff
 
 echo "building $PROJECT"
-BUILD_DIR=.next-build npm run build -- --only --filter=@kenthackenough/$PROJECT
+BUILD_DIR=.next-build npm run build -- --only -vvv --filter=@kenthackenough/$PROJECT
 
 cd $REPO/projects/$PROJECT
 
