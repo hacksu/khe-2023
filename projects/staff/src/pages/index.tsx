@@ -21,7 +21,7 @@ export default function Homepage() {
         },
     })
     return <div>
-        Woah! Staff Portal! <HomeIcon />
+        Woah! Staff Portal!2 <HomeIcon />
         <p>
             ping: <span>{ping?.data?.toLocaleString() || 'loading...'}</span>
         </p>

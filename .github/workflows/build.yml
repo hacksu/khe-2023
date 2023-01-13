@@ -60,7 +60,7 @@ jobs:
             cache-npm-
       - name: Installing Dependencies
         if: ${{ env.FULL_TURBO == 'no' }}
-        run: npm install --no-audit --no-fund
+        run: npm install --no-audit --no-fund && git restore package-lock.json
       - name: Building
         run: npm run build -- --cache-dir=.turbo --filter=@kenthackenough/${{ matrix.package }}...
   

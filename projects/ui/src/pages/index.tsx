@@ -13,7 +13,7 @@ export default function Homepage() {
     //     },
     // })
     return <div>
-        Hey! Kent Hack Enough Website!
+        Hey! Kent Hack Enough Website!2
         <p>ping: {ping?.data?.toLocaleString() || 'loading...'}</p>
         {/* <p>subscription date: {date?.toLocaleString() || 'loading...'}</p> */}
         <Link href={'/contact'}>contact us!</Link>
