@@ -50,11 +50,14 @@
     "typescript": "^4.8.4"
   },
   "exports": {
+    "./auth/pages/login": {
+      "default": "./src/components/auth/pages/login.tsx"
+    },
+    "./auth/pages/logout": {
+      "default": "./src/components/auth/pages/logout.tsx"
+    },
     "./mantine": {
       "default": "./src/utils/mantine.tsx"
-    },
-    "./globals": {
-      "default": "./src/utils/globals.tsx"
     },
     "./trpc": {
       "default": "./src/utils/trpc.ts"

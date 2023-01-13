@@ -43,9 +43,6 @@
     },
     "./utils/types": {
       "default": "./src/utils/types.ts"
-    },
-    "./mantine": {
-      "default": "./src/utils/mantine.tsx"
     }
   }
 }

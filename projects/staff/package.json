@@ -54,6 +54,9 @@
     "typescript": "^4.8.4"
   },
   "exports": {
+    "./helpers/model": {
+      "default": "./src/ui/model.tsx"
+    },
     "./mantine": {
       "default": "./src/utils/mantine.tsx"
     }

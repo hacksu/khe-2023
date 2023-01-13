@@ -57,6 +57,9 @@
     "./data": {
       "default": "./src/data/index.ts"
     },
+    "./data/session": {
+      "default": "./src/data/models/session.ts"
+    },
     "./data/tickets": {
       "default": "./src/data/models/tickets.ts"
     },
