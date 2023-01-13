@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { NextAuthOptions } from "next-auth"
 import { User } from '../../models/users/model'
 import { Schema, model } from 'mongoose';

@@ -9,6 +9,7 @@ console.log('starting...');
 
 import './config';
 import './services/mongo';
+import './services/auth/session';
 import { applyWSSHandler } from '@trpc/server/adapters/ws';
 // import { createContext } from './services/trpc/context';
 // import { router } from './services/trpc/router';

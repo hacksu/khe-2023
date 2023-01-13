@@ -8,7 +8,6 @@ import { nextAuth } from '../services/auth';
 import { sendTestEmail } from '../services/mail/test';
 import { emailProviders } from '../services/mail';
 
-
 export const api = express();
 api.use(cors);
 

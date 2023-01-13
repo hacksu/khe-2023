@@ -17,7 +17,7 @@ export async function getSession(ctx: {
     return unstable_getServerSession(ctx.req, ctx.res, authOptions);
 }
 
-export const session = Object.assign(async (req: Request, res: Response, next) => {
+export const session = Object.assign(async (req: any, res: any, next) => {
     req.cookies = req.cookies || cookie.parse(req.headers['cookie'] || '');
     req.session = await getSession({ req, res });
     next();
