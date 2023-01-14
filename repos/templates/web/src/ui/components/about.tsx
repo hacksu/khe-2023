@@ -1,4 +1,5 @@
 import { Box } from '@mantine/core';
+import { Section } from './section';
 
 
 export function About() {
