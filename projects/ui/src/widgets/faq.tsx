@@ -15,7 +15,7 @@ async function compileQuestions(mdx: ReactMarkdownCompiler | null, questions: Fr
     }) : await Promise.all(questions.map(o => {
         return mdx.compile(o.answer)
     }));
-    console.log({ renders })
+    // console.log({ renders })
     return questions.map((o, i) => {
         return Object.assign({ ...o, }, {
             component: renders[i]

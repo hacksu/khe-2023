@@ -1,16 +1,29 @@
-import { ReactMarkdownCompiler } from '@kenthackenough/mdx/compile';
+import type { ReactMarkdownCompiler } from '@kenthackenough/mdx/compile';
 import { Accordion, AccordionProps, Button } from '@mantine/core';
 import { useFAQ } from '@kenthackenough/ui/faq';
-import * as runtime from 'react/jsx-runtime';
+import { useEffect, useState } from 'react';
 
-const mdx = new ReactMarkdownCompiler({
-    runtime,
-    components: {
-        Button,
-    },
-})
 
 export function FrequentlyAskedQuestions(props: Omit<AccordionProps, 'children'>) {
+    const [mdx, setMdx] = useState<ReactMarkdownCompiler | null>(null);
+    useEffect(() => {
+        (async () => {
+            const [{ default: runtime }, { ReactMarkdownCompiler }] = await Promise.all([
+                import('react/jsx-runtime'),
+                import('@kenthackenough/mdx/compile'),
+            ])
+
+            const mdx = new ReactMarkdownCompiler({
+                runtime,
+                components: {
+                    Button,
+                },
+            })
+
+            setMdx(mdx);
+
+        })();
+    }, [])
     const questions = useFAQ(mdx);
     return <Accordion {...props}>
         {questions.map(({ id, answer, question, component }) => <Accordion.Item value={id} key={id}>
@@ -20,3 +33,4 @@ export function FrequentlyAskedQuestions(props: Omit<AccordionProps, 'children'>
     </Accordion>
 }
 
+export default FrequentlyAskedQuestions;

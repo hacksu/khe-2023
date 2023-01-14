@@ -38,18 +38,19 @@
 
 /** @export 'app' */
 
-import { ColorScheme, ColorSchemeProvider, EmotionCache, MantineProvider, MantineThemeOverride, useMantineTheme } from '@mantine/core'
+import { ColorScheme, ColorSchemeProvider, EmotionCache, MantineProvider, MantineSize, MantineThemeOverride, useMantineTheme } from '@mantine/core'
 import { NotificationsProvider } from '@mantine/notifications'
 import { createContext, useCallback, useEffect, useMemo, useState } from 'react';
-import { AppProps } from 'next/app';
+import { AppContext, AppProps } from 'next/app';
 import { trpc } from '../utils/trpc';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAuthProviders } from './authentication';
 import { ModalsProvider } from '@mantine/modals';
-import { RouteParameters } from '@kenthackenough/react/hooks';
+import { RouteParameters, useUserAgent } from '@kenthackenough/react/hooks';
 import { useTheme, withMantine } from '../utils/mantine';
 import { Router } from 'next/router';
 import { MantineGlobals } from '../utils/globals';
+import { useMediaQuery } from '@mantine/hooks';
 // import { MantineDocument } from '../utils/mantine/document';
 
 
@@ -71,7 +72,7 @@ declare global {
         pageProps: AppInitialPageProps
     }
     export interface AppInitialPageProps {
-
+        userAgent?: string
     }
 }
 
@@ -93,6 +94,7 @@ export function App(...args) {
         }
 
         useTheme();
+        useUserAgent(props.pageProps.userAgent);
 
         const _trpc = trpc.useContext();
         const queryClient = useQueryClient();
@@ -114,9 +116,54 @@ export function App(...args) {
         </>
     }
 
-    return app;
+    const getInitialProps = async function (ctx: AppContext) {
+        const inherited = 'getInitialProps' in Component
+            ? await Component.getInitialProps(ctx) : {};
+
+        return {
+            ...inherited,
+            pageProps: {
+                ...(inherited?.pageProps || {}),
+                userAgent: ctx.ctx.req?.headers['user-agent'],
+            }
+        }
+
+    }
+
+    return Object.assign(app, {
+        getInitialProps,
+    });
 }
 
 
 
+const DeviceTypeBreakpoints = {
+    'xs': ['embedded', 'wearable'],
+    'sm': ['embedded', 'wearable', 'mobile'],
+    'md': ['embedded', 'wearable', 'mobile', 'tablet'],
+}
 
+/** Determines if the device is smaller than or equal to the specified breakpoint
+ * - If properly configured, automatically utilizes the UserAgent to properly return during Server-Side-Rendering
+ * - When the UserAgent is known, one can globally configure this hook via `useUserAgent(req.headers['user-agent'])`
+ *   All subsequent usage of `userUserAgent()` will use the cached result.
+ */
+export function useIsBreakpoint(breakpoint: 'xs' | 'sm' | 'md' = 'md') {
+    const theme = useMantineTheme();
+    const ua = useUserAgent();
+    const mediaIsMobile = useMediaQuery(`(max-width: ${theme.breakpoints[breakpoint]}px)`);
+    const isMobile = mediaIsMobile === true || (
+        ua?.device?.type === 'mobile'
+        || DeviceTypeBreakpoints[breakpoint].includes(ua?.device?.type || '')
+    );
+    return isMobile;
+}
+
+/** Determines if the device is smaller than or equal to the size of a tablet or smartphone
+ * - If properly configured, automatically utilizes the UserAgent to properly return during Server-Side-Rendering
+ * - When the UserAgent is known, one can globally configure this hook via `useUserAgent(req.headers['user-agent'])`.
+ *   All subsequent usage of `userUserAgent()` will use the cached result.
+ */
+export function useIsMobile() {
+    return useIsBreakpoint('md');
+}

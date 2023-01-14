@@ -6,13 +6,14 @@ import { createContext } from 'react';
 import { Router } from 'next/router';
 import Head from 'next/head';
 import { AppProps } from 'next/app';
+import { AppLayout } from '../ui/layouts/app';
 
 
 export const InitialRouter = createContext<Router>(null as any);
 
 
 declare global {
-    interface AppInitialProps extends AppProps {}
+    interface AppInitialProps extends AppProps { }
 }
 
 
@@ -25,7 +26,9 @@ const app = App((props) => {
             <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
         </Head>
         <InitialRouter.Provider value={props.router}>
-            <Component {...pageProps} />
+            <AppLayout>
+                <Component {...pageProps} />
+            </AppLayout>
         </InitialRouter.Provider>
     </>
 })
