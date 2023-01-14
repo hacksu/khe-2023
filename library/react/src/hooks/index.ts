@@ -1,4 +1,5 @@
 import { useMediaQuery } from './useMediaQuery';
+import { useUserAgent } from './useUserAgent';
 import { useProps } from './useProps';
 import { useForm } from './useForm';
 
@@ -7,6 +8,7 @@ import { useForm } from './useForm';
 export {
     useForm,
     useProps,
+    useUserAgent,
     useMediaQuery,
 }
 

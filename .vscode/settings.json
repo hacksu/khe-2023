@@ -60,4 +60,7 @@
         "**/build": true,
         "**/dist": true,
     },
+    "yaml.schemas": {
+        "https://json.schemastore.org/github-workflow.json": "file:///home/seitz/repos/hacksu/khe-2023/.github/workflows/deploy.yml"
+    },
 }
