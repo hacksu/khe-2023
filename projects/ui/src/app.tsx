@@ -4,17 +4,15 @@
 
 /** @export 'app' */
 
-import { ColorScheme, ColorSchemeProvider, EmotionCache, MantineProvider, MantineSize, MantineThemeOverride, useMantineTheme } from '@mantine/core'
+import { ColorScheme, EmotionCache, MantineThemeOverride, useMantineTheme } from '@mantine/core'
 import { NotificationsProvider } from '@mantine/notifications'
-import { createContext, useCallback, useEffect, useMemo, useState } from 'react';
-import { AppContext, AppProps } from 'next/app';
+import { useEffect} from 'react';
+import { AppContext } from 'next/app';
 import { trpc } from './utils/trpc';
 import { useQueryClient } from '@tanstack/react-query';
-import { useAuthProviders } from './services/auth';
 import { ModalsProvider } from '@mantine/modals';
 import { RouteParameters, useUserAgent } from '@kenthackenough/react/hooks';
-import { useTheme, withMantine } from './utils/mantine';
-import { Router } from 'next/router';
+import { useTheme } from './utils/mantine';
 import { MantineGlobals } from './utils/globals';
 import { useMediaQuery } from '@mantine/hooks';
 // import { MantineDocument } from '../utils/mantine/document';

@@ -9,6 +9,7 @@ import { Paper } from '@mantine/core';
 import { Title } from '@mantine/core';
 import { Footer } from '../widgets/footer';
 import { CampusMap } from '../ui/components/map';
+import dynamic from 'next/dynamic';
 
 
 export default function Homepage() {

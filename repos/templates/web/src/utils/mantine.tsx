@@ -1,11 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { MantineProviderProps, ColorSchemeProvider, ColorScheme, MantineProvider, MantineThemeOverride, useMantineTheme } from '@mantine/core';
+import { MantineProviderProps, ColorSchemeProvider, ColorScheme, MantineProvider, MantineThemeOverride, useMantineTheme, createEmotionCache } from '@mantine/core';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getCookie, setCookie } from 'cookies-next';
 import { useMediaQuery } from '@mantine/hooks';
 import { AppContext } from 'next/app';
 import { MantineGlobals } from '@kenthackenough/ui/globals';
-
 
 /** @export 'mantine' */
 
@@ -16,6 +15,11 @@ declare global {
         }
     }
 }
+
+export const emotionCache = MantineGlobals.emotionCache = MantineGlobals.emotionCache
+    || createEmotionCache({
+        key: 'mantine-ssr',
+    });
 
 
 type WithMantineProps = Omit<MantineProviderProps, 'children'> & {

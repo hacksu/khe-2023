@@ -4,6 +4,7 @@ import { useFAQ } from '@kenthackenough/ui/faq';
 import { useEffect, useState } from 'react';
 
 
+
 export function FrequentlyAskedQuestions(props: Omit<AccordionProps, 'children'>) {
     const [mdx, setMdx] = useState<ReactMarkdownCompiler | null>(null);
     useEffect(() => {
