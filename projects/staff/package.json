@@ -55,7 +55,7 @@
   },
   "exports": {
     "./helpers/model": {
-      "default": "./src/ui/model.tsx"
+      "default": "./src/ui/models/model.tsx"
     },
     "./mantine": {
       "default": "./src/utils/mantine.tsx"

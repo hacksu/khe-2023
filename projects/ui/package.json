@@ -50,11 +50,23 @@
     "typescript": "^4.8.4"
   },
   "exports": {
+    "./app": {
+      "default": "./src/app.tsx"
+    },
+    "./tickets/contact": {
+      "default": "./src/models/tickets/contact.tsx"
+    },
+    "./authentication": {
+      "default": "./src/services/auth/index.ts"
+    },
     "./auth/pages/login": {
-      "default": "./src/components/auth/pages/login.tsx"
+      "default": "./src/services/auth/pages/login.tsx"
     },
     "./auth/pages/logout": {
-      "default": "./src/components/auth/pages/logout.tsx"
+      "default": "./src/services/auth/pages/logout.tsx"
+    },
+    "./faq": {
+      "default": "./src/services/content/faq.tsx"
     },
     "./globals": {
       "default": "./src/utils/globals.tsx"
@@ -64,21 +76,6 @@
     },
     "./trpc": {
       "default": "./src/utils/trpc.ts"
-    },
-    "./app": {
-      "default": "./src/widgets/app.tsx"
-    },
-    "./authentication": {
-      "default": "./src/widgets/authentication/index.ts"
-    },
-    "./authentication/login": {
-      "default": "./src/widgets/authentication/login.tsx"
-    },
-    "./faq": {
-      "default": "./src/widgets/faq.tsx"
-    },
-    "./tickets/contact": {
-      "default": "./src/widgets/tickets/contact.tsx"
     }
   }
 }

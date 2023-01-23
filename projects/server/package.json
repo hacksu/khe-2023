@@ -52,6 +52,9 @@
     "typescript": "^4.8.4"
   },
   "exports": {
+    "./next/middleware/web": {
+      "default": "./src/api/middleware/web.ts"
+    },
     "./trpc": {
       "default": "./src/api/trpc.ts"
     },
