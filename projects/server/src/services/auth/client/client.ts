@@ -43,7 +43,10 @@ export function login(props: LoginProps) {
 }
 
 export function logout() {
-
+    signOut({
+        callbackUrl: location.href,
+        redirect: true,
+    })
 }
 
 
