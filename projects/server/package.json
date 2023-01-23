@@ -74,6 +74,9 @@
     "./data/users": {
       "default": "./src/data/models/users.ts"
     },
+    "./auth/client": {
+      "default": "./src/services/auth/client/client.ts"
+    },
     "./auth/rbac": {
       "default": "./src/services/auth/rbac.ts"
     },
