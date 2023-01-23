@@ -40,11 +40,13 @@ export class UserAccessControl<
     }
 
     protected derivations = new Array<(...args: any) => any>();
+    registerPermisions<T extends string | number, R extends ExclusiveRecord<T, Permission>>(match: (user: PermissibleUser) => T | undefined, registry: R): R
     registerPermisions<E extends object, R extends ExclusiveRecord<keyof E, Permission>>(type: E, match: (user: PermissibleUser) => E[keyof E] | undefined, registry: R): R
     registerPermisions<E extends object, V extends E[keyof E], D extends (value: V) => Permission | void>(type: E, match: (user: PermissibleUser) => V | undefined, derive: D): D
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
     registerPermisions<T extends any, D extends (value: T) => Permission | void>(match: (user: PermissibleUser) => T | undefined, derive: D): D
-    registerPermisions<T extends string | number, R extends ExclusiveRecord<T, Permission>>(match: (user: PermissibleUser) => T | undefined, registry: R): R
+    // registerPermisions<T extends string | number, R extends { [P in T]: Permission }>(match: (user: PermissibleUser) => T | undefined, registry: R): R
+    // registerPermisions<T extends string | number, R extends ExclusiveRecord<T, Permission>>(match: (user: PermissibleUser) => T | undefined, registry: R): R
     registerPermisions(...args) {
         const isEnum = args.length > 2;
         const isFunc = typeof args[args.length - 1] != 'object';

@@ -1,6 +1,7 @@
 import mongoose, { HydratedDocumentFromSchema, model, Schema } from 'mongoose';
-import { MailData, MailStatus } from '../../data/models/emails';
+import { MailData, MailStatus, MailStatuses } from '../../data/models/emails';
 import { exportModel } from '../../services/mongo/export';
+import { InferPopulate, Relations } from '../../utils/zod';
 
 
 namespace defineMail {
@@ -19,8 +20,8 @@ namespace defineMail {
     const fields = new Schema<Data>({
         status: {
             type: String,
-            enum: MailStatus,
-            default: MailStatus.Pending,
+            enum: MailStatuses,
+            default: 'pending',
         },
         user: {
             type: Schema.Types.ObjectId,
@@ -48,7 +49,12 @@ namespace defineMail {
          * @see https://mongoosejs.com/docs/guide.html#query-helpers
          */
         query: {
-
+            /** Populates and skips model hydration with [lean](https://mongoosejs.com/docs/tutorials/lean.html) */
+            with(relations: (keyof Relations<Data>)[]) {
+                // @ts-ignore
+                return this.populate(relations)
+                    .lean<InferPopulate<Data, typeof relations, typeof this>>();
+            },
         },
 
         /** Instance Methods allow you to define functions that can run on a document

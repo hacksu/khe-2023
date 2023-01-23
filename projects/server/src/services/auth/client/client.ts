@@ -1,5 +1,5 @@
 import type { CredentialsConfig } from 'next-auth/providers/credentials';
-import type { AuthProviders } from './config';
+import type { AuthProviders } from '../config';
 import { signIn, signOut } from 'next-auth/react'
 import { useQuery } from '@tanstack/react-query';
 

@@ -8,7 +8,7 @@ import { UserAuthData, UserData } from '../../data';
 import { Permission, rbac } from './rbac';
 import { User } from '../../models/users/model';
 import type { FieldArrayPath } from 'react-hook-form';
-import { NextAuthAdapter } from './db';
+import { NextAuthAdapter } from './adapter';
 import { pick } from 'lodash';
 
 // TODO: pull the user and add their role and permissions to the token
@@ -70,9 +70,6 @@ export const authOptions: NextAuthOptions = {
     },
     // debug: true,
     callbacks: {
-        // jwt({ account, token, profile, user, isNewUser }) {
-        //     return token;
-        // },
         session({ session, token, user: _user }) {
             const user = _user as any as UserData;
             // console.log('session', { user, session })

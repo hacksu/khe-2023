@@ -1,7 +1,8 @@
 import { HydratedDocumentFromSchema, model, Schema } from 'mongoose';
-import { UserData, UserRole, userData } from '../../data/models/users';
+import { UserData, UserRole, UserRoles, userData } from '../../data/models/users';
 import { hashSync } from 'bcrypt';
 import { exportModel } from '../../services/mongo/export';
+import { InferPopulate, Relations } from '../../utils/zod';
 
 
 export namespace UserPermissions {
@@ -21,7 +22,7 @@ export declare namespace User {
 namespace defineUser {
     export const ModelName = 'User';
     export const data = userData;
-    
+
     export type Data = UserData & {};
     export type Document = HydratedDocumentFromSchema<Schema>;
     export type Schema = typeof schema;
@@ -35,8 +36,8 @@ namespace defineUser {
     const fields = new Schema<Data>({
         role: {
             type: String,
-            enum: UserRole,
-            default: UserRole.Pending,
+            enum: UserRoles,
+            default: 'pending',
         },
         // password: {
         //     type: String,
@@ -69,7 +70,12 @@ namespace defineUser {
          * @see https://mongoosejs.com/docs/guide.html#query-helpers
          */
         query: {
-
+            /** Populates and skips model hydration with [lean](https://mongoosejs.com/docs/tutorials/lean.html) */
+            with(relations: (keyof Relations<Data>)[]) {
+                // @ts-ignore
+                return this.populate(relations)
+                    .lean<InferPopulate<Data, typeof relations, typeof this>>();
+            },
         },
 
         /** Instance Methods allow you to define functions that can run on a document
@@ -97,7 +103,7 @@ namespace defineUser {
     });
 
     export const Model = model(ModelName, schema);
-    
+
 }
 
 export const User = exportModel(defineUser);
