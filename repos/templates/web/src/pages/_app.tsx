@@ -1,12 +1,11 @@
 import { trpc } from '@kenthackenough/ui/trpc';
 import { App } from '@kenthackenough/ui/app';
-import { emotionCache, withMantine } from '../utils/mantine';
-// import { emotionCache } from './_document';
+import { emotionCache, withMantine } from 'utils/mantine';
 import { createContext } from 'react';
 import { Router } from 'next/router';
 import Head from 'next/head';
 import { AppProps } from 'next/app';
-import { AppLayout } from '../ui/layouts/app';
+import { AppLayout } from 'ui/layouts/app';
 
 
 export const InitialRouter = createContext<Router>(null as any);

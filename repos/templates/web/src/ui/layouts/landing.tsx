@@ -1,8 +1,9 @@
 import { Box, Text } from '@mantine/core';
-import { Footer } from '../components/footer';
-import { CampusMap } from '../components/map';
-import { FrequentlyAskedQuestions } from '../components/faq';
+import { Footer } from 'ui/components/footer';
+import { CampusMap } from 'ui/components/map';
+import { FrequentlyAskedQuestions } from 'ui/components/faq';
 import { useMantineTheme } from '@mantine/core';
+
 
 export function LandingLayout(props: { children: JSX.Element[] }) {
     const theme = useMantineTheme();

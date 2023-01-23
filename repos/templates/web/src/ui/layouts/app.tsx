@@ -10,7 +10,7 @@ import { BoxProps } from '@mantine/core';
 import { Paper } from '@mantine/core';
 import { Burger } from '@mantine/core';
 import { ColorSchemeProvider } from '@mantine/core';
-import { Navigation } from '../components/navigation';
+import { Navigation } from 'ui/components/navigation';
 
 
 

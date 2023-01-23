@@ -2,7 +2,7 @@ import { ServerStyles, createStylesServer } from '@mantine/next';
 import Document, { DocumentContext } from 'next/document';
 import { createEmotionCache } from '@mantine/core';
 import { MantineGlobals } from '@kenthackenough/ui/globals';
-import { emotionCache } from '../utils/mantine';
+import { emotionCache } from 'utils/mantine';
 
 
 // export const emotionCache = MantineGlobals.emotionCache = MantineGlobals.emotionCache
