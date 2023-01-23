@@ -147,7 +147,7 @@ export namespace Navigation {
         function WrapLink(entry: { children: any } & Pick<NavigationEntry, 'href'>) {
             const close = useNavigation(o => o.close);
             if (entry.href) {
-                return <NextLink href={entry.href} passHref style={{ textDecoration: 'inherit' }} onClick={() => close()}>
+                return <NextLink legacyBehavior href={entry.href} passHref style={{ textDecoration: 'inherit' }} onClick={() => close()}>
                     {entry.children}
                 </NextLink>
             }
