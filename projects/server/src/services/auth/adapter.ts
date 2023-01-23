@@ -7,6 +7,9 @@ import { Populate } from '../../utils/zod';
 import { UserAuthData } from '../../data';
 
 
+export const debugNextAuth = false;
+const DEBUG = debugNextAuth;
+
 
 export function NextAuthAdapter(client, options): NextAuthOptions['adapter'] {
     return {
@@ -15,12 +18,12 @@ export function NextAuthAdapter(client, options): NextAuthOptions['adapter'] {
                 email: user.email,
             })
             await doc.save();
-            // console.log(':: auth.createUser', { user }, doc.toObject());
+            if (DEBUG) console.log(':: auth.createUser', { user }, doc.toObject());
             return doc.toObject({ virtuals: true });
         },
         async getUser(id) {
             const user = await User.findById(id).lean();
-            // console.log(':: auth.getUser', { id }, user);
+            if (DEBUG) console.log(':: auth.getUser', { id }, user);
             // todo: fix missing fields
             return user;
         },
@@ -39,7 +42,7 @@ export function NextAuthAdapter(client, options): NextAuthOptions['adapter'] {
                     }))
                 ]
             })
-            // console.log(':: auth.getUserByEmail', { email }, user);
+            if (DEBUG) console.log(':: auth.getUserByEmail', { email }, user);
             return user;
         },
         async getUserByAccount({ providerAccountId, provider }) {
@@ -53,15 +56,18 @@ export function NextAuthAdapter(client, options): NextAuthOptions['adapter'] {
                 //     }
                 // }
             }).lean();
-            // console.log(':: auth.getUserByAccount', { provider, providerAccountId }, user);
+            if (DEBUG) console.log(':: auth.getUserByAccount', { provider, providerAccountId }, user);
+            if (user) {
+                user.id = user._id.toString();
+            }
             return user;
         },
         async updateUser(user) {
-            console.log('auth.updateUser', { user });
+            if (DEBUG) console.log('auth.updateUser', { user });
             return
         },
         async deleteUser(userId) {
-            console.log('auth.deleteUser', { userId });
+            if (DEBUG) console.log('auth.deleteUser', { userId });
             return
         },
         async linkAccount(account) {
@@ -70,11 +76,11 @@ export function NextAuthAdapter(client, options): NextAuthOptions['adapter'] {
                 user.set(`auth.${account.provider}.id`, account.providerAccountId);
                 await user.save();
             }
-            // console.log(':: auth.linkAccount', { account }, user?.toObject());
+            if (DEBUG) console.log(':: auth.linkAccount', { account }, user?.toObject());
             return
         },
         async unlinkAccount({ providerAccountId, provider }) {
-            console.log('auth.unlinkAccount', { providerAccountId, provider });
+            if (DEBUG) console.log('auth.unlinkAccount', { providerAccountId, provider });
             return
         },
         async createSession({ sessionToken, userId, expires }) {
@@ -84,14 +90,14 @@ export function NextAuthAdapter(client, options): NextAuthOptions['adapter'] {
                 expires,
             });
             await session.save();
-            // console.log(':: auth.createSession', { sessionToken, userId, expires }, session);
+            if (DEBUG) console.log(':: auth.createSession', { sessionToken, userId, expires }, session);
             return session.toObject();
         },
         async getSessionAndUser(sessionToken) {
             const session = await Session.findOne({
                 sessionToken: sessionToken
             }).populate(['user']).lean<Populate<Session.Data, 'user'>>();
-            // console.log(':: auth.getSessionAndUser', { sessionToken }, session);
+            if (DEBUG) console.log(':: auth.getSessionAndUser', { sessionToken }, session);
             return session ? {
                 user: session.user,
                 session,
@@ -105,22 +111,22 @@ export function NextAuthAdapter(client, options): NextAuthOptions['adapter'] {
             const session = await Session.findOne({
                 sessionToken: sessionToken
             }).populate(['user']).lean<Populate<Session.Data, 'user'>>();
-            console.log(':: auth.updateSession', { sessionToken });
+            if (DEBUG) console.log(':: auth.updateSession', { sessionToken });
             return session;
         },
         async deleteSession(sessionToken) {
             await Session.deleteOne({
                 sessionToken: sessionToken
             });
-            console.log('auth.deleteSession', { sessionToken });
+            if (DEBUG) console.log('auth.deleteSession', { sessionToken });
             return
         },
         async createVerificationToken({ identifier, expires, token }) {
-            console.log('auth.createVerificationToken', { identifier, expires, token });
+            if (DEBUG) console.log('auth.createVerificationToken', { identifier, expires, token });
             return
         },
         async useVerificationToken({ identifier, token }) {
-            console.log('auth.useVerificationToken', { identifier, token });
+            if (DEBUG) console.log('auth.useVerificationToken', { identifier, token });
             return
         },
     }

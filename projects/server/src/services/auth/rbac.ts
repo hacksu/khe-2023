@@ -4,6 +4,8 @@ import { Permissions } from './utils/permissions';
 import { InferPermission } from './utils/permissions';
 import { UserAccessControl } from './utils/user-access-control';
 
+/** @export 'auth/rbac' */
+
 
 export type Permission = InferPermission<typeof permissions>;
 export const permissions = new Permissions({

@@ -61,6 +61,9 @@
     "./data": {
       "default": "./src/data/index.ts"
     },
+    "./data/files": {
+      "default": "./src/data/models/files.ts"
+    },
     "./data/session": {
       "default": "./src/data/models/session.ts"
     },
@@ -71,7 +74,7 @@
       "default": "./src/data/models/users.ts"
     },
     "./auth": {
-      "default": "./src/services/auth/client.ts"
+      "default": "./src/services/auth/client/client.ts"
     }
   }
 }
