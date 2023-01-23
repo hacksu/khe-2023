@@ -1,37 +1,3 @@
-// import { useQueryClient } from '@tanstack/react-query';
-// import { trpc } from '../utils/trpc';
-// import { createContext, useEffect } from 'react';
-// import { AppProps } from 'next/app';
-// import { ModalsProvider } from '@mantine/modals';
-// import { NotificationsProvider } from '@mantine/notifications';
-// import { RouteParameters } from '@kenthackenough/react/hooks';
-// import { Router } from 'next/router';
-
-
-// export const InitialRouter = createContext<Router>(null as any);
-
-// export function BaseApp(props: AppProps) {
-//     const { Component } = props;
-
-//     const _trpc = trpc.useContext();
-//     const queryClient = useQueryClient();
-//     useEffect(() => {
-//         if (typeof window !== 'undefined') {
-//             if (Object.keys(((queryClient.getQueryCache() as any).queriesMap as Map<string, any>)).length === 0) {
-//                 _trpc.invalidate();
-//             }
-//         }
-//     }, [typeof window]);
-
-//     return <InitialRouter.Provider value={props.router}>
-//         <ModalsProvider>
-//             <NotificationsProvider>
-//                 <RouteParameters />
-//                 <Component {...props} />
-//             </NotificationsProvider>
-//         </ModalsProvider>
-//     </InitialRouter.Provider>
-// }
 
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
@@ -42,14 +8,14 @@ import { ColorScheme, ColorSchemeProvider, EmotionCache, MantineProvider, Mantin
 import { NotificationsProvider } from '@mantine/notifications'
 import { createContext, useCallback, useEffect, useMemo, useState } from 'react';
 import { AppContext, AppProps } from 'next/app';
-import { trpc } from '../utils/trpc';
+import { trpc } from './utils/trpc';
 import { useQueryClient } from '@tanstack/react-query';
-import { useAuthProviders } from './authentication';
+import { useAuthProviders } from './services/auth';
 import { ModalsProvider } from '@mantine/modals';
 import { RouteParameters, useUserAgent } from '@kenthackenough/react/hooks';
-import { useTheme, withMantine } from '../utils/mantine';
+import { useTheme, withMantine } from './utils/mantine';
 import { Router } from 'next/router';
-import { MantineGlobals } from '../utils/globals';
+import { MantineGlobals } from './utils/globals';
 import { useMediaQuery } from '@mantine/hooks';
 // import { MantineDocument } from '../utils/mantine/document';
 

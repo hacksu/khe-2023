@@ -1,4 +1,4 @@
-import { LogoutPage } from '@kenthackenough/ui/auth/pages/logout'
+import { LogoutPage } from '../../../ui/src/services/auth/pages/logout'
 
 export default LogoutPage({
 

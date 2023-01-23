@@ -1,6 +1,6 @@
 // import { Accordion, AccordionProps, Button } from '@mantine/core';
 import type { ReactMarkdownCompiler } from '@kenthackenough/mdx/compile';
-import { api } from '../utils/trpc';
+import { api } from '../../utils/trpc';
 import { useEffect, useMemo, useState } from 'react';
 import type { FrequentlyAskedQuestion } from '@kenthackenough/server/data';
 // import * as runtime from 'react/jsx-runtime';

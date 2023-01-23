@@ -1,10 +1,10 @@
 import { Box, Progress } from '@mantine/core';
 import { useState } from 'react';
-import { TicketsList } from '../widgets/tickets/list';
+import { TicketsList } from '../ui/models/tickets/list';
 import { Icon } from '@cseitz/icons';
 import { faHouse } from '@cseitz/icons/regular/house';
 import { api } from '@kenthackenough/ui/trpc';
-import { ContactUs } from '@kenthackenough/ui/tickets/contact';
+import { ContactUs } from '../../../ui/src/models/tickets/contact';
 
 const HomeIcon = Icon(faHouse)
 

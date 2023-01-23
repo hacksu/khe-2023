@@ -1,5 +1,5 @@
 import { TicketStatus, ticketData } from '@kenthackenough/server/data';
-import { ModelController } from '../../ui/model';
+import { ModelController } from '../model';
 import { Text, Group, Badge, Code, MantineColor, ScrollArea, Textarea, Card } from '@mantine/core';
 import { api } from '@kenthackenough/ui/trpc';
 import { useRef } from 'react';

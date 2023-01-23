@@ -2,7 +2,7 @@ import { Box, List, Text, Stack, Button, Divider, Paper, Transition, Grid, Actio
 import { useQuery } from '@tanstack/react-query';
 import { signIn, getCsrfToken, getProviders } from 'next-auth/react';
 import { api } from '../../../utils/trpc';
-import { SignInWith } from '../../../widgets/authentication/button';
+import { SignInWith } from '../button';
 
 
 
@@ -20,7 +20,7 @@ import { faKey } from '@cseitz/icons/regular/key';
 import { Icon } from '@cseitz/icons';
 import { useSteps } from '../steps';
 import { useRouter } from 'next/router';
-import { useAuthProviders } from '../../../widgets/authentication';
+import { useAuthProviders } from '..';
 import { useEffect, useRef, useState } from 'react';
 
 
