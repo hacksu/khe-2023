@@ -7,7 +7,7 @@ import { Populate } from '../../utils/zod';
 import { UserAuthData } from '../../data';
 
 
-export const debugNextAuth = false;
+export const debugNextAuth = true;
 const DEBUG = debugNextAuth;
 
 

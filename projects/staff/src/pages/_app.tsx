@@ -7,6 +7,7 @@ import { AppProps } from 'next/app';
 import { AppLayout } from '../ui/layouts/app';
 import { withMantine } from '../utils/mantine';
 import { MantineGlobals } from '@kenthackenough/ui/globals';
+import { useTheme } from '@kenthackenough/ui/mantine';
 
 
 export const InitialRouter = createContext<Router>(null as any);

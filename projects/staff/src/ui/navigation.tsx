@@ -2,6 +2,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import { Box, Burger, Drawer, NavLink, Navbar } from '@mantine/core';
 import { useEffect, useRef } from 'react';
 import zustand from 'zustand';
+import { logout } from '@kenthackenough/ui/auth';
 
 
 type UseNavigation = {
@@ -79,5 +80,7 @@ function NavigationBar() {
             <NavLink label="Second child link" />
             <NavLink label="Third child link" />
         </NavLink>
+
+        <NavLink label="Logout" onClick={() => logout()} />
     </>
 }

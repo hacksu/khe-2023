@@ -6,9 +6,9 @@ import { useRef } from 'react';
 
 
 export const TICKET_STATUS_COLORS: Record<TicketStatus, MantineColor> = {
-    [TicketStatus.Open]: 'green',
-    [TicketStatus.Assigned]: 'yellow',
-    [TicketStatus.Closed]: 'gray',
+    open: 'green',
+    assigned: 'yellow',
+    closed: 'gray',
 }
 
 export const Ticket = Object.assign(new ModelController({

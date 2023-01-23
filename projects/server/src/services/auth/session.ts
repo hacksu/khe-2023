@@ -4,6 +4,8 @@ import { authOptions } from './config';
 import cookie from 'cookie';
 // import { cookies } from 'next/headers';
 
+/** @export 'auth/session' */
+
 declare module 'express' {
     export interface Request {
         session?: Session;

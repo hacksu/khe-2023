@@ -6,7 +6,7 @@ import { api } from '@kenthackenough/ui/trpc';
 
 export function TicketsList() {
     const utils = api.useContext();
-    const query = api.tickets.list.useQuery({ status: TicketStatus.Open }, {
+    const query = api.tickets.list.useQuery({ status: 'open' }, {
         onSuccess(data) {
             // Automatically populate individual tickets
             for (const ticket of data.tickets) {
