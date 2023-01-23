@@ -56,7 +56,7 @@
     "./tickets/contact": {
       "default": "./src/models/tickets/contact.tsx"
     },
-    "./authentication": {
+    "./auth": {
       "default": "./src/services/auth/index.ts"
     },
     "./auth/pages/login": {
