@@ -75,6 +75,9 @@
     },
     "./auth": {
       "default": "./src/services/auth/client/client.ts"
+    },
+    "./auth/rbac": {
+      "default": "./src/services/auth/rbac.ts"
     }
   }
 }
