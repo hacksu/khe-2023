@@ -1,8 +1,9 @@
 import { TicketStatus, ticketData } from '@kenthackenough/server/data';
 import { ModelController } from '../model';
-import { Text, Group, Badge, Code, MantineColor, ScrollArea, Textarea, Card, Tooltip, BadgeProps } from '@mantine/core';
+import { Text, Group, Badge, Code, MantineColor, ScrollArea, Textarea, Card, Tooltip, BadgeProps, useMantineColorScheme } from '@mantine/core';
 import { api } from '@kenthackenough/ui/trpc';
 import { useMemo, useRef } from 'react';
+import { onlyIf } from 'utils/mantine';
 
 
 export const TICKET_STATUS_COLORS: Record<TicketStatus, MantineColor> = {
@@ -83,10 +84,14 @@ function TicketEntry(props: { id: string }) {
 
 export function TicketCountBadge(props: { status: TicketStatus, hideZero?: boolean } & BadgeProps) {
     const { status, hideZero, ...rest } = props;
+
+    const { colorScheme } = useMantineColorScheme();
+    const dark = colorScheme === 'dark';
+
     const query = api.tickets.counts.useQuery();
     const counts = query.data;
 
-    return <Badge color={TICKET_STATUS_COLORS[status]} hidden={hideZero && counts?.[status] === 0} {...rest}>
+    return <Badge color={TICKET_STATUS_COLORS[status]} hidden={hideZero && counts?.[status] === 0} variant={onlyIf(!dark, 'outline')} {...rest}>
         {counts?.[status]}
     </Badge>
 }

@@ -10,7 +10,7 @@
     "library/*",
     "repos/*",
     "repos/templates/*",
-    "docker/tools/*",
+    "deploy/tools/*",
     "deploy/scripts",
     ".github/scripts"
   ],

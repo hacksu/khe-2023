@@ -38,14 +38,14 @@ export default function Homepage() {
         {/* <Box sx={{ width: 500, maxWidth: '60vw', marginTop: 10 }}>
             <Progress value={100} animate />
         </Box> */}
-        <ActionIcon
+        {/* <ActionIcon
             variant="subtle"
             // color={dark ? 'blue' : 'blue'}
             onClick={() => toggleColorScheme()}
             title="Toggle color scheme"
         >
             {colorScheme == 'dark' ? <IconSun size={18} /> : <IconMoonStars size={18} />}
-        </ActionIcon>
+        </ActionIcon> */}
     </div>
 }
 

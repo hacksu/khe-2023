@@ -1,5 +1,5 @@
 import { useMediaQuery } from '@mantine/hooks';
-import { Box, Burger, Drawer, NavLink, Navbar, NavLinkProps, ThemeIcon, MantineColor, Badge } from '@mantine/core';
+import { Box, Burger, Drawer, NavLink, Navbar, NavLinkProps, ThemeIcon, ActionIcon, MantineColor, Tooltip, Badge, Group, Grid, useMantineColorScheme } from '@mantine/core';
 import { useEffect, useRef } from 'react';
 import zustand from 'zustand';
 import { logout } from '@kenthackenough/ui/auth';
@@ -10,6 +10,7 @@ import { faChartSimple } from '@cseitz/icons-regular/chart-simple';
 import { faMessageQuestion } from '@cseitz/icons-regular/message-question';
 import { faRightFromBracket } from '@cseitz/icons-regular/right-from-bracket';
 import { useProps } from '@kenthackenough/react/hooks';
+import { IconMoonStars, IconSun } from '@tabler/icons';
 // import { TicketBadges } from './models/tickets/badges';
 import dynamic from 'next/dynamic';
 import { TicketCountBadge } from './models/tickets/ticket';
@@ -18,6 +19,10 @@ import { TicketCountBadge } from './models/tickets/ticket';
 const DashboardIcon = Icon(faChartSimple);
 const TicketsIcon = Icon(faMessageQuestion);
 const LogoutIcon = Icon(faRightFromBracket);
+
+// const Tooltip = dynamic(() => import('@mantine/core').then(o => o.Tooltip), {
+//     ssr: false,
+// })
 
 // @ts-ignore
 // const TicketBadges = dynamic(() => import('./models/tickets/badges'), {
@@ -49,13 +54,13 @@ const links: Record<'header' | 'body' | 'footer', NavEntryConfig[]> = {
         },
     ],
     footer: [
-        {
-            label: 'Logout',
-            icon: LogoutIcon,
-            onClick() {
-                logout()
-            },
-        },
+        // {
+        //     label: 'Logout',
+        //     icon: LogoutIcon,
+        //     onClick() {
+        //         logout()
+        //     },
+        // },
     ],
 }
 
@@ -119,7 +124,7 @@ function NavEntry(entry: NavEntryConfig) {
         }
     })
 
-    const icon = entry.icon && <ThemeIcon color={color} variant='light' p='sm'>
+    const icon = entry.icon && <ThemeIcon color={color} variant='light' p='sm' bg={'transparent'}>
         {entry.icon({
 
         })}
@@ -136,6 +141,9 @@ function NavEntry(entry: NavEntryConfig) {
 }
 
 function NavigationBar() {
+    const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+    const dark = colorScheme === 'dark';
+
     return <>
         <Navbar.Section>
             {links.header.map(NavEntry)}
@@ -153,6 +161,14 @@ function NavigationBar() {
 
         <Navbar.Section>
             {links.footer.map(NavEntry)}
+            <Grid grow sx={{ alignItems: 'center' }}>
+                <Grid.Col span={9}>
+                    <NavEntry icon={LogoutIcon} label='Logout' onClick={() => logout()} />
+                </Grid.Col>
+                <Grid.Col span={1} sx={{ display: 'flex', justifyContent: 'right' }}>
+                    <ToggleThemeIcon />
+                </Grid.Col>
+            </Grid>
             {/* <NavLink label="Logout" onClick={() => logout()} /> */}
         </Navbar.Section>
 
@@ -181,4 +197,26 @@ function NavigationBar() {
 
 
     </>
+}
+
+function ToggleThemeIcon() {
+    const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+    const dark = colorScheme === 'dark';
+
+    const btn = <ActionIcon
+        variant='subtle'
+        // variant='light'
+        // color={dark ? 'yellow' : 'blue'}
+        title="Toggle color scheme"
+        onClick={() => toggleColorScheme()}>
+        {dark ? <IconSun size={18} /> : <IconMoonStars size={18} />}
+    </ActionIcon>
+
+    if (typeof window !== 'undefined') {
+        return <Tooltip label={`Switch to ${dark ? 'Light' : 'Dark'} mode`}>
+            {btn}
+        </Tooltip>
+    }
+
+    return btn;
 }

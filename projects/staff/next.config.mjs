@@ -1,4 +1,3 @@
-import withTM from 'next-transpile-modules';
 import bundleAnalyzer from '@next/bundle-analyzer';
 import { fileURLToPath } from 'url';
 import { readFileSync } from 'fs';
@@ -54,9 +53,9 @@ const withDependencies = Object.entries({ ...dependencies, ...devDependencies })
     .filter(([name, version]) => name.startsWith('@kenthackenough') || version === '*')
     .map(([name]) => name);
 
-const withModules = [
+nextConfig.transpilePackages = [
     ...withDependencies,
-];
+]
 
 
 const withBundleAnalyzer = bundleAnalyzer({
@@ -64,10 +63,4 @@ const withBundleAnalyzer = bundleAnalyzer({
     openAnalyzer: false,
 })
 
-export default withBundleAnalyzer(
-    (withModules.length === 0)
-        ? nextConfig
-        : withTM(withModules, {
-            resolveSymlinks: true
-        })(nextConfig)
-);
+export default withBundleAnalyzer(nextConfig);

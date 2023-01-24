@@ -1,9 +1,10 @@
-import { Tooltip, Badge, Group } from '@mantine/core';
+import { Tooltip, Badge, Group, useMantineColorScheme } from '@mantine/core';
 import { TicketStatus } from '@kenthackenough/server/data';
 import { api } from '@kenthackenough/ui/trpc';
 import { useMemo } from 'react';
 import { TICKET_STATUS_COLORS } from './ticket';
 import { camelCase } from 'lodash';
+import { onlyIf } from 'utils/mantine';
 
 
 // export default function TicketBadges(props: Partial<Record<TicketStatus, boolean>>) {
@@ -29,10 +30,14 @@ import { camelCase } from 'lodash';
 function TicketCountBadge(props: { status: TicketStatus }) {
     // if (typeof window === 'undefined') return <></>;
 
+    const { colorScheme } = useMantineColorScheme();
+    const dark = colorScheme === 'dark';
+
     const query = api.tickets.counts.useQuery();
     const counts = query.data;
 
-    return <Badge color={TICKET_STATUS_COLORS[props.status]}>
+
+    return <Badge color={TICKET_STATUS_COLORS[props.status]} variant={onlyIf(dark, 'outline')}>
         {counts?.[props.status]}
     </Badge>
 }
