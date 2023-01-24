@@ -122,6 +122,4 @@ jobs:
           privateKey: ${{ secrets.key || inputs.key }}
           command: |
             cd ${{ inputs.directory }}
-            export TERM=xterm-256color
-            export FORCE_COLOR=1
-            bash docker/server/scripts/deploy/${{ matrix.project }}.sh
+            FORCE_COLOR=1 TERM=xterm-256color bash deploy/scripts/projects/${{ matrix.project }}.sh

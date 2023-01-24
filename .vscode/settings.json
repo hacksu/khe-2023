@@ -21,6 +21,7 @@
         { "icon": "docs", "extensions": ["mdx", "mail"] },
         { "icon": "template", "extensions": ["content"] },
         { "icon": "controller", "extensions": ["providers"] },
+        { "icon": "docker", "extensions": ["deploy"] },
     ],
     "vsicons.associations.files": [
         { "icon": "nginx", "extensions": ["docker/server/nginx/*"] },

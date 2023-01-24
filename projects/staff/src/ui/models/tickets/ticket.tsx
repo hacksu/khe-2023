@@ -82,10 +82,11 @@ function TicketEntry(props: { id: string }) {
 
 
 export function TicketCountBadge(props: { status: TicketStatus, hideZero?: boolean } & BadgeProps) {
+    const { status, hideZero, ...rest } = props;
     const query = api.tickets.counts.useQuery();
     const counts = query.data;
 
-    return <Badge color={TICKET_STATUS_COLORS[props.status]} hidden={props.hideZero && counts?.[props.status] === 0} {...props}>
-        {counts?.[props.status]}
+    return <Badge color={TICKET_STATUS_COLORS[status]} hidden={hideZero && counts?.[status] === 0} {...rest}>
+        {counts?.[status]}
     </Badge>
 }
