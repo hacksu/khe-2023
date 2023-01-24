@@ -32,8 +32,8 @@ jobs:
     needs: [build]
     uses: hacksu/khe-2023/.github/workflows/deploy.yml@deploy-adjustments
     secrets:
-      key: ${{ secrets.KHE_DEV_KEY }}
-      host: ${{ secrets.KHE_DEV_HOST }}
+      key: ${{ secrets.DEPLOY_KEY_DEV }}
+      host: ${{ secrets.DEPLOY_HOST_DEV }}
     with:
       directory: /opt/khe/khe-2023
       force: ${{ !!(github.event.inputs.deploy || false) }}
@@ -44,7 +44,7 @@ jobs:
     if: ${{ always() }}
     uses: hacksu/khe-2023/.github/workflows/health.yml@main
     secrets:
-      key: ${{ secrets.KHE_DEV_KEY }}
-      host: ${{ secrets.KHE_DEV_HOST }}
-      port: ${{ secrets.KHE_DEV_PORT }}
-      user: ${{ secrets.KHE_DEV_USER }}
+      key: ${{ secrets.DEPLOY_KEY_DEV }}
+      host: ${{ secrets.DEPLOY_HOST_DEV }}
+      port: ${{ secrets.DEPLOY_PORT_DEV }}
+      user: ${{ secrets.DEPLOY_USER_DEV }}
