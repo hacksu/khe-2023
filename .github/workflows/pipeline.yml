@@ -28,7 +28,7 @@ jobs:
 
   deploy:
     name: Deploy
-    if: github.ref == 'refs/heads/deployment-adjustments'
+    if: github.ref == 'refs/heads/deploy-adjustments'
     needs: [build]
     uses: hacksu/khe-2023/.github/workflows/deploy.yml@deploy-adjustments
     secrets:
