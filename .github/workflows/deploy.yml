@@ -48,7 +48,7 @@ jobs:
   install:
     name: Install
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && (github.events.input.force || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call' || contains(github.event.head_commit.message, '@deploy'))
+    if: github.ref == 'refs/heads/deploy-adjustments' && (github.events.input.force || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call' || contains(github.event.head_commit.message, '@deploy'))
     # Run commands to git fetch & install dependencies on the server
     steps:
       - name: Debug
