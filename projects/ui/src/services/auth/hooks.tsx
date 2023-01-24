@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { api } from '../../utils/trpc';
 import { signIn, signOut } from 'next-auth/react';
 import { AuthProviders } from '@kenthackenough/server/auth/client';
@@ -6,6 +6,7 @@ import { CredentialsConfig } from 'next-auth/providers/credentials';
 import { openConfirmModal } from '@mantine/modals';
 import { useTheme } from '../../utils/mantine';
 import { MantineGlobals } from '../../utils/globals';
+import { UserRole } from '@kenthackenough/server/data';
 
 
 
@@ -77,9 +78,16 @@ export function logout(force?: boolean) {
 }
 
 export function useSession() {
+    const [role, setRole] = useState<UserRole | null>(null);
     const query = api.auth.session.useQuery(undefined, {
-        cacheTime: 20 * 60 * 1000,
+        cacheTime: ((role === 'admin' || role === 'staff') ? 1 : 60) * 60 * 1000,
+        refetchOnWindowFocus: false,
     });
+    useEffect(() => {
+        if (query.data?.user?.role) {
+            setRole(query.data.user.role);
+        }
+    }, [query.data?.user?.role])
     if (query.data) {
         const session = query.data as typeof query.data & {
             logout: typeof logout,

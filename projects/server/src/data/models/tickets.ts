@@ -8,9 +8,10 @@ import { UserData } from './users';
 
 export type TicketStatus = typeof TicketStatuses[number];
 export const TicketStatuses = [
-    'closed',
     'open',
+    'closed',
     'assigned',
+    'resolved',
 ] as const;
 
 

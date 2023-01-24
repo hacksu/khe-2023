@@ -1,14 +1,15 @@
 import { TicketStatus, ticketData } from '@kenthackenough/server/data';
 import { ModelController } from '../model';
-import { Text, Group, Badge, Code, MantineColor, ScrollArea, Textarea, Card } from '@mantine/core';
+import { Text, Group, Badge, Code, MantineColor, ScrollArea, Textarea, Card, Tooltip, BadgeProps } from '@mantine/core';
 import { api } from '@kenthackenough/ui/trpc';
-import { useRef } from 'react';
+import { useMemo, useRef } from 'react';
 
 
 export const TICKET_STATUS_COLORS: Record<TicketStatus, MantineColor> = {
-    open: 'green',
-    assigned: 'yellow',
-    closed: 'gray',
+    open: 'yellow',
+    assigned: 'grape',
+    closed: 'red',
+    resolved: 'green',
 }
 
 export const Ticket = Object.assign(new ModelController({
@@ -50,6 +51,7 @@ export const Ticket = Object.assign(new ModelController({
     </>
 }), {
     Entry: TicketEntry,
+    CountBadge: TicketCountBadge,
 })
 
 
@@ -78,3 +80,12 @@ function TicketEntry(props: { id: string }) {
     </Card>
 }
 
+
+export function TicketCountBadge(props: { status: TicketStatus, hideZero?: boolean } & BadgeProps) {
+    const query = api.tickets.counts.useQuery();
+    const counts = query.data;
+
+    return <Badge color={TICKET_STATUS_COLORS[props.status]} hidden={props.hideZero && counts?.[props.status] === 0} {...props}>
+        {counts?.[props.status]}
+    </Badge>
+}

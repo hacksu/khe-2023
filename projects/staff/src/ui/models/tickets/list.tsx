@@ -2,11 +2,20 @@ import { TicketStatus } from '@kenthackenough/server/data/tickets';
 import { Box, Paper, Text, Textarea, TextInput, Title } from '@mantine/core';
 import { Ticket } from './ticket';
 import { api } from '@kenthackenough/ui/trpc';
+import { createRouteParameter } from '@kenthackenough/react/hooks';
+
+
+export const useTicketStatusParam = createRouteParameter({
+    back: true,
+    name: 'status',
+    type: String as () => TicketStatus,
+})
 
 
 export function TicketsList() {
     const utils = api.useContext();
-    const query = api.tickets.list.useQuery({ status: 'open' }, {
+    const status = useTicketStatusParam(o => o.value) || 'open';
+    const query = api.tickets.list.useQuery({ status }, {
         onSuccess(data) {
             // Automatically populate individual tickets
             for (const ticket of data.tickets) {
@@ -14,9 +23,7 @@ export function TicketsList() {
             }
         },
     });
-    const stuff = query.data?.tickets;
     return <Box>
-        <Title order={3}>Tickets 1234</Title>
         <Box style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
             {query.data?.tickets.map(ticket => (
                 <Ticket.Entry key={ticket._id.toString()} id={ticket._id.toString()} />

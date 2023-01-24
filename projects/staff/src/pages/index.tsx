@@ -5,6 +5,7 @@ import { Icon } from '@cseitz/icons';
 import { faHouse } from '@cseitz/icons/regular/house';
 import { api } from '@kenthackenough/ui/trpc';
 import { ContactUs } from '../../../ui/src/models/tickets/contact';
+import { TremorArea } from 'ui/charts/base/area';
 
 const HomeIcon = Icon(faHouse)
 
@@ -21,19 +22,20 @@ export default function Homepage() {
         },
     })
     return <div>
-        Woah! Staff Portal!2 <HomeIcon />
+        {/* Woah! Staff Portal!2 <HomeIcon />
         <p>
             ping: <span>{ping?.data?.toLocaleString() || 'loading...'}</span>
         </p>
         <p>
             subscription date: <span>{date?.toLocaleString() || 'loading...'}</span>
         </p>
-        <div>{JSON.stringify(users?.data || {})}</div>
+        <div>{JSON.stringify(users?.data || {})}</div> */}
+        <TremorArea />
         {/* <ContactUs /> */}
-        <TicketsList />
-        <Box sx={{ width: 500, maxWidth: '60vw', marginTop: 10 }}>
+        {/* <TicketsList /> */}
+        {/* <Box sx={{ width: 500, maxWidth: '60vw', marginTop: 10 }}>
             <Progress value={100} animate />
-        </Box>
+        </Box> */}
     </div>
 }
 

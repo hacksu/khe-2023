@@ -148,3 +148,16 @@ function useDynamicColorScheme(props: MantineInitialProps, config: {
 }
 
 
+/** Shorthand for `check ? value : undefined`
+ * - Used frequently when the JSX default value is desired unless a specific condition is met.
+ * - Avoids frequent retyping of `: undefined` in dozens of conditionals in JSX properties.
+ * ```tsx
+ * <Element padding={isMobile ? 20 : undefined} color={darkMode ? 'red' : undefined} />
+ * <Element padding={onlyif(isMobile, 20)} color={onlyIf(darkmode, 'red')} />
+ * ```
+ */
+export function onlyIf<T>(check: boolean, value: T) {
+    if (check) return value;
+    return undefined;
+}
+

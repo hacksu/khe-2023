@@ -105,6 +105,7 @@ const DeviceTypeBreakpoints = {
     'xs': ['embedded', 'wearable'],
     'sm': ['embedded', 'wearable', 'mobile'],
     'md': ['embedded', 'wearable', 'mobile', 'tablet'],
+    'lg': ['embedded', 'wearable', 'mobile', 'tablet', 'laptop'],
 }
 
 /** Determines if the device is smaller than or equal to the specified breakpoint
@@ -112,7 +113,7 @@ const DeviceTypeBreakpoints = {
  * - When the UserAgent is known, one can globally configure this hook via `useUserAgent(req.headers['user-agent'])`
  *   All subsequent usage of `userUserAgent()` will use the cached result.
  */
-export function useIsBreakpoint(breakpoint: 'xs' | 'sm' | 'md' = 'md') {
+export function useIsBreakpoint(breakpoint: 'xs' | 'sm' | 'md' | 'lg' = 'md') {
     const theme = useMantineTheme();
     const ua = useUserAgent();
     const mediaIsMobile = useMediaQuery(`(max-width: ${theme.breakpoints[breakpoint]}px)`);

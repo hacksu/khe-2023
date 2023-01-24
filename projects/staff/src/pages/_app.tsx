@@ -8,6 +8,8 @@ import { AppLayout } from '../ui/layouts/app';
 import { withMantine } from '../utils/mantine';
 import { MantineGlobals } from '@kenthackenough/ui/globals';
 import { useTheme } from '@kenthackenough/ui/mantine';
+import { TremorStyles } from 'ui/charts/tremor';
+import '@tremor/react/dist/esm/tremor.css';
 
 
 export const InitialRouter = createContext<Router>(null as any);
@@ -25,6 +27,7 @@ const app = App((props) => {
             <title>Page title</title>
             <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
         </Head>
+        <TremorStyles />
         <InitialRouter.Provider value={props.router}>
             <AppLayout>
                 <Component {...pageProps} />

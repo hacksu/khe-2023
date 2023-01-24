@@ -1,6 +1,7 @@
 import { createTRPCRouter, procedure } from '../../trpc/base';
 import { Ticket } from '../../../models/tickets/model';
 import { z } from 'zod';
+import { TicketStatus, TicketStatuses } from '../../../data';
 
 
 
@@ -42,7 +43,7 @@ namespace INPUT {
 
 export const ticketRouter = createTRPCRouter({
     /** Get a ticket */
-    get: procedure.protected({ tickets: { read: true }})
+    get: procedure.protected({ tickets: { read: true } })
         .meta({ api: 'GET /tickets/:input' })
         .input(INPUT.ID)
         .query(async ({ input }) => {
@@ -86,6 +87,14 @@ export const ticketRouter = createTRPCRouter({
         .mutation(async ({ input, ctx }) => {
             // TODO: implement
             return { success: false }
+        }),
+
+    counts: procedure.protected({ tickets: { read: true } })
+        .query(async () => {
+            const counts: Record<TicketStatus, number> = Object.fromEntries(await Promise.all(TicketStatuses.map(async status => {
+                return [status, await Ticket.find({ status }).countDocuments()]
+            })));
+            return counts;
         }),
 
 })
