@@ -28,14 +28,14 @@ jobs:
 
   deploy:
     name: Deploy
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/deploy-adjustments'
     needs: [build]
     uses: hacksu/khe-2023/.github/workflows/deploy.yml@deploy-adjustments
     secrets:
-      key: ${{ secrets.KHE_DEV_KEY }}
-      host: ${{ secrets.KHE_DEV_HOST }}
+      key: ${{ secrets.DEPLOY_KEY_DEV }}
+      host: ${{ secrets.DEPLOY_HOST_DEV }}
     with:
-      directory: /opt/khe/khe-2023
+      directory: /opt/khe/khe
       force: ${{ !!(github.event.inputs.deploy || false) }}
 
   health:
