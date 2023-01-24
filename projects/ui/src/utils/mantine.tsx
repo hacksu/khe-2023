@@ -112,7 +112,7 @@ function useDynamicColorScheme(props: MantineInitialProps, config: {
     );
 
     const toggleColorScheme = useCallback((value?: ColorScheme) => {
-        const nextColorScheme = value || (colorScheme === 'dark' ? 'light' : 'light');
+        const nextColorScheme = value || (colorScheme === 'dark' ? 'light' : 'dark');
         setCookie(cookie, nextColorScheme);
         setColorScheme(nextColorScheme);
     }, [colorScheme])

@@ -1,4 +1,4 @@
-import { Box, Progress } from '@mantine/core';
+import { Box, Progress, ActionIcon, useMantineColorScheme } from '@mantine/core';
 import { useState } from 'react';
 import { TicketsList } from '../ui/models/tickets/list';
 import { Icon } from '@cseitz/icons';
@@ -6,6 +6,7 @@ import { faHouse } from '@cseitz/icons/regular/house';
 import { api } from '@kenthackenough/ui/trpc';
 import { ContactUs } from '../../../ui/src/models/tickets/contact';
 import { TremorArea } from 'ui/charts/base/area';
+import { IconMoonStars, IconSun } from '@tabler/icons';
 
 const HomeIcon = Icon(faHouse)
 
@@ -16,6 +17,7 @@ export default function Homepage() {
     const ping = api.ping.useQuery();
     const [date, setDate] = useState<Date>(null!);
     const users = api.users.list.useQuery();
+    const { colorScheme, toggleColorScheme } = useMantineColorScheme();
     api.onDate.useSubscription(undefined, {
         onData(data) {
             setDate(data.date);
@@ -36,6 +38,14 @@ export default function Homepage() {
         {/* <Box sx={{ width: 500, maxWidth: '60vw', marginTop: 10 }}>
             <Progress value={100} animate />
         </Box> */}
+        <ActionIcon
+            variant="subtle"
+            // color={dark ? 'blue' : 'blue'}
+            onClick={() => toggleColorScheme()}
+            title="Toggle color scheme"
+        >
+            {colorScheme == 'dark' ? <IconSun size={18} /> : <IconMoonStars size={18} />}
+        </ActionIcon>
     </div>
 }
 
