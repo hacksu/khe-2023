@@ -1,11 +1,9 @@
-import type { AuthProviderId } from '@kenthackenough/server/auth';
 import { Button, ButtonProps, ColorScheme, useMantineColorScheme, useMantineTheme } from '@mantine/core';
 import { useQuery } from '@tanstack/react-query';
 import { getProviders } from 'next-auth/react';
 import { useProps, UseProps } from '@kenthackenough/react/hooks';
 import { api } from '../../utils/trpc';
-import { useAuthProviders } from '.';
-import { login } from '@kenthackenough/server/auth';
+import { AuthProviderId, login, useAuthProviders } from '.';
 
 
 

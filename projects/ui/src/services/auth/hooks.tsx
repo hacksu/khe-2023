@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { api } from '../../utils/trpc';
 import { signIn, signOut } from 'next-auth/react';
-import { AuthProviders } from '@kenthackenough/server/auth';
+import { AuthProviders } from '@kenthackenough/server/auth/client';
 import { CredentialsConfig } from 'next-auth/providers/credentials';
 import { openConfirmModal } from '@mantine/modals';
 import { useTheme } from '../../utils/mantine';
