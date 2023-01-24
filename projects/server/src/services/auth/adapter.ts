@@ -8,8 +8,8 @@ import { UserAuthData } from '../../data';
 import LRU, { Options } from 'lru-cache';
 
 
-export const debugNextAuth = true;
-const DEBUG = true; //debugNextAuth;
+export const debugNextAuth = false; //true;
+const DEBUG = debugNextAuth;
 
 const cacheOptions: Options<string, any> = {
     max: 1000,
