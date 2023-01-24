@@ -20,7 +20,7 @@ cd $CWD
 echo "building $PROJECT"
 npm run build -- --only -vvv --filter=@kenthackenough/$PROJECT
 
-cd $REPO/$PROJECT
+cd $REPO/projects/$PROJECT
 PWD=$( pwd );
 
 if [ -d ".next" ]; then

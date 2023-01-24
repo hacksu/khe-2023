@@ -7,7 +7,7 @@ PROJECT=web
 PM2_NAME=khe-web
 
 
-cd $REPO/projects/$PROJECT
+cd $REPO/repos/templates/$PROJECT
 if [ -d ".next-old" ]; then
     rm -rf .next-old;
 fi
@@ -20,7 +20,7 @@ cd $CWD
 echo "building $PROJECT"
 npm run build -- --only -vvv --filter=@kenthackenough/$PROJECT
 
-cd $REPO/$PROJECT
+cd $REPO/repos/templates/$PROJECT
 PWD=$( pwd );
 
 if [ -d ".next" ]; then
