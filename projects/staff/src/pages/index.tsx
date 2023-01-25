@@ -7,6 +7,7 @@ import { api } from '@kenthackenough/ui/trpc';
 import { ContactUs } from '../../../ui/src/models/tickets/contact';
 import { TremorArea } from 'ui/charts/base/area';
 import { IconMoonStars, IconSun } from '@tabler/icons';
+import Head from 'next/head';
 
 const HomeIcon = Icon(faHouse)
 
@@ -24,6 +25,9 @@ export default function Homepage() {
         },
     })
     return <div>
+        <Head>
+            <title>Dashboard - Kent Hack Enough</title>
+        </Head>
         {/* Woah! Staff Portal!2 <HomeIcon />
         <p>
             ping: <span>{ping?.data?.toLocaleString() || 'loading...'}</span>

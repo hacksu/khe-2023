@@ -22,6 +22,7 @@ import { useSteps } from '../steps';
 import { useRouter } from 'next/router';
 import { useAuthProviders } from '..';
 import { useEffect, useRef, useState } from 'react';
+import Head from 'next/head';
 
 
 const BackArrowIcon = Icon(faArrowLeft)
@@ -46,6 +47,9 @@ function LoginPageComponent(props: LoginPageProps) {
     // if (!providers) return <></>;
     // const { credentials, ...oauth } = providers;
     return <Box>
+        <Head>
+            <title>Login - Kent Hack Enough</title>
+        </Head>
         <PageContainer />
     </Box>
 }

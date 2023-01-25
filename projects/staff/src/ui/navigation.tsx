@@ -8,13 +8,15 @@ import { Icon } from '@cseitz/icons';
 import { onlyIf } from 'utils/mantine';
 import { faChartSimple } from '@cseitz/icons-regular/chart-simple';
 // import { faMessageQuestion } from '@cseitz/icons-regular/message-question';
-import { faMessage } from '@cseitz/icons-regular/message';
+import { faMessageQuestion } from '@cseitz/icons-regular/message-question';
 import { faRightFromBracket } from '@cseitz/icons-regular/right-from-bracket';
 import { faCalendar } from '@cseitz/icons-regular/calendar';
 import { faFolder } from '@cseitz/icons-regular/folder';
 import { faQuestion } from '@cseitz/icons-regular/question';
 import { faDollar } from '@cseitz/icons-regular/dollar';
 import { faUser } from '@cseitz/icons-regular/user';
+import { faScrewdriverWrench } from '@cseitz/icons-regular/screwdriver-wrench';
+import { faFolderGrid } from '@cseitz/icons-regular/folder-grid';
 import { useProps } from '@kenthackenough/react/hooks';
 import { IconMoonStars, IconSun } from '@tabler/icons';
 // import { TicketBadges } from './models/tickets/badges';
@@ -23,13 +25,15 @@ import { TicketCountBadge } from './models/tickets/ticket';
 // import {} from '@cseitz/icons-regular';
 
 const DashboardIcon = Icon(faChartSimple);
-const TicketsIcon = Icon(faMessage);
+const TicketsIcon = Icon(faMessageQuestion);
 const LogoutIcon = Icon(faRightFromBracket);
 const ScheduleIcon = Icon(faCalendar);
 const FolderIcon = Icon(faFolder);
+const ContentIcon = Icon(faFolderGrid);
 const QuestionsIcon = Icon(faQuestion);
 const SponsorsIcon = Icon(faDollar);
 const UsersIcon = Icon(faUser);
+const ToolsIcon = Icon(faScrewdriverWrench);
 
 // const Tooltip = dynamic(() => import('@mantine/core').then(o => o.Tooltip), {
 //     ssr: false,
@@ -72,7 +76,7 @@ const links: Record<'header' | 'body' | 'footer', NavEntryConfig[]> = {
         },
         {
             label: 'Content',
-            icon: FolderIcon,
+            icon: ContentIcon,
             children: [
                 {
                     href: '/content/schedule',
@@ -87,6 +91,27 @@ const links: Record<'header' | 'body' | 'footer', NavEntryConfig[]> = {
                 {
                     href: '/content/sponsors',
                     label: 'Sponsors',
+                    icon: SponsorsIcon,
+                },
+            ]
+        },
+        {
+            label: 'Tools',
+            icon: ToolsIcon,
+            children: [
+                {
+                    href: '/content/schedule',
+                    label: 'Workflows',
+                    icon: ScheduleIcon,
+                },
+                {
+                    href: '/content/questions',
+                    label: 'Exports',
+                    icon: QuestionsIcon,
+                },
+                {
+                    href: '/content/sponsors',
+                    label: 'Links',
                     icon: SponsorsIcon,
                 },
             ]
