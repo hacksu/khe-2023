@@ -36,7 +36,7 @@ on:
 jobs:
 
   check:
-    name: Check
+    name: ${{ matrix.project }}
     runs-on: ubuntu-latest
     strategy:
       matrix:

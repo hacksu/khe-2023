@@ -5,7 +5,7 @@ on:
 
 jobs:
   lint:
-    name: Packages
+    name: ${{ matrix.package }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
