@@ -2,6 +2,7 @@ import { Box, Text } from '@mantine/core';
 import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
 import { useSession } from '..';
+import Head from 'next/head';
 
 /** @export 'auth/pages/logout' */
 
@@ -29,5 +30,9 @@ function LogoutPageComponent(props: LogoutPageProps) {
             session.logout();
         }
     }, [session, router.isReady])
-    return <></>
+    return <>
+        <Head>
+            <title>Logout - Kent Hack Enough</title>
+        </Head>
+    </>
 }

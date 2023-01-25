@@ -3,6 +3,7 @@ import { TicketStatus, TicketStatuses } from '@kenthackenough/server/data';
 import { useIsBreakpoint, useIsMobile } from '@kenthackenough/ui/app';
 import { api } from '@kenthackenough/ui/trpc';
 import { Box, SegmentedControl, Grid, Title, Divider, Text, Badge, Group } from '@mantine/core';
+import Head from 'next/head';
 import { TicketsList, useTicketStatusParam } from 'ui/models/tickets/list';
 import { Ticket } from 'ui/models/tickets/ticket';
 import { onlyIf } from 'utils/mantine';
@@ -12,6 +13,9 @@ export default function TicketsPage() {
     const status = useTicketStatusParam(o => o.value) || 'open';
     const isMobile = useIsMobile();
     return <Box>
+        <Head>
+            <title>Tickets - Kent Hack Enough</title>
+        </Head>
         <Box py={'xl'}>
             <Grid px={isMobile ? 40 : 100}>
                 <Grid.Col span={!isMobile ? 4 : 12} sx={{ display: 'flex', justifyContent: !isMobile ? 'left' : 'center', alignItems: 'center' }}>

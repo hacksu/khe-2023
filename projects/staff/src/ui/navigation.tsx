@@ -7,8 +7,16 @@ import Link from 'next/link';
 import { Icon } from '@cseitz/icons';
 import { onlyIf } from 'utils/mantine';
 import { faChartSimple } from '@cseitz/icons-regular/chart-simple';
+// import { faMessageQuestion } from '@cseitz/icons-regular/message-question';
 import { faMessageQuestion } from '@cseitz/icons-regular/message-question';
 import { faRightFromBracket } from '@cseitz/icons-regular/right-from-bracket';
+import { faCalendar } from '@cseitz/icons-regular/calendar';
+import { faFolder } from '@cseitz/icons-regular/folder';
+import { faQuestion } from '@cseitz/icons-regular/question';
+import { faDollar } from '@cseitz/icons-regular/dollar';
+import { faUser } from '@cseitz/icons-regular/user';
+import { faScrewdriverWrench } from '@cseitz/icons-regular/screwdriver-wrench';
+import { faFolderGrid } from '@cseitz/icons-regular/folder-grid';
 import { useProps } from '@kenthackenough/react/hooks';
 import { IconMoonStars, IconSun } from '@tabler/icons';
 // import { TicketBadges } from './models/tickets/badges';
@@ -19,6 +27,13 @@ import { TicketCountBadge } from './models/tickets/ticket';
 const DashboardIcon = Icon(faChartSimple);
 const TicketsIcon = Icon(faMessageQuestion);
 const LogoutIcon = Icon(faRightFromBracket);
+const ScheduleIcon = Icon(faCalendar);
+const FolderIcon = Icon(faFolder);
+const ContentIcon = Icon(faFolderGrid);
+const QuestionsIcon = Icon(faQuestion);
+const SponsorsIcon = Icon(faDollar);
+const UsersIcon = Icon(faUser);
+const ToolsIcon = Icon(faScrewdriverWrench);
 
 // const Tooltip = dynamic(() => import('@mantine/core').then(o => o.Tooltip), {
 //     ssr: false,
@@ -34,7 +49,8 @@ type NavEntryConfig = {
     color?: MantineColor,
     icon?: ReturnType<typeof Icon>,
     onClick?: () => any,
-} & Partial<Omit<NavLinkProps, 'icon' | 'color'>>;
+    children?: Omit<NavEntryConfig, 'children'>[]
+} & Partial<Omit<NavLinkProps, 'icon' | 'color' | 'children'>>;
 
 const links: Record<'header' | 'body' | 'footer', NavEntryConfig[]> = {
     header: [
@@ -47,10 +63,58 @@ const links: Record<'header' | 'body' | 'footer', NavEntryConfig[]> = {
             icon: DashboardIcon,
         },
         {
+            href: '/users',
+            label: 'Users',
+            icon: UsersIcon,
+            rightSection: <TicketCountBadge status='open' hideZero />
+        },
+        {
             href: '/tickets',
             label: 'Tickets',
             icon: TicketsIcon,
             rightSection: <TicketCountBadge status='open' hideZero />
+        },
+        {
+            label: 'Content',
+            icon: ContentIcon,
+            children: [
+                {
+                    href: '/content/schedule',
+                    label: 'Schedule',
+                    icon: ScheduleIcon,
+                },
+                {
+                    href: '/content/questions',
+                    label: 'Questions',
+                    icon: QuestionsIcon,
+                },
+                {
+                    href: '/content/sponsors',
+                    label: 'Sponsors',
+                    icon: SponsorsIcon,
+                },
+            ]
+        },
+        {
+            label: 'Tools',
+            icon: ToolsIcon,
+            children: [
+                {
+                    href: '/content/schedule',
+                    label: 'Workflows',
+                    icon: ScheduleIcon,
+                },
+                {
+                    href: '/content/questions',
+                    label: 'Exports',
+                    icon: QuestionsIcon,
+                },
+                {
+                    href: '/content/sponsors',
+                    label: 'Links',
+                    icon: SponsorsIcon,
+                },
+            ]
         },
     ],
     footer: [
@@ -118,7 +182,7 @@ export function Navigation() {
 
 
 function NavEntry(entry: NavEntryConfig) {
-    const { color, ...props } = useProps(entry, {
+    const { color, children, ...props } = useProps(entry, {
         sx: {
             borderRadius: 6,
         }
@@ -130,7 +194,9 @@ function NavEntry(entry: NavEntryConfig) {
         })}
     </ThemeIcon>
 
-    const elem = <NavLink {...{ ...props, icon }} icon={icon} key={'btn:' + entry.href} />;
+    const elem = <NavLink {...{ ...props, icon }} icon={icon} key={'btn:' + entry.href}>
+        {children?.map((o, i) => <NavEntry {...o} key={i} />)}
+    </NavLink>
 
     if (entry.href) {
         return <Link href={entry.href} style={{ textDecoration: 'none' }} key={entry.href}>
