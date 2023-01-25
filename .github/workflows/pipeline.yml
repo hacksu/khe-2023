@@ -10,16 +10,16 @@ on:
 
 jobs:
   lint:
-    name: Lint
+    name: ✏️ lint
     uses: hacksu/khe-2023/.github/workflows/lint.yml@main
 
   build:
-    name: Build
+    name: 🔨 build
     needs: [lint]
     uses: hacksu/khe-2023/.github/workflows/build.yml@main
 
   publish:
-    name: Publish
+    name: 📦 publish
     if: github.ref == 'refs/heads/main' && needs.build.outputs.publish == 'true'
     needs: [build]
     uses: hacksu/khe-2023/.github/workflows/publish.yml@main
@@ -27,7 +27,7 @@ jobs:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   deploy:
-    name: Deploy
+    name: 💻 deploy
     if: github.ref == 'refs/heads/deploy-adjustments'
     needs: [build]
     uses: hacksu/khe-2023/.github/workflows/deploy.yml@deploy-adjustments
@@ -39,7 +39,7 @@ jobs:
       force: ${{ !!(github.event.inputs.deploy || false) }}
 
   health:
-    name: Health
+    name: ✔️ health
     needs: [build, publish, deploy]
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     uses: hacksu/khe-2023/.github/workflows/health.yml@main
