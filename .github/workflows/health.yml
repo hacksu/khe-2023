@@ -1,4 +1,4 @@
-name: Health
+name: ✔️ health
 
 on:
   schedule:
@@ -36,23 +36,23 @@ on:
 jobs:
 
   check:
-    name: Check
+    name: ${{ matrix.project }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        project: [server, staff, web]
+        project: [api, staff, web]
     steps:
       - name: PM2 Status
         uses: garygrossgarten/github-action-ssh@release
         with:
-          host: ${{ secrets.host || inputs.host || secrets.KHE_DEV_HOST }}
-          port: ${{ secrets.port || inputs.port || secrets.KHE_DEV_PORT }}
-          username: ${{ secrets.user || inputs.user || secrets.KHE_DEV_USER }}
-          privateKey: ${{ secrets.key || inputs.key || secrets.KHE_DEV_KEY }}
+          host: ${{ secrets.host || inputs.host || secrets.DEPLOY_HOST_DEV }}
+          port: ${{ secrets.port || inputs.port || secrets.DEPLOY_PORT_DEV }}
+          username: ${{ secrets.user || inputs.user || secrets.DEPLOY_USER_DEV }}
+          privateKey: ${{ secrets.key || inputs.key || secrets.DEPLOY_KEY_DEV }}
           command: |
             export TERM=xterm-256color
             export FORCE_COLOR=1
             pm2 status
-            pm2 show ${{ matrix.project }}
-            exit $(pm2 show ${{ matrix.project }} | grep -c stopped);
+            pm2 show khe-${{ matrix.project }}
+            exit $(pm2 show khe-${{ matrix.project  }} | grep -c stopped);
 

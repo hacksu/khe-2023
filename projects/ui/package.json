@@ -33,8 +33,9 @@
     "@trpc/react-query": "^10.0.0-rc.2",
     "@trpc/server": "^10.0.0-rc.2",
     "cookies-next": "^2.1.1",
+    "next-auth": "^4.18.8",
     "lodash": "^4.17.21",
-    "next": "^13.0.4",
+    "next": "^13.1.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.37.0"
@@ -50,11 +51,23 @@
     "typescript": "^4.8.4"
   },
   "exports": {
+    "./app": {
+      "default": "./src/app.tsx"
+    },
+    "./tickets/contact": {
+      "default": "./src/models/tickets/contact.tsx"
+    },
+    "./auth": {
+      "default": "./src/services/auth/index.ts"
+    },
     "./auth/pages/login": {
-      "default": "./src/components/auth/pages/login.tsx"
+      "default": "./src/services/auth/pages/login.tsx"
     },
     "./auth/pages/logout": {
-      "default": "./src/components/auth/pages/logout.tsx"
+      "default": "./src/services/auth/pages/logout.tsx"
+    },
+    "./faq": {
+      "default": "./src/services/content/faq.tsx"
     },
     "./globals": {
       "default": "./src/utils/globals.tsx"
@@ -64,21 +77,6 @@
     },
     "./trpc": {
       "default": "./src/utils/trpc.ts"
-    },
-    "./app": {
-      "default": "./src/widgets/app.tsx"
-    },
-    "./authentication": {
-      "default": "./src/widgets/authentication/index.ts"
-    },
-    "./authentication/login": {
-      "default": "./src/widgets/authentication/login.tsx"
-    },
-    "./faq": {
-      "default": "./src/widgets/faq.tsx"
-    },
-    "./tickets/contact": {
-      "default": "./src/widgets/tickets/contact.tsx"
     }
   }
 }

@@ -1,11 +1,11 @@
-name: Lint
+name: ✏️ lint
 
 on:
   workflow_call:
 
 jobs:
   lint:
-    name: Packages
+    name: ${{ matrix.package }}
     runs-on: ubuntu-latest
     strategy:
       matrix:

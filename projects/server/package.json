@@ -17,10 +17,13 @@
     "@trpc/server": "^10.0.0-rc.2",
     "@sendgrid/mail": "^7.7.0",
     "@sendgrid/client": "^7.7.0",
+    "@mantine/modals": "^5.10.0",
+    "lru-cache": "^7.14.1",
     "bcrypt": "^5.1.0",
     "chalk": "^4.0.0",
     "cors": "^2.8.5",
     "uuid": "^9.0.0",
+    "next": "^13.0.4",
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
     "express-session": "^1.17.3",
@@ -51,11 +54,17 @@
     "typescript": "^4.8.4"
   },
   "exports": {
+    "./next/middleware/web": {
+      "default": "./src/api/middleware/web.ts"
+    },
     "./trpc": {
       "default": "./src/api/trpc.ts"
     },
     "./data": {
       "default": "./src/data/index.ts"
+    },
+    "./data/files": {
+      "default": "./src/data/models/files.ts"
     },
     "./data/session": {
       "default": "./src/data/models/session.ts"
@@ -66,8 +75,14 @@
     "./data/users": {
       "default": "./src/data/models/users.ts"
     },
-    "./auth": {
-      "default": "./src/services/auth/client.ts"
+    "./auth/client": {
+      "default": "./src/services/auth/client/client.ts"
+    },
+    "./auth/rbac": {
+      "default": "./src/services/auth/rbac.ts"
+    },
+    "./auth/session": {
+      "default": "./src/services/auth/session.ts"
     }
   }
 }

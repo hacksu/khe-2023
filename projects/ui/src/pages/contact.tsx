@@ -1,5 +1,5 @@
 import { Box, createStyles } from '@mantine/core';
-import { ContactUs } from '../widgets/tickets/contact';
+import { ContactUs } from '../models/tickets/contact';
 
 
 const useStyles = createStyles(() => ({

@@ -8,7 +8,7 @@ import { UserAuthData, UserData } from '../../data';
 import { Permission, rbac } from './rbac';
 import { User } from '../../models/users/model';
 import type { FieldArrayPath } from 'react-hook-form';
-import { NextAuthAdapter } from './db';
+import { NextAuthAdapter, debugNextAuth } from './adapter';
 import { pick } from 'lodash';
 
 // TODO: pull the user and add their role and permissions to the token
@@ -68,11 +68,8 @@ export const authOptions: NextAuthOptions = {
     pages: {
         signIn: '/login'
     },
-    // debug: true,
+    debug: debugNextAuth,
     callbacks: {
-        // jwt({ account, token, profile, user, isNewUser }) {
-        //     return token;
-        // },
         session({ session, token, user: _user }) {
             const user = _user as any as UserData;
             // console.log('session', { user, session })
@@ -93,42 +90,6 @@ export const authOptions: NextAuthOptions = {
             return true;
         },
     },
-    events: {
-        signIn(message) {
-            // When logging in or creating user
-        },
-        createUser(message) {
-            // Create user (APPARENTLY NOT ACTUALL TRIGGERED????)
-            // console.log('event.createUser', message);
-            // TODO: create the user ?????? MAYBE NOT???
-        },
-        async session(message) {
-            // When the session endpoint is visited or the session is updated
-            if (message.session.user) {
-                // message.session.user.permissions = rbac.derivePermissions(message.session.user)
-                // User.findOne({ email: message.session.user.email })
-                // rbac.derivePermissions(message.session.user)
-            }
-            // console.log('event.session', message);
-            
-            // TODO: [NOT USED]
-        },
-        signOut(message) {
-            // When logging out
-            // console.log('event.signOut', message);
-            // TODO: destroy iron-session (DO NOT USE NEXT-AUTH TO LOG OUT)
-        },
-        linkAccount(message) {
-            // When a new email is linked
-            // console.log('event.linkAccount', message)
-            // TODO: add auth strategy to account
-        },
-        updateUser(message) {
-            // When user is updated
-            // console.log('event.updateUser', message);
-            // TODO: update user with new data
-        },
-    }
 }
 
 

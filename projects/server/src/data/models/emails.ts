@@ -3,12 +3,13 @@ import { timestampData } from '../includes/timestamped';
 import { Infer, Populate } from '../../utils/zod';
 import { UserData } from './users';
 
+export type MailStatus = typeof MailStatuses[number];
+export const MailStatuses = [
+    'pending',
+    'delivered',
+    'bounced',
+] as const;
 
-export enum MailStatus {
-    Pending = 'pending',
-    Delivered = 'delivered',
-    Bounced = 'bounced',
-}
 
 
 const mailProviders = z.union([
@@ -60,7 +61,8 @@ export const mailData = z.object({
     /** Mail status
      * - @see {@link MailStatus} 
      */
-    status: z.nativeEnum(MailStatus).default(MailStatus.Pending),
+    status: z.enum(MailStatuses).default('pending'),
+    // status: z.nativeEnum(MailStatus).default(MailStatus.Pending),
     /** Was the email opened? */
     opened: z.boolean(),
     /** The mail provider used to deliver this email */

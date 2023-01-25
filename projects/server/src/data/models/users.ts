@@ -7,14 +7,14 @@ import { AuthProviders, authProviders } from '../../services/auth/config';
 
 /** @export 'data/users' */
 
+export type UserRole = typeof UserRoles[number];
+export const UserRoles = [
+    'pending',
+    'user',
+    'staff',
+    'admin'
+] as const;
 
-
-export enum UserRole {
-    Pending = 'pending',
-    User = 'user',
-    Staff = 'staff',
-    Admin = 'admin',
-}
 
 
 export type UserAuthData = z.infer<typeof userAuthData>;
@@ -65,7 +65,8 @@ export const userData = z.object({
     /** User's email */
     email: z.string().email(),
     /** User's role */
-    role: z.nativeEnum(UserRole).default(UserRole.Pending),
+    role: z.enum(UserRoles).default('pending'),
+    // role: z.nativeEnum(UserRole).default(UserRole.Pending),
     /** Authentication configuration */
     auth: userAuthData,
 }).merge(userRelations).merge(timestampData)

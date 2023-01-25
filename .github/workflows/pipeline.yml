@@ -1,4 +1,4 @@
-name: CI/CD
+name: actions
 
 on:
   workflow_dispatch:
@@ -41,10 +41,10 @@ jobs:
   health:
     name: Health
     needs: [build, publish, deploy]
-    if: ${{ always() }}
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     uses: hacksu/khe-2023/.github/workflows/health.yml@main
     secrets:
-      key: ${{ secrets.KHE_DEV_KEY }}
-      host: ${{ secrets.KHE_DEV_HOST }}
-      port: ${{ secrets.KHE_DEV_PORT }}
-      user: ${{ secrets.KHE_DEV_USER }}
+      key: ${{ secrets.DEPLOY_KEY_DEV }}
+      host: ${{ secrets.DEPLOY_HOST_DEV }}
+      port: ${{ secrets.DEPLOY_PORT_DEV }}
+      user: ${{ secrets.DEPLOY_USER_DEV }}

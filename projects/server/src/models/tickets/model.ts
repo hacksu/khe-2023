@@ -1,6 +1,7 @@
 import mongoose, { HydratedDocumentFromSchema, model, Schema } from 'mongoose';
-import { TicketData, TicketStatus, ticketData } from '../../data/models/tickets';
+import { TicketData, TicketStatus, TicketStatuses, ticketData } from '../../data/models/tickets';
 import { exportModel } from '../../services/mongo/export';
+import { InferPopulate, Relations } from '../../utils/zod';
 
 
 export namespace TicketPermissions {
@@ -26,8 +27,8 @@ namespace defineTicket {
     const fields = new Schema<Data>({
         status: {
             type: String,
-            enum: TicketStatus,
-            default: TicketStatus.Open,
+            enum: TicketStatuses,
+            default: 'open',
         },
     });
 
@@ -50,7 +51,12 @@ namespace defineTicket {
          * @see https://mongoosejs.com/docs/guide.html#query-helpers
          */
         query: {
-
+            /** Populates and skips model hydration with [lean](https://mongoosejs.com/docs/tutorials/lean.html) */
+            with(relations: (keyof Relations<Data>)[]) {
+                // @ts-ignore
+                return this.populate(relations)
+                    .lean<InferPopulate<Data, typeof relations, typeof this>>();
+            },
         },
 
         /** Instance Methods allow you to define functions that can run on a document

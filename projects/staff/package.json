@@ -35,10 +35,11 @@
     "@trpc/next": "^10.0.0-rc.2",
     "@trpc/react-query": "^10.0.0-rc.2",
     "@trpc/server": "^10.0.0-rc.2",
+    "@tremor/react": "1.6.0",
     "cookies-next": "^2.1.1",
     "lodash": "^4.17.21",
     "zustand": "^4.2.0",
-    "next": "^13.0.4",
+    "next": "^13.1.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.37.0"
@@ -55,7 +56,7 @@
   },
   "exports": {
     "./helpers/model": {
-      "default": "./src/ui/model.tsx"
+      "default": "./src/ui/models/model.tsx"
     },
     "./mantine": {
       "default": "./src/utils/mantine.tsx"

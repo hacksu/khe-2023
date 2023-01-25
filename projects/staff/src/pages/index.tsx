@@ -1,10 +1,12 @@
-import { Box, Progress } from '@mantine/core';
+import { Box, Progress, ActionIcon, useMantineColorScheme } from '@mantine/core';
 import { useState } from 'react';
-import { TicketsList } from '../widgets/tickets/list';
+import { TicketsList } from '../ui/models/tickets/list';
 import { Icon } from '@cseitz/icons';
 import { faHouse } from '@cseitz/icons/regular/house';
 import { api } from '@kenthackenough/ui/trpc';
-import { ContactUs } from '@kenthackenough/ui/tickets/contact';
+import { ContactUs } from '../../../ui/src/models/tickets/contact';
+import { TremorArea } from 'ui/charts/base/area';
+import { IconMoonStars, IconSun } from '@tabler/icons';
 
 const HomeIcon = Icon(faHouse)
 
@@ -15,25 +17,35 @@ export default function Homepage() {
     const ping = api.ping.useQuery();
     const [date, setDate] = useState<Date>(null!);
     const users = api.users.list.useQuery();
+    const { colorScheme, toggleColorScheme } = useMantineColorScheme();
     api.onDate.useSubscription(undefined, {
         onData(data) {
             setDate(data.date);
         },
     })
     return <div>
-        Woah! Staff Portal!2 <HomeIcon />
+        {/* Woah! Staff Portal!2 <HomeIcon />
         <p>
             ping: <span>{ping?.data?.toLocaleString() || 'loading...'}</span>
         </p>
         <p>
             subscription date: <span>{date?.toLocaleString() || 'loading...'}</span>
         </p>
-        <div>{JSON.stringify(users?.data || {})}</div>
+        <div>{JSON.stringify(users?.data || {})}</div> */}
+        <TremorArea />
         {/* <ContactUs /> */}
-        <TicketsList />
-        <Box sx={{ width: 500, maxWidth: '60vw', marginTop: 10 }}>
+        {/* <TicketsList /> */}
+        {/* <Box sx={{ width: 500, maxWidth: '60vw', marginTop: 10 }}>
             <Progress value={100} animate />
-        </Box>
+        </Box> */}
+        {/* <ActionIcon
+            variant="subtle"
+            // color={dark ? 'blue' : 'blue'}
+            onClick={() => toggleColorScheme()}
+            title="Toggle color scheme"
+        >
+            {colorScheme == 'dark' ? <IconSun size={18} /> : <IconMoonStars size={18} />}
+        </ActionIcon> */}
     </div>
 }
 

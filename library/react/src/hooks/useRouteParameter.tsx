@@ -73,7 +73,11 @@ export function createRouteParameter<T, N extends string>(config: {
                             router.push({ query } as any);
                         }
                     } else {
-                        router.push({ query } as any);
+                        if (router.query?.[config.name]) {
+                            router.replace({ query } as any);
+                        } else {
+                            router.push({ query } as any);
+                        }
                     }
                 }
             }

@@ -1,5 +1,5 @@
 import { AppShell, Box, NavLink, Navbar, Header, Burger, MediaQuery, useMantineTheme, HeaderProps, Aside, Text, Footer, Group } from '@mantine/core';
-import { Navigation, NavigationBurger } from '../../widgets/navigation';
+import { Navigation, NavigationBurger } from '../navigation';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useMediaQuery } from '@mantine/hooks'

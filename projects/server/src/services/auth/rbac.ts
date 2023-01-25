@@ -1,8 +1,10 @@
 import { config } from '../../config';
-import { UserRole } from '../../data';
+import { UserRole, UserRoles } from '../../data';
 import { Permissions } from './utils/permissions';
 import { InferPermission } from './utils/permissions';
 import { UserAccessControl } from './utils/user-access-control';
+
+/** @export 'auth/rbac' */
 
 
 export type Permission = InferPermission<typeof permissions>;
@@ -43,11 +45,8 @@ if (config.disablePermissions) {
  * - These permissions will be applied to users matching the defined roles
  * @see {@link derivePermissions}
  */
-register(UserRole, user => user.role, {
-    Admin: permissions.get('all'),
-    User: {
-
-    },
+register(user => user.role, {
+    admin: permissions.get('all'),
 })
 
 

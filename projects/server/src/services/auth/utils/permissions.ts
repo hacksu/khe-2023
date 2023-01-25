@@ -62,33 +62,33 @@ type NestedAssign<T, K, V> = K extends `${infer A}.${infer B}`
     // @ts-ignore
     : { [P in K]: V }
 
-type uuh = PermissionPath<{
-    tickets: {
-        read: true,
-        write: true,
-        delete: true,
-    },
-    users: {
-        read: true,
-        write: true,
-        delete: true,
-    }
-}>;
+// type uuh = PermissionPath<{
+//     tickets: {
+//         read: true,
+//         write: true,
+//         delete: true,
+//     },
+//     users: {
+//         read: true,
+//         write: true,
+//         delete: true,
+//     }
+// }>;
 
-type pls = PopulatedPermission<{
-    tickets: {
-        read: true,
-        write: true,
-        delete: true,
-    },
-    users: {
-        read: true,
-        write: true,
-        delete: true,
-    }
-}, 'tickets'>
+// type pls = PopulatedPermission<{
+//     tickets: {
+//         read: true,
+//         write: true,
+//         delete: true,
+//     },
+//     users: {
+//         read: true,
+//         write: true,
+//         delete: true,
+//     }
+// }, 'tickets'>
 
-type omg = keyof uuh;
+// type omg = keyof uuh;
 
 export class Permissions<T extends object = any> {
     public readonly permissions: T

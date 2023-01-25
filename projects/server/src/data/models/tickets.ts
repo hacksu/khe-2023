@@ -6,11 +6,13 @@ import { UserData } from './users';
 /** @export 'data/tickets' */
 
 
-export enum TicketStatus {
-    Closed = 'closed',
-    Open = 'open',
-    Assigned = 'assigned',
-}
+export type TicketStatus = typeof TicketStatuses[number];
+export const TicketStatuses = [
+    'open',
+    'closed',
+    'assigned',
+    'resolved',
+] as const;
 
 
 
@@ -61,6 +63,7 @@ export const ticketData = z.object({
     /** Ticket status
      * - @see {@link TicketStatus} 
      */
-    status: z.nativeEnum(TicketStatus).default(TicketStatus.Open),
+    status: z.enum(TicketStatuses).default('open'),
+    // status: z.nativeEnum(TicketStatus).default(TicketStatus.Open),
 }).merge(ticketRelations).merge(timestampData);
 

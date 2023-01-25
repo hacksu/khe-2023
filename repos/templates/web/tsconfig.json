@@ -3,7 +3,8 @@
   "compilerOptions": {
     "moduleResolution": "nodenext",
     "noEmit": true,
-    "incremental": true
+    "incremental": true,
+    "baseUrl": "src",
   },
   "include": [
     "next-env.d.ts",
