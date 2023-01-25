@@ -41,7 +41,7 @@ jobs:
   health:
     name: Health
     needs: [build, publish, deploy]
-    if: ${{ always() }}
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     uses: hacksu/khe-2023/.github/workflows/health.yml@main
     secrets:
       key: ${{ secrets.DEPLOY_KEY_DEV }}
