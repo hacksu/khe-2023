@@ -30,7 +30,7 @@ jobs:
     name: 💻 deploy
     if: github.ref == 'refs/heads/deploy-adjustments'
     needs: [build]
-    uses: hacksu/khe-2023/.github/workflows/deploy.yml@deploy-adjustments
+    uses: hacksu/khe-2023/.github/workflows/deploy.yml@main
     secrets:
       key: ${{ secrets.DEPLOY_KEY_DEV }}
       host: ${{ secrets.DEPLOY_HOST_DEV }}
