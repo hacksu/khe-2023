@@ -1,19 +1,20 @@
-import { Container } from '@mantine/core';
+import { Container, Title, Paper } from '@mantine/core';
 import { About } from 'ui/components/about';
 import FrequentlyAskedQuestions from 'ui/components/faq';
 import { Section } from 'ui/components/section';
 import { Sponsors } from 'ui/components/sponsors';
 import { LandingLayout } from 'ui/layouts/landing';
-import { Text } from '@mantine/core';
-import { Paper } from '@mantine/core';
-import { Title } from '@mantine/core';
 import { Footer } from 'widgets/footer';
 import { CampusMap } from 'ui/components/map';
 import dynamic from 'next/dynamic';
+import Head from 'next/head';
 
 
 export default function Homepage() {
     return <LandingLayout>
+        <Head>
+            <title>Kent Hack Enough</title>
+        </Head>
         <Section type='primary' mih={400}>
             yoooo about
             <About />
